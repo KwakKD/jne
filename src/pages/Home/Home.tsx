@@ -1,4 +1,4 @@
-import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui"
+import { Badge, Card, CardDescription, CardHeader, CardTitle } from "@/components/ui"
 import { useAuth } from "@/hooks/useAuth"
 import { CheckCircle2, Compass, GraduationCap, Lock } from "lucide-react"
 import { useNavigate } from "react-router-dom"

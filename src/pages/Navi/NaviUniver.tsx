@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { RegionSidebar } from "./RegionSideBar";
-import { NAV_UNIVERSE_DATA, NAV_UNIVERSE_REGIONS } from "@/data/naviUniverse";
+import { NAV_UNIVERSE_DATA } from "@/data/naviUniverse";
 import { GraduationCap, Info, Search } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui";
 
@@ -16,8 +16,8 @@ function NaviUniver() {
         // window.scrollTo({ top: 50, behavior: 'smooth' });
     };
 
-    const selectedRegionName = NAV_UNIVERSE_REGIONS.find(region => region.id === selectedRegion);
-    const regionName = selectedRegionName ? selectedRegionName.name : "전체";
+    // const selectedRegionName = NAV_UNIVERSE_REGIONS.find(region => region.id === selectedRegion);
+    // const regionName = selectedRegionName ? selectedRegionName.name : "전체";
 
     // 2. 필터링 로직 (지역 + 검색어)
     const filteredList = useMemo(() => {
