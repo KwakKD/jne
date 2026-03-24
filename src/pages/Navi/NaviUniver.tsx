@@ -1,32 +1,74 @@
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { RegionSidebar } from "./RegionSideBar";
+// import { RegionSidebar } from "./RegionSideBar";
 import { NAV_UNIVERSE_DATA } from "@/data/naviUniverse";
 import { GraduationCap, Info, Search } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui";
+import { UnivIndexSidebar } from "./RegionUniverseBar";
+
+// 한글 초성 추출 함수
+const getInitialSound = (str: string) => {
+    const initialSounds = [
+        'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+    ];
+    const code = str.charCodeAt(0) - 0xAC00;
+    if (code < 0 || code > 11171) return str[0]; // 한글이 아닌 경우 첫 글자 반환
+    return initialSounds[Math.floor(code / 588)];
+};
 
 function NaviUniver() {
     // 1. 선택된 지역 상태 관리
-    const [selectedRegion, setSelectedRegion] = useState("all");
+    // const [selectedRegion, setSelectedRegion] = useState("all");
+    const [selectedIndex, setSelectedIndex] = useState("all");
+    const [selectedUniv, setSelectedUniv] = useState<string | null>(null); // 2열: 선택된 대학명
     const [searchQuery, setSearchQuery] = useState("");
 
-    const handleRegionChange = (id: string) => {
-        setSelectedRegion(id);
-        // 필요 시 여기서 스크롤 상단 이동 로직 추가 가능
-        // window.scrollTo({ top: 50, behavior: 'smooth' });
-    };
+    // const handleRegionChange = (id: string) => {
+    //     setSelectedRegion(id);
+    //     필요 시 여기서 스크롤 상단 이동 로직 추가 가능
+    //     window.scrollTo({ top: 50, behavior: 'smooth' });
+    // };
 
     // const selectedRegionName = NAV_UNIVERSE_REGIONS.find(region => region.id === selectedRegion);
     // const regionName = selectedRegionName ? selectedRegionName.name : "전체";
+    // [2열용] 초성/검색에 의해 필터링된 "대학 이름" 리스트 (중복 제거)
+    const univNames = useMemo(() => {
+        const names = Array.from(new Set(NAV_UNIVERSE_DATA.map(u => u.univName)));
+        return names.filter(name => {
+            const initial = getInitialSound(name);
+            const matchesIndex = selectedIndex === "all" || initial === selectedIndex;
+            const matchesSearch = name.includes(searchQuery);
+            return matchesIndex && matchesSearch;
+        }).sort((a, b) => a.localeCompare(b, 'ko'));
+    }, [selectedIndex, searchQuery]);
 
     // 2. 필터링 로직 (지역 + 검색어)
-    const filteredList = useMemo(() => {
-        return NAV_UNIVERSE_DATA.filter((univ) => {
-            const matchesRegion = selectedRegion === "all" || univ.region === selectedRegion
-            const matchesSearch = univ.univName.includes(searchQuery) || univ.majorName.includes(searchQuery);
-            return matchesRegion && matchesSearch;
-        });
-    }, [selectedRegion, searchQuery]);
+    // const filteredList = useMemo(() => {
+    //     const sortedData = [...NAV_UNIVERSE_DATA].sort((a, b) =>
+    //         a.univName.localeCompare(b.univName, 'ko')
+    //     );
+    //     return sortedData.filter((univ) => {
+    //         const univInitial = getInitialSound(univ.univName);
+    //         const matchesIndex = selectedIndex === "all" || univInitial === selectedIndex;
+    //         const matchesSearch = univ.univName.includes(searchQuery) || univ.majorName.includes(searchQuery);
+    //         return matchesIndex && matchesSearch;
+    //     });
+    // }, [selectedIndex, searchQuery]);
+
+    // [3열용] 선택된 대학의 "학과 데이터" 리스트
+    const displayData = useMemo(() => {
+        if (!selectedUniv) return [];
+        return NAV_UNIVERSE_DATA.filter(u => 
+            u.univName === selectedUniv && 
+            (u.univName.includes(searchQuery) || u.majorName.includes(searchQuery))
+        );
+    }, [selectedUniv, searchQuery]);
+
+    // 초성이 바뀔 때 선택된 대학 초기화 (선택 사항)
+    const handleIndexChange = (id: string) => {
+        setSelectedIndex(id);
+        setSelectedUniv(null);
+    };
 
     return (
         <div className="min-h-screen bg-slate-50/50">
@@ -60,31 +102,64 @@ function NaviUniver() {
                 </div>
             </section>
 
-            {/* 2. 메인 콘텐츠 영역: 2컬럼 레이아웃 적용 */}
             <main className="container mx-auto px-6 py-12">
-                <div className="flex flex-col lg:flex-row gap-10">
-                    <RegionSidebar onRegionChange={handleRegionChange} />
-                    <section className="flex-1 min-w-0">
+                <div className="grid grid-cols-1 md:grid-cols-[280px_280px_1fr] gap-6 items-start">
+                    {/* <RegionSidebar onRegionChange={handleRegionChange} /> */}
+                    <UnivIndexSidebar onIndexChange={handleIndexChange} />
+                    <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-200px)] sticky top-28 overflow-hidden">
+                        <div className="p-4 border-b bg-slate-50/50 shrink-0">
+                            <span className="text-xs font-bold text-slate-500">대학 목록</span>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
+                            {univNames.map((name) => (
+                                <button
+                                    key={name}
+                                    onClick={() => setSelectedUniv(name)}
+                                    className={`w-full text-left px-4 py-3 rounded-xl transition-all font-bold text-sm
+                            ${selectedUniv === name
+                                            ? "bg-blue-600 text-white shadow-md"
+                                            : "hover:bg-slate-50 text-slate-600"}`}
+                                >
+                                    {name}
+                                </button>
+                            ))}
+                            {univNames.length === 0 && (
+                                <p className="text-center py-10 text-xs text-slate-400">검색 결과 없음</p>
+                            )}
+                        </div>
+                    </div>
+                    <section className="flex flex-col h-[calc(100vh-200px)]">
                         {/* 검색창 */}
-                        <div className="relative mb-8">
+                        <div className="relative mb-6 shrink-0">
                             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                             <input
                                 type="text"
                                 placeholder="관심 대학이나 학과명을 검색해보세요"
-                                className="w-full pl-12 pr-6 py-4 bg-white border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full pl-12 pr-6 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
 
                         {/* 결과 리스트 */}
-                        <div className="space-y-4">
-                            {filteredList.length > 0 ? (
-                                <Accordion type="single" collapsible className="space-y-4">
-                                    {filteredList.map((item) => (
-                                        <AccordionItem key={item.id} value={item.id} className="border rounded-3xl bg-white px-6 shadow-sm border-slate-200 overflow-hidden">
-                                            <AccordionTrigger className="hover:no-underline py-6">
-                                                <div className="flex items-center gap-4 text-left w-full pr-4">
+                        <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                            {!selectedUniv ? (
+                                <div className="h-full flex flex-col items-center justify-center bg-white rounded-[3rem] border-2 border-dashed border-slate-200 text-slate-400">
+                                    <GraduationCap size={48} className="mb-4 opacity-10" />
+                                    <p className="font-medium">왼쪽에서 대학을 선택하거나 검색해주세요.</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    <div className="px-2 mb-2">
+                                        <h2 className="text-2xl font-black text-slate-900">{selectedUniv}</h2>
+                                        <p className="text-slate-500 text-sm">선택하신 대학의 전공별 권장 과목입니다.</p>
+                                    </div>
+                                    
+                                    <Accordion type="single" collapsible className="space-y-4">
+                                        {displayData.map((item) => (
+                                            <AccordionItem key={item.id} value={item.id} className="border rounded-[2rem] bg-white px-6 shadow-sm border-slate-200 overflow-hidden">
+                                                <AccordionTrigger className="hover:no-underline py-6">
+                                                    <div className="flex items-center gap-4 text-left w-full pr-4">
                                                     <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
                                                         <GraduationCap size={20} />
                                                     </div>
@@ -93,9 +168,9 @@ function NaviUniver() {
                                                         <p className="text-sm text-slate-500">{item.majorName}</p>
                                                     </div>
                                                 </div>
-                                            </AccordionTrigger>
-                                            <AccordionContent className="pb-6 pt-2 border-t border-slate-50">
-                                                <div className="mt-4">
+                                                </AccordionTrigger>
+                                                <AccordionContent className="pb-6 pt-2 border-t border-slate-50">
+                                                    <div className="mt-4">
                                                     {/* 1. 데이터 분류 로직: 'all' 타입이 있는지 확인 */}
                                                     {item.subjects.some(s => s.type === 'all') ? (
                                                         /* 'all' 타입이 존재하는 경우: 통합 뷰 */
@@ -145,13 +220,16 @@ function NaviUniver() {
                                                         </div>
                                                     )}
                                                 </div>
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    ))}
-                                </Accordion>
-                            ) : (
-                                <div className="py-20 text-center text-slate-400 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                                    <p>해당 조건에 맞는 대학 정보가 아직 없습니다.</p>
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        ))}
+                                    </Accordion>
+                                    
+                                    {displayData.length === 0 && (
+                                        <div className="py-20 text-center text-slate-400">
+                                            <p>검색 조건에 맞는 학과 정보가 없습니다.</p>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>

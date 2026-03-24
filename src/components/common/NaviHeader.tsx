@@ -54,7 +54,7 @@ function NaviHeader () {
                     </button>
                     
                     {/* 나머지 메뉴들도 경로가 있다면 같은 방식으로 추가 */}
-                    {['자료실'].map((menu) => (
+                    {['자주하는 질문'].map((menu) => (
                         <button 
                             key={menu}
                             className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"

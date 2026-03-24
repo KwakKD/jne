@@ -11,6 +11,15 @@ const NAV_UNIVERSE_REGIONS = [
     { id: "jeonnam", name: "전남" }, { id: "jeju", name: "제주" },
 ];
 
+export const UNIV_INDEX_LIST = [
+    { id: "all", name: "전체" },
+    { id: "ㄱ", name: "ㄱ" }, { id: "ㄴ", name: "ㄴ" }, { id: "ㄷ", name: "ㄷ" },
+    { id: "ㄹ", name: "ㄹ" }, { id: "ㅁ", name: "ㅁ" }, { id: "ㅂ", name: "ㅂ" },
+    { id: "ㅅ", name: "ㅅ" }, { id: "ㅇ", name: "ㅇ" }, { id: "ㅈ", name: "ㅈ" },
+    { id: "ㅊ", name: "ㅊ" }, { id: "ㅋ", name: "ㅋ" }, { id: "ㅌ", name: "ㅌ" },
+    { id: "ㅍ", name: "ㅍ" }, { id: "ㅎ", name: "ㅎ" }
+];
+
 export const CATEGORY_MAP: Record<StandardCategoryType, string> = {
     humanities: "인문",
     social: "사회",

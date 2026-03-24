@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui"
-import { Compass, FileText, MousePointer2 } from "lucide-react"
+import { BookOpen, Building2, Compass, FileText, MousePointer2, School, Users } from "lucide-react"
 
 function SubjectNavHome() {
     return (
         <div className="w-full">
             {/* --- 1. 히어로 섹션 (Hero Section) --- */}
-            <section className="relative overflow-hidden bg-white border-b border-slate-100 py-16 md:py-24">
+            <section className="relative overflow-hidden bg-white border-b border-slate-100 min-h-[70vh] lg:min-h-130 flex items-center py-12">
                 {/* 배경 패턴 (선택사항: 격자 무늬로 정적인 느낌 강조) */}
                 <div
                     className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -69,7 +69,61 @@ function SubjectNavHome() {
             </section>
 
             {/* --- 2. 카테고리 그리드 영역 (다음 단계) --- */}
-            {/* 여기에 카테고리 카드들이 들어갈 예정입니다. */}
+            <section className="py-12 bg-slate-50/50 border-b border-slate-100">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
+
+                        {/* 분석 대학 수 */}
+                        <div className="flex flex-col items-center md:items-start space-y-2">
+                            <div className="p-3 bg-blue-100 rounded-2xl text-blue-600 mb-2">
+                                <Building2 size={24} />
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900">45</span>
+                                <span className="text-slate-500 font-medium">개교(예시)</span>
+                            </div>
+                            <p className="text-sm text-slate-500 font-medium">분석 대상 주요 대학</p>
+                        </div>
+
+                        {/* 개설 학교 수 */}
+                        <div className="flex flex-col items-center md:items-start space-y-2">
+                            <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600 mb-2">
+                                <School size={24} />
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900">120</span>
+                                <span className="text-slate-500 font-medium">+(예시)</span>
+                            </div>
+                            <p className="text-sm text-slate-500 font-medium">공동교육과정 참여교</p>
+                        </div>
+
+                        {/* 개설 과목 수 */}
+                        <div className="flex flex-col items-center md:items-start space-y-2">
+                            <div className="p-3 bg-indigo-100 rounded-2xl text-indigo-600 mb-2">
+                                <BookOpen size={24} />
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900">850</span>
+                                <span className="text-slate-500 font-medium">건(예시)</span>
+                            </div>
+                            <p className="text-sm text-slate-500 font-medium">제공 과목 정보(예시)</p>
+                        </div>
+
+                        {/* 누적 이용자 (예시) */}
+                        <div className="flex flex-col items-center md:items-start space-y-2">
+                            <div className="p-3 bg-orange-100 rounded-2xl text-orange-600 mb-2">
+                                <Users size={24} />
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900">12.5</span>
+                                <span className="text-slate-500 font-medium">k(예시)</span>
+                            </div>
+                            <p className="text-sm text-slate-500 font-medium">전남 학생/교사 활용(예시)</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         </div>
     )
 }
