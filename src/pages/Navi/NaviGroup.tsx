@@ -129,42 +129,44 @@ function NaviGroup() {
                 </div>
 
             </section> */}
-            <section className="relative h-48 flex items-center justify-center overflow-hidden"> {/* 높이를 조금 더 키워(h-60) 시원하게 변경 */}
+            <section className="relative h-48 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1454165833767-027ffeb99cbe?auto=format&fit=crop&q=80&w=2000"
-                        alt="Education Analysis"
-                        className="w-full h-full object-cover brightness-[0.25]" // 이미지를 조금 더 어둡게 하여 글자 가독성 향상
+                        src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&q=80&w=2000" // 디자인/데이터 분석 느낌의 이미지
+                        alt="Data analysis interface"
+                        className="w-full h-full object-cover brightness-[0.2]" // 이미지를 매우 어둡게 처리
                     />
-                    {/* 그라데이션 오버레이 보강 */}
-                    <div className="absolute inset-0 z-10 bg-gradient-to-br from-indigo-600/30 via-slate-900/60 to-slate-900/80" />
-                    {/* <div className="absolute inset-0 z-10 bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-50/50" /> */}
+                    {/* 세련된 Deep Tech & Neon 그라데이션 오버레이 */}
+                    <div className="absolute inset-0 z-10 bg-gradient-to-br from-blue-200 via-indigo-950/70 to-blue-500/30" />
+                    {/* 하단에 미세한 라인 패턴 추가 (선택 사항) */}
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[url('/grid.svg')] opacity-20"></div>
                 </div>
 
-                <div className="relative z-20 text-center text-white space-y-5 px-6 pt-8">
-                    <div className="flex justify-center flex-wrap gap-2 mb-2">
-                        <Badge className="bg-emerald-500 text-white border-none px-3 py-1 shadow-lg shadow-emerald-500/20">
-                            2026학년도 최신 데이터
+                <div className="relative z-20 text-center text-white space-y-6 px-6">
+                    <div className="flex justify-center flex-wrap gap-2.5 mb-2">
+                        <Badge className="bg-blue-600 text-white border-none px-4 py-1.5 shadow-lg shadow-blue-500/20">
+                            대학 입시요강 전수 분석
                         </Badge>
-                        <Badge className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-3 py-1">
-                            전국 대학 입시요강 전수 분석
+                        <Badge className="bg-slate-800 text-slate-100 border border-slate-700 px-4 py-1.5">
+                            2026학년도 최신 데이터
                         </Badge>
                     </div>
 
-                    <div className="space-y-2">
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+                    <div className="space-y-3">
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.1]">
                             내 전공의 시작, <br className="md:hidden" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                                과목 선택 네비게이션
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+                                 과목 선택 네비게이션
                             </span>
                         </h1>
-                        <p className="text-slate-100 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed opacity-90">
-                            복잡한 입시 정보를 데이터로 요약했습니다. <br className="hidden md:block" />
+                        <p className="text-slate-200 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed opacity-90">
+                            복잡한 입시 정보를 데이터로 요약했습니다.<br />
                             희망 학과를 선택하고 대학이 원하는 핵심 권장과목을 실시간으로 확인하세요.
                         </p>
                     </div>
                 </div>
             </section>
+            
 
             {/* 칩 선택 영역 (Sticky) */}
             <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -254,8 +256,8 @@ function NaviGroup() {
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
                             {/* 카드 1: 계열 통합 트렌드 */}
-                            <Card className="border-none shadow-sm overflow-hidden bg-white">
-                                <CardHeader className="bg-slate-900 text-white py-4 border-none">
+                            <Card className="border-none shadow-sm overflow-hidden bg-white pt-0">
+                                <CardHeader className="bg-blue-900 text-white py-4 border-none">
                                     <CardTitle className="text-sm font-medium flex items-center gap-2">
                                         <HelpCircle size={16} className="text-blue-400" />
                                         {CATEGORY_MAP[selectedCategory as keyof typeof CATEGORY_MAP]} 계열 통합 트렌드
@@ -269,7 +271,7 @@ function NaviGroup() {
                             {/* 카드 2: 상세 분석 / 비교 */}
                             <Card className={`border-none shadow-xl transition-all duration-500 overflow-hidden ${isCompareMode ? "ring-2 ring-blue-500" : "bg-white"}`}>
                                 <CardHeader className="py-4 flex flex-row items-center justify-between border-b border-slate-50">
-                                    <CardTitle className="text-sm font-bold text-slate-800">
+                                    <CardTitle className="text-m font-bold text-slate-900">
                                         {isCompareMode ? "학과별 1:1 비교 분석" : (selectedMajor || "학과 상세 데이터")}
                                     </CardTitle>
                                     <Button
@@ -312,15 +314,15 @@ function NaviGroup() {
 
                                                 {/* 하단: 포함 대학 리스트 (추가된 부분) */}
                                                 <div className="flex-1 min-h-0 border-t pt-4 overflow-hidden flex flex-col">
-                                                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                                        <GraduationCap size={12} /> 분석 대상 대학 및 모집단위 ({universityListForMajor.length})
+                                                    <h4 className="text-[13px] font-bold text-slate-600 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                        <GraduationCap size={14} /> 분석 대상 대학 및 모집단위 ({universityListForMajor.length})
                                                     </h4>
                                                     <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
                                                         <div className="grid grid-cols-3 gap-2">
                                                             {universityListForMajor.map((univ, idx) => (
                                                                 <div key={idx} className="bg-slate-50 p-2 rounded-lg border border-slate-100 flex flex-col">
-                                                                    <span className="text-[13px] font-bold text-slate-700">{univ.univName}</span>
-                                                                    <span className="text-[12px] text-slate-600 truncate">{univ.majorName}</span>
+                                                                    <span className="text-[13px] font-bold text-slate-800">{univ.univName}</span>
+                                                                    <span className="text-[12px] text-slate-700 truncate">{univ.majorName}</span>
                                                                 </div>
                                                             ))}
                                                         </div>

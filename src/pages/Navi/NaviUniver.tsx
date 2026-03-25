@@ -79,7 +79,7 @@ function NaviUniver() {
                         alt="University Campus"
                         className="w-full h-full object-cover brightness-[0.3] scale-105"
                     />
-                    <div className="absolute inset-0 z-10 bg-gradient-to-br from-indigo-600/30 via-slate-900/60 to-slate-900/80" />
+                    <div className="absolute inset-0 z-10 bg-gradient-to-br from-slate-950 via-blue-950/80 to-slate-900" />
                 </div>
 
                 <div className="relative z-20 text-center text-white space-y-4 px-6">
@@ -93,10 +93,10 @@ function NaviUniver() {
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                        대학 및 학과별 <span className="text-blue-400">과목 설계</span>
+                        대학 및 학과별 <span className="text-blue-300">과목 설계</span>
                     </h1>
 
-                    <p className="text-slate-300 text-lg font-light max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-slate-200 text-lg max-w-2xl mx-auto leading-relaxed">
                         목표하는 대학 전공과 커리어에 꼭 필요한 핵심 과목을 확인하세요.
                     </p>
                 </div>
@@ -175,12 +175,12 @@ function NaviUniver() {
                                                     {item.subjects.some(s => s.type === 'all') ? (
                                                         /* 'all' 타입이 존재하는 경우: 통합 뷰 */
                                                         <div className="space-y-3">
-                                                            <p className="text-xs font-bold text-indigo-500 flex items-center gap-1">
+                                                            <p className="text-sm font-bold text-indigo-500 flex items-center gap-1">
                                                                 <span className="w-1 h-3 bg-indigo-500 rounded-full" /> 핵심 및 권장과목
                                                             </p>
                                                             <div className="flex flex-wrap gap-1.5">
                                                                 {item.subjects.map(s => (
-                                                                    <Badge key={s.name} variant="secondary" className="bg-indigo-50 text-indigo-700 border-none">
+                                                                    <Badge key={s.name} variant="secondary" className="bg-indigo-50 text-sm text-indigo-700 border-none">
                                                                         {s.name}
                                                                     </Badge>
                                                                 ))}
@@ -190,22 +190,22 @@ function NaviUniver() {
                                                         /* 기존처럼 구분이 있는 경우: 2컬럼 그리드 뷰 */
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                             <div className="space-y-3">
-                                                                <p className="text-xs font-bold text-rose-500 flex items-center gap-1">
+                                                                <p className="text-sm font-bold text-rose-500 flex items-center gap-1">
                                                                     <span className="w-1 h-3 bg-rose-500 rounded-full" /> 핵심 권장과목
                                                                 </p>
                                                                 <div className="flex flex-wrap gap-1.5">
                                                                     {item.subjects.filter(s => s.type === 'core').map(s => (
-                                                                        <Badge key={s.name} variant="secondary" className="bg-rose-50 text-rose-700 border-none">{s.name}</Badge>
+                                                                        <Badge key={s.name} variant="secondary" className="bg-rose-50 text-sm text-rose-700 border-none">{s.name}</Badge>
                                                                     ))}
                                                                 </div>
                                                             </div>
                                                             <div className="space-y-3">
-                                                                <p className="text-xs font-bold text-amber-500 flex items-center gap-1">
+                                                                <p className="text-sm font-bold text-amber-500 flex items-center gap-1">
                                                                     <span className="w-1 h-3 bg-amber-500 rounded-full" /> 일반 권장과목
                                                                 </p>
                                                                 <div className="flex flex-wrap gap-1.5">
                                                                     {item.subjects.filter(s => s.type === 'recommended').map(s => (
-                                                                        <Badge key={s.name} variant="secondary" className="bg-amber-50 text-amber-700 border-none">{s.name}</Badge>
+                                                                        <Badge key={s.name} variant="secondary" className="bg-amber-50 text-sm text-amber-700 border-none">{s.name}</Badge>
                                                                     ))}
                                                                 </div>
                                                             </div>

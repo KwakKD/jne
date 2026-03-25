@@ -11,7 +11,7 @@ export function NavSubjectDetail({ selectedSubject }: Props) {
         <div className="animate-in fade-in slide-in-from-right-8 duration-500">
             <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
                 {/* 상세 헤더 */}
-                <div className="bg-slate-900 p-8 text-white">
+                <div className="bg-slate-700 pl-8 pt-4 pb-4 text-white">
                     {/* 배지 컨테이너: 배지들을 그룹화하고 하단 여백 부여 */}
                     <div className="flex flex-wrap items-center gap-2 mb-4">
                         {/* 1. 과목 유형: 부드러운 하늘색 */}

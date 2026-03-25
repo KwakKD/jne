@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
 import { Home } from './pages/Home'
-import { LoginPage, NaviGroup, NaviGuide, NaviUnion, NaviUniver, SubjectNavHome } from './pages'
+import { LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, SubjectNavHome } from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 
@@ -24,6 +24,7 @@ function App() {
           <Route path='uni' element={<NaviUniver />} />
           <Route path='uniGroup' element={<NaviGroup />} />
           <Route path='offline' element={<NaviUnion />} />
+          <Route path='help' element={<NaviQnA />} />
         </Route>
 
         {/* 2. 고등학교 교육과정 라인 (메인헤더 + 교육과정 서브헤더) */}

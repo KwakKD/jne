@@ -52,16 +52,13 @@ function NaviHeader () {
                     >
                         오프라인 공동교육과정
                     </button>
-                    
-                    {/* 나머지 메뉴들도 경로가 있다면 같은 방식으로 추가 */}
-                    {['자주하는 질문'].map((menu) => (
-                        <button 
-                            key={menu}
-                            className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
-                        >
-                            {menu}
-                        </button>
-                    ))}
+
+                    <button 
+                        onClick={() => navigate('/subject-navigation/help')} // <-- 경로 연결
+                        className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
+                    >
+                        자주하는 질문
+                    </button>
                 </nav>
 
                 {/* 오른쪽: 홈 버튼 */}

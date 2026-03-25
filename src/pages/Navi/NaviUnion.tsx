@@ -155,7 +155,7 @@ function NaviUnion() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight">
                         오프라인 공동교육과정 <span className="text-orange-400">현황</span>
                     </h1>
-                    <p className="text-slate-200 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed opacity-90">
+                    <p className="text-slate-100 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
                         지역별 거점 학교에서 열리는 생생한 대면 수업 정보를 확인하세요.
                     </p>
                 </div>
