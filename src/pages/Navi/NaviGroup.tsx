@@ -38,7 +38,6 @@ function NaviGroup() {
     const [isCompareMode, setIsCompareMode] = useState(false);
     const [compareMajors, setCompareMajors] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
     const [activeSubject, setActiveSubject] = useState<SelectedSubjectState | null>(null);
 
     // --- [데이터 집계 로직] ---
