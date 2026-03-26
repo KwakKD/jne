@@ -3,6 +3,7 @@ import { CATEGORY_MAP, NAV_UNIVERSE_DATA } from "@/data/naviUniverse";
 import { ArrowRightLeft, GraduationCap, HelpCircle, Info, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { WordCloudChart } from "./WordCloudChart";
+import { UniversityCard } from "./UniversityCard";
 
 // 계열별 누르면 비교 초기화
 
@@ -26,6 +27,10 @@ interface WordData {
     etc: number;
 }
 
+interface SelectedSubjectState {
+    name: string;
+    scope: 'category' | 'major'; // 계열 전체 기준인지, 특정 학과 기준인지 구분
+}
 
 function NaviGroup() {
     const [selectedCategory, setSelectedCategory] = useState("engineering");
@@ -33,6 +38,8 @@ function NaviGroup() {
     const [isCompareMode, setIsCompareMode] = useState(false);
     const [compareMajors, setCompareMajors] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+    const [activeSubject, setActiveSubject] = useState<SelectedSubjectState | null>(null);
 
     // --- [데이터 집계 로직] ---
     const getProcessedData = useMemo(() => (majorName?: string): WordData[] => {
@@ -106,6 +113,27 @@ function NaviGroup() {
         setSearchQuery("");
     };
 
+    // 3. 선택된 과목을 제공하는 대학들 필터링
+    const universityListForSubject = useMemo(() => {
+        if (!activeSubject) return [];
+
+        return NAV_UNIVERSE_DATA.filter((univ) => {
+            // 스코프에 따른 기본 조건 설정
+            const isScopeMatch = activeSubject.scope === 'major'
+                ? univ.standardMajor === selectedMajor
+                : univ.standardCategory === selectedCategory;
+
+            // 과목 포함 여부 확인
+            const hasSubject = univ.subjects.some(s => s.name === activeSubject.name);
+
+            return isScopeMatch && hasSubject;
+        }).map(univ => ({
+            univName: univ.univName,
+            majorName: univ.majorName,
+            type: univ.subjects.find(s => s.name === activeSubject.name)?.type
+        }));
+    }, [activeSubject, selectedMajor, selectedCategory]);
+
     return (
         <div className="min-h-screen bg-slate-50/50 pb-20">
             {/* 히어로 섹션 */}
@@ -156,7 +184,7 @@ function NaviGroup() {
                         <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.1]">
                             내 전공의 시작, <br className="md:hidden" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
-                                 과목 선택 네비게이션
+                                과목 선택 네비게이션
                             </span>
                         </h1>
                         <p className="text-slate-200 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed opacity-90">
@@ -166,7 +194,7 @@ function NaviGroup() {
                     </div>
                 </div>
             </section>
-            
+
 
             {/* 칩 선택 영역 (Sticky) */}
             <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -253,6 +281,23 @@ function NaviGroup() {
 
                     {/* [우측] 분석 영역 */}
                     <section className="flex-1 w-full space-y-6">
+                        {/* 가이드 카드 */}
+                        <Card className="bg-blue-50/50 border-blue-100 border-dashed p-0">
+                            <CardContent className="p-6 flex items-start gap-4 text-sm text-blue-800 leading-relaxed">
+                                <div className="bg-blue-100 p-2 rounded-lg text-blue-600 shrink-0">
+                                    <Info size={20} />
+                                </div>
+                                <div>
+                                    <p className="font-bold mb-1">데이터 분석 가이드</p>
+                                    <p className="opacity-80 italic">
+                                        * 워드클라우드의 단어를 클릭하면 하단에서 현황을 볼 수 있습니다. <br />
+                                        * <strong>왼쪽 영역:</strong> 선택하신 계열에서의 핵심 및 권장과목에 대한 내용입니다.<br />
+                                        * <strong>오른쪽 영역:</strong> 선택하신 전공과목에 대한 핵심 및 권장과목에 대한 내용입니다.<br />
+                                        * <strong>학과비교하기:</strong> 두 학과를 클릭하여 핵심 및 권장과목을 비교할 수 있습니다.
+                                    </p>
+                                </div>
+                            </CardContent>
+                        </Card>
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
                             {/* 카드 1: 계열 통합 트렌드 */}
@@ -264,7 +309,10 @@ function NaviGroup() {
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="h-[450px] p-6">
-                                    <WordCloudChart words={getProcessedData()} />
+                                    <WordCloudChart
+                                        words={getProcessedData()}
+                                        onWordClick={(word) => setActiveSubject({ name: word.text, scope: 'category' })}
+                                    />
                                 </CardContent>
                             </Card>
 
@@ -296,7 +344,10 @@ function NaviGroup() {
                                                     </div>
                                                     <div className="flex-1 min-h-0">
                                                         {compareMajors[idx] ? (
-                                                            <WordCloudChart words={getProcessedData(compareMajors[idx])} />
+                                                            <WordCloudChart
+                                                                words={getProcessedData(compareMajors[idx])}
+                                                                onWordClick={(word) => setActiveSubject({ name: word.text, scope: 'major' })}
+                                                            />
                                                         ) : (
                                                             <div className="h-full flex items-center justify-center text-slate-300 text-xs italic">리스트에서 학과를 선택하세요</div>
                                                         )}
@@ -309,7 +360,10 @@ function NaviGroup() {
                                             <div className="flex flex-col h-full space-y-4">
                                                 {/* 상단: 워드클라우드 */}
                                                 <div className="flex-[3] min-h-0">
-                                                    <WordCloudChart words={getProcessedData(selectedMajor)} />
+                                                    <WordCloudChart
+                                                        words={getProcessedData(selectedMajor)}
+                                                        onWordClick={(word) => setActiveSubject({ name: word.text, scope: 'major' })}
+                                                    />
                                                 </div>
 
                                                 {/* 하단: 포함 대학 리스트 (추가된 부분) */}
@@ -342,22 +396,26 @@ function NaviGroup() {
                             </Card>
                         </div>
 
-                        {/* 가이드 카드 */}
-                        <Card className="bg-blue-50/50 border-blue-100 border-dashed">
-                            <CardContent className="p-6 flex items-start gap-4 text-sm text-blue-800 leading-relaxed">
-                                <div className="bg-blue-100 p-2 rounded-lg text-blue-600 shrink-0">
-                                    <Info size={20} />
+                        {/* 5. 하단 상세 정보 카드 (단어 클릭 시 노출) */}
+                        {activeSubject && (
+                            <div className="mt-8 animate-in slide-in-from-bottom-4 duration-300">
+                                <div className="flex items-center justify-between mb-4 px-2">
+                                    <h3 className="text-lg font-bold flex items-center gap-2">
+                                        <Badge variant="outline" className="text-blue-600 border-blue-400 text-lg p-4">
+                                            {activeSubject.scope === 'major' ? selectedMajor : `${CATEGORIES.find(item => item.id === selectedCategory)?.name} 전체`}
+                                        </Badge>
+                                        <span>{activeSubject.name} 지정 대학 ({universityListForSubject.length}개 학과)</span>
+                                    </h3>
+                                    <Button variant="ghost" size="sm" onClick={() => setActiveSubject(null)}>초기화</Button>
                                 </div>
-                                <div>
-                                    <p className="font-bold mb-1">데이터 분석 가이드</p>
-                                    <p className="opacity-80 italic">
-                                        * 워드클라우드의 단어를 클릭하거나 마우스를 올리면 대학별 세부 지정 현황을 볼 수 있습니다.<br />
-                                        * <strong>핵심 권장:</strong> 대학에서 해당 전공 이수를 위해 필수적으로 권장하는 과목입니다.<br />
-                                        * <strong>권장 과목:</strong> 전공 관련 역량을 높이기 위해 이수를 권장하는 과목입니다.
-                                    </p>
+
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                                    {universityListForSubject.map((item, idx) => (
+                                        <UniversityCard key={idx} item={item} />
+                                    ))}
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        )}
                     </section>
                 </div>
             </main>

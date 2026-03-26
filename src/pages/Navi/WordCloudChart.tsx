@@ -28,7 +28,12 @@ const tooltipStyles = {
     lineHeight: "1.5",
 };
 
-const WordCloudChart = ({ words }: { words: WordData[] }) => {
+interface WordCloudProps {
+    words: WordData[]
+    onWordClick?: (word: WordData) => void
+}
+
+const WordCloudChart = ({ words, onWordClick }: WordCloudProps) => {
     // 툴팁 훅 사용
     const {
         tooltipOpen,
@@ -88,6 +93,9 @@ const WordCloudChart = ({ words }: { words: WordData[] }) => {
                                     className="font-bold transition-all duration-300 hover:opacity-60 cursor-pointer"
                                     style={{ fontSize: w.size }}
                                     // 마우스 이벤트 처리
+                                    onClick={()=>{
+                                        if (onWordClick) onWordClick(w as unknown as WordData)
+                                    }}
                                     onMouseMove={(event) => {
                                         const coords = localPoint(event) || { x: 0, y: 0 };
                                         showTooltip({
@@ -122,7 +130,7 @@ const WordCloudChart = ({ words }: { words: WordData[] }) => {
                                     <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
                                     핵심 권장
                                 </div>
-                                <span className="text-white font-mono">{tooltipData.core || 0}개교</span>
+                                <span className="text-white font-mono">{tooltipData.core || 0}개 학과</span>
                             </div>
 
                             <div className="flex items-center justify-between text-[11px]">
@@ -130,7 +138,7 @@ const WordCloudChart = ({ words }: { words: WordData[] }) => {
                                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                                     권장 과목
                                 </div>
-                                <span className="text-white font-mono">{tooltipData.rec || 0}개교</span>
+                                <span className="text-white font-mono">{tooltipData.rec || 0}개 학과</span>
                             </div>
 
                             <div className="flex items-center justify-between text-[11px]">
@@ -138,7 +146,7 @@ const WordCloudChart = ({ words }: { words: WordData[] }) => {
                                     <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
                                     기타/공통
                                 </div>
-                                <span className="text-white font-mono">{tooltipData.etc || 0}개교</span>
+                                <span className="text-white font-mono">{tooltipData.etc || 0}개 학과</span>
                             </div>
                         </div>
 

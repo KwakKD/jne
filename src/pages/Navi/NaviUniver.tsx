@@ -6,6 +6,7 @@ import { GraduationCap, Info, Search } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui";
 import { UnivIndexSidebar } from "./RegionUniverseBar";
 
+
 // 한글 초성 추출 함수
 const getInitialSound = (str: string) => {
     const initialSounds = [
@@ -20,7 +21,7 @@ function NaviUniver() {
     // 1. 선택된 지역 상태 관리
     // const [selectedRegion, setSelectedRegion] = useState("all");
     const [selectedIndex, setSelectedIndex] = useState("all");
-    const [selectedUniv, setSelectedUniv] = useState<string | null>(null); // 2열: 선택된 대학명
+    const [selectedUniv, setSelectedUniv] = useState<string | null>('가톨릭대'); // 2열: 선택된 대학명
     const [searchQuery, setSearchQuery] = useState("");
 
     // const handleRegionChange = (id: string) => {

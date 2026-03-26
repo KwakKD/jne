@@ -50,10 +50,10 @@ function NaviGuide() {
                 <Tabs
                     value={activeGroup}
                     onValueChange={setActiveGroup}
-                    className="grid grid-cols-1 md:grid-cols-[220px_280px_1fr] gap-6 items-start"
+                    className="grid grid-cols-1 md:grid-cols-[170px_270px_1fr] gap-6 items-start"
                 >
                     {/* [1열] 교과군 사이드바 - 기존 유지하되 너비 조절 */}
-                    <aside className="w-56 shrink-0 sticky top-32">
+                    <aside className="w-44 shrink-0 sticky top-32">
                         <div className="flex items-center gap-2 px-2 mb-4 text-blue-950">
                             <LayoutGrid size={14} />
                             <span className="text-[13px] font-bold uppercase tracking-widest">교과군</span>
@@ -73,7 +73,7 @@ function NaviGuide() {
                         </TabsList>
                     </aside>
                     {/* [2열] 과목 리스트 - flex 구조와 overflow 위치 수정 */}
-                    <div className="w-72 shrink-0 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-150px)] sticky top-24 overflow-hidden">
+                    <div className="w-70 shrink-0 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-150px)] sticky top-24 overflow-hidden">
                         {/* 제목 영역: shrink-0으로 높이 고정 */}
                         <div className="p-4 border-b bg-slate-50/50 shrink-0">
                             <span className="text-sm font-bold text-slate-500">과목 리스트</span>
