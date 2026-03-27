@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui"
 import { BookOpen, Building2, Compass, FileText, MousePointer2, School, Users } from "lucide-react"
+import { HomeSubjectStructureDialog } from "./HomeSubjectStructureDialog"
+import { NAVI_SUBJECT_DATA } from "@/data/nav"
+import { HomeGradeMethodDialog } from "./HomeGradeMethodDialog"
 
 function SubjectNavHome() {
     return (
@@ -34,12 +37,17 @@ function SubjectNavHome() {
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 h-12 rounded-xl shadow-lg shadow-blue-200">
-                                    가이드북 다운로드
-                                </Button>
-                                <Button variant="outline" size="lg" className="px-8 h-12 rounded-xl border-slate-200 text-slate-600">
-                                    전체 과목 구조 보기
-                                </Button>
+                                <HomeSubjectStructureDialog>
+                                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 h-12 rounded-xl shadow-lg shadow-blue-200">
+                                        전체 과목 구조 보기
+                                    </Button>
+                                </HomeSubjectStructureDialog>
+                                <HomeGradeMethodDialog>
+                                    <Button variant="outline" size="lg" className="px-8 h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900">
+                                        성적 산출 방식 보기
+                                    </Button>
+                                </HomeGradeMethodDialog>
+                                <button onClick={() => console.log(NAVI_SUBJECT_DATA[154])}>test</button>
                             </div>
                         </div>
 

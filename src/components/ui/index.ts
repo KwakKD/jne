@@ -1,12 +1,12 @@
 export { Button } from './button'
 export {
-    Card,
-    CardHeader,
-    CardFooter,
-    CardTitle,
-    CardAction,
-    CardDescription,
-    CardContent,
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
 } from './card'
 export { Badge, badgeVariants } from './badge'
 export { Input } from './input'
@@ -39,3 +39,14 @@ export {
   SelectValue,
 } from './select'
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion'
+export { ScrollArea, ScrollBar } from './scroll-area'
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+} from './table'

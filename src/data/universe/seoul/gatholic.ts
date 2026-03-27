@@ -414,7 +414,7 @@ const GATHOLIC: UniverseType[] = [
         category: '의약계열',
         standardCategory: 'medical',
         majorName: '약학과',
-        standardMajor: '약학',
+        standardMajor: '약학과',
         subjects: [
             { group: '과학', name: '화학', type: 'all', isGeneral: false },
             { group: '과학', name: '생명과학', type: 'all', isGeneral: false },
@@ -429,7 +429,7 @@ const GATHOLIC: UniverseType[] = [
         category: '의약계열',
         standardCategory: 'medical',
         majorName: '간호학과',
-        standardMajor: '간호학',
+        standardMajor: '간호학과',
         subjects: [
             { group: '과학', name: '화학', type: 'all', isGeneral: false },
             { group: '과학', name: '생명과학', type: 'all', isGeneral: false },

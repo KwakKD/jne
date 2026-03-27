@@ -95,6 +95,7 @@ const WordCloudChart = ({ words, onWordClick }: WordCloudProps) => {
                                     // 마우스 이벤트 처리
                                     onClick={()=>{
                                         if (onWordClick) onWordClick(w as unknown as WordData)
+                                            window.scrollTo({top:800, behavior: 'smooth'})
                                     }}
                                     onMouseMove={(event) => {
                                         const coords = localPoint(event) || { x: 0, y: 0 };

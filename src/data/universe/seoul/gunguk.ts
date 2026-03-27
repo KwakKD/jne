@@ -634,6 +634,206 @@ const GUNGUK: UniverseType[] = [
         ],
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
+    {
+        id: 'gunguk_37',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '사회환경공학부',
+        standardMajor: '사회환경공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_38',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '기계로봇자동차공학부',
+        standardMajor: '기계로봇자동차공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_39',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '전기전자공학부',
+        standardMajor: '전기전자공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_40',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '화공생명에너지공학부',
+        standardMajor: '화공생명에너지공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_41',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '컴퓨터공학부',
+        standardMajor: '컴퓨터공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_42',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '재료공학부',
+        standardMajor: '재료공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_43',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '환경우주모빌리티공학부',
+        standardMajor: '환경우주모빌리티공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_44',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '생물공학부',
+        standardMajor: '생물공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_45',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '산업공학부',
+        standardMajor: '산업공학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_46',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '산업경영융합학부',
+        standardMajor: '산업경영융합학',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_47',
+        region: 'seoul',
+        univName: '건국대',
+        category: '공학계열',
+        standardCategory: 'engineering',
+        majorName: '공과대학자유전공학부',
+        standardMajor: '공과대학자유전공',
+        subjects: [
+            { group: '과학', name: '물리학', type: 'all', isGeneral: false },
+            { group: '수학', name: '대수', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅰ', type: 'all', isGeneral: false },
+            { group: '수학', name: '미적분Ⅱ', type: 'all', isGeneral: false },
+            { group: '수학', name: '기하', type: 'all', isGeneral: false },
+        ],
+        note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
+    },
+    {
+        id: 'gunguk_48',
+        region: 'seoul',
+        univName: '건국대',
+        category: '자유계열',
+        standardCategory: 'liberal_arts',
+        majorName: 'KU자유전공학부',
+        standardMajor: '자유전공',
+        subjects: [
+            { group: '자유', name: '계열 상관없이 자신의 진로와 적성에 따라 과목 선택하여 이수', type: 'all', isGeneral: true },
+        ],
+        note: ''
+    },
 ]
 
 export { GUNGUK }
