@@ -1,9 +1,8 @@
-import { Badge, Button, Card, CardContent } from "@/components/ui"
+import { Badge, Button } from "@/components/ui"
 import { useAuth } from "@/hooks/useAuth"
-import { 
-  GraduationCap, Lock, CheckCircle2, 
-  FileBarChart, Settings2, PlusCircle, Users,
-  ArrowRight, ShieldCheck, ClipboardCheck, BarChart3
+import {
+    FileBarChart, Settings2, PlusCircle, Users,
+    ArrowRight, ShieldCheck, ClipboardCheck, BarChart3
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
@@ -27,7 +26,7 @@ function CurriHome() {
         <div className="w-full bg-slate-50/50">
             {/* --- 1. 히어로 섹션 (업무 중심의 신뢰감 있는 톤) --- */}
             <section className="relative overflow-hidden bg-white border-b border-slate-100 py-16 lg:py-24">
-                <div 
+                <div
                     className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
                     style={{
                         backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)',
@@ -125,7 +124,7 @@ function CurriHome() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <MenuCard 
+                        <MenuCard
                             title="학교교육과정 편성"
                             desc="연도별, 학년별 기본 교과 및 선택 과목 구조를 설계합니다."
                             icon={<Settings2 />}
@@ -134,7 +133,7 @@ function CurriHome() {
                             onClick={handleCardClick}
                             color="indigo"
                         />
-                        <MenuCard 
+                        <MenuCard
                             title="공동교육과정 관리"
                             desc="학교 간 경계를 넘는 온·오프라인 공동 과목을 편성합니다."
                             icon={<PlusCircle />}
@@ -143,7 +142,7 @@ function CurriHome() {
                             onClick={handleCardClick}
                             color="emerald"
                         />
-                        <MenuCard 
+                        <MenuCard
                             title="과목별 교사 배정"
                             desc="편성된 과목별 담당 교사와 수업 시수를 매칭합니다."
                             icon={<Users />}
@@ -152,7 +151,7 @@ function CurriHome() {
                             onClick={handleCardClick}
                             color="rose"
                         />
-                        <MenuCard 
+                        <MenuCard
                             title="통계 및 현황"
                             desc="학교별 편성 현황 및 과목 선택 통계 데이터를 분석합니다."
                             icon={<FileBarChart />}
@@ -184,17 +183,15 @@ const StatItem = ({ icon, label, value, unit, color }: any) => (
 
 // 서브 컴포넌트: 메뉴 카드
 const MenuCard = ({ title, desc, icon, path, active, onClick, color }: any) => (
-    <div 
+    <div
         onClick={() => onClick(path, true)}
-        className={`group p-6 rounded-3xl border transition-all duration-300 ${
-            active 
-            ? `bg-white border-slate-100 hover:border-${color}-200 hover:shadow-xl cursor-pointer` 
-            : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
-        }`}
+        className={`group p-6 rounded-3xl border transition-all duration-300 ${active
+                ? `bg-white border-slate-100 hover:border-${color}-200 hover:shadow-xl cursor-pointer`
+                : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
+            }`}
     >
-        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-colors ${
-            active ? `bg-${color}-50 text-${color}-600 group-hover:bg-${color}-600 group-hover:text-white` : 'bg-slate-200 text-slate-400'
-        }`}>
+        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-colors ${active ? `bg-${color}-50 text-${color}-600 group-hover:bg-${color}-600 group-hover:text-white` : 'bg-slate-200 text-slate-400'
+            }`}>
             {icon}
         </div>
         <h3 className="text-lg font-bold text-slate-900 mb-2">{title}</h3>
