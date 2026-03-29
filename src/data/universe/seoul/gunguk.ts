@@ -431,7 +431,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_25',
+        id: 'gunguk_28',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -448,7 +448,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_26',
+        id: 'gunguk_29',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -465,7 +465,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_27',
+        id: 'gunguk_30',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -482,7 +482,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_28',
+        id: 'gunguk_31',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -499,7 +499,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_29',
+        id: 'gunguk_32',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -516,7 +516,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_30',
+        id: 'gunguk_33',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -533,7 +533,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_31',
+        id: 'gunguk_34',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -550,7 +550,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_31',
+        id: 'gunguk_35',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -567,7 +567,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_33',
+        id: 'gunguk_36',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -584,7 +584,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_34',
+        id: 'gunguk_37',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -601,7 +601,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_35',
+        id: 'gunguk_38',
         region: 'seoul',
         univName: '건국대',
         category: '자연계열',
@@ -618,7 +618,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_36',
+        id: 'gunguk_39',
         region: 'seoul',
         univName: '건국대',
         category: '의약계열',
@@ -635,7 +635,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_37',
+        id: 'gunguk_40',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -652,7 +652,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_38',
+        id: 'gunguk_41',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -669,7 +669,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_39',
+        id: 'gunguk_42',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -686,7 +686,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_40',
+        id: 'gunguk_43',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -703,7 +703,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_41',
+        id: 'gunguk_44',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -720,7 +720,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_42',
+        id: 'gunguk_45',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -737,7 +737,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_43',
+        id: 'gunguk_46',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -754,7 +754,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_44',
+        id: 'gunguk_47',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -771,7 +771,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_45',
+        id: 'gunguk_48',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -788,7 +788,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_46',
+        id: 'gunguk_49',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -805,7 +805,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_47',
+        id: 'gunguk_50',
         region: 'seoul',
         univName: '건국대',
         category: '공학계열',
@@ -822,7 +822,7 @@ const GUNGUK: UniverseType[] = [
         note: '과학은 일반 선택 과목 먼저 이수 후, 진로와 적성에 맞게 진로 선택 과목 이수 추천'
     },
     {
-        id: 'gunguk_48',
+        id: 'gunguk_51',
         region: 'seoul',
         univName: '건국대',
         category: '자유계열',

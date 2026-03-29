@@ -50,3 +50,13 @@ export {
   TableCell,
   TableCaption,
 } from './table'
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+} from './chart'
+
+export { Slider } from './slider'

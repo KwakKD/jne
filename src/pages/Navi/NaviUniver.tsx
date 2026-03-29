@@ -18,21 +18,11 @@ const getInitialSound = (str: string) => {
 };
 
 function NaviUniver() {
-    // 1. 선택된 지역 상태 관리
-    // const [selectedRegion, setSelectedRegion] = useState("all");
+
     const [selectedIndex, setSelectedIndex] = useState("all");
     const [selectedUniv, setSelectedUniv] = useState<string | null>('가톨릭대'); // 2열: 선택된 대학명
     const [searchQuery, setSearchQuery] = useState("");
 
-    // const handleRegionChange = (id: string) => {
-    //     setSelectedRegion(id);
-    //     필요 시 여기서 스크롤 상단 이동 로직 추가 가능
-    //     window.scrollTo({ top: 50, behavior: 'smooth' });
-    // };
-
-    // const selectedRegionName = NAV_UNIVERSE_REGIONS.find(region => region.id === selectedRegion);
-    // const regionName = selectedRegionName ? selectedRegionName.name : "전체";
-    // [2열용] 초성/검색에 의해 필터링된 "대학 이름" 리스트 (중복 제거)
     const univNames = useMemo(() => {
         const names = Array.from(new Set(NAV_UNIVERSE_DATA.map(u => u.univName)));
         return names.filter(name => {
@@ -43,20 +33,6 @@ function NaviUniver() {
         }).sort((a, b) => a.localeCompare(b, 'ko'));
     }, [selectedIndex, searchQuery]);
 
-    // 2. 필터링 로직 (지역 + 검색어)
-    // const filteredList = useMemo(() => {
-    //     const sortedData = [...NAV_UNIVERSE_DATA].sort((a, b) =>
-    //         a.univName.localeCompare(b.univName, 'ko')
-    //     );
-    //     return sortedData.filter((univ) => {
-    //         const univInitial = getInitialSound(univ.univName);
-    //         const matchesIndex = selectedIndex === "all" || univInitial === selectedIndex;
-    //         const matchesSearch = univ.univName.includes(searchQuery) || univ.majorName.includes(searchQuery);
-    //         return matchesIndex && matchesSearch;
-    //     });
-    // }, [selectedIndex, searchQuery]);
-
-    // [3열용] 선택된 대학의 "학과 데이터" 리스트
     const displayData = useMemo(() => {
         if (!selectedUniv) return [];
         return NAV_UNIVERSE_DATA.filter(u => 
@@ -104,8 +80,7 @@ function NaviUniver() {
             </section>
 
             <main className="container mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-[280px_280px_1fr] gap-6 items-start">
-                    {/* <RegionSidebar onRegionChange={handleRegionChange} /> */}
+                <div className="grid grid-cols-1 md:grid-cols-[240px_280px_1fr] gap-6 items-start">
                     <UnivIndexSidebar onIndexChange={handleIndexChange} />
                     <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm flex flex-col h-[calc(100vh-200px)] sticky top-28 overflow-hidden">
                         <div className="p-4 border-b bg-slate-50/50 shrink-0">

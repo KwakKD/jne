@@ -15,7 +15,7 @@ export function UnivIndexSidebar({ onIndexChange }: UnivIndexSidebarProps) {
     };
 
     return (
-        <aside className="w-full lg:w-72 shrink-0">
+        <aside className="w-full lg:w-64 shrink-0">
             <div className="sticky top-24 bg-white rounded-[2.5rem] p-6 border border-slate-200 shadow-sm">
                 <div className="flex items-center gap-2 mb-6 px-1">
                     <GraduationCap size={20} className="text-blue-600" />

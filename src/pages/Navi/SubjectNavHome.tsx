@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui"
 import { BookOpen, Building2, Compass, FileText, MousePointer2, School, Users } from "lucide-react"
 import { HomeSubjectStructureDialog } from "./HomeSubjectStructureDialog"
-import { NAVI_SUBJECT_DATA } from "@/data/nav"
+// import { NAVI_SUBJECT_DATA } from "@/data/nav"
 import { HomeGradeMethodDialog } from "./HomeGradeMethodDialog"
 
 function SubjectNavHome() {
@@ -38,16 +38,24 @@ function SubjectNavHome() {
 
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 <HomeSubjectStructureDialog>
-                                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 h-12 rounded-xl shadow-lg shadow-blue-200">
+                                    <Button
+                                        size="lg"
+                                        className="h-14 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-100 transition-all hover:-translate-y-0.5"
+                                    >
                                         전체 과목 구조 보기
                                     </Button>
                                 </HomeSubjectStructureDialog>
+
                                 <HomeGradeMethodDialog>
-                                    <Button variant="outline" size="lg" className="px-8 h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900">
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
+                                        className="h-14 px-8 rounded-2xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 hover:border-slate-300 transition-all hover:-translate-y-0.5"
+                                    >
                                         성적 산출 방식 보기
                                     </Button>
                                 </HomeGradeMethodDialog>
-                                <button onClick={() => console.log(NAVI_SUBJECT_DATA[154])}>test</button>
+                                {/* <button onClick={() => console.log(NAVI_SUBJECT_DATA[154])}>test</button> */}
                             </div>
                         </div>
 
