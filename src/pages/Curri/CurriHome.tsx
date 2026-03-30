@@ -186,8 +186,8 @@ const MenuCard = ({ title, desc, icon, path, active, onClick, color }: any) => (
     <div
         onClick={() => onClick(path, true)}
         className={`group p-6 rounded-3xl border transition-all duration-300 ${active
-                ? `bg-white border-slate-100 hover:border-${color}-200 hover:shadow-xl cursor-pointer`
-                : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
+            ? `bg-white border-slate-100 hover:border-${color}-200 hover:shadow-xl cursor-pointer`
+            : 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
             }`}
     >
         <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-colors ${active ? `bg-${color}-50 text-${color}-600 group-hover:bg-${color}-600 group-hover:text-white` : 'bg-slate-200 text-slate-400'

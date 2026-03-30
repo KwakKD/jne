@@ -4,6 +4,7 @@ import { Home } from './pages/Home'
 import { CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, SubjectNavHome } from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
+import { CurriLayout } from './components/layout/CuuriLayout'
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
         </Route>
 
         {/* 2. 고등학교 교육과정 라인 (메인헤더 + 교육과정 서브헤더) */}
-        <Route path='/high-school' element={<RootLayout />}>
+        <Route path='/high-school' element={<CurriLayout />}>
           <Route index element={<CurriHome />} />
           <Route path='setup' element={<div>교육과정 편성 설정</div>} />
         </Route>

@@ -1,15 +1,12 @@
 import { Button } from "@/components/ui"
-import { BookOpen, Building2, Compass, FileText, MousePointer2, School, Users } from "lucide-react"
+import { ArrowRight, BookOpen, Building2, Compass, GraduationCap, LayoutGrid, Map, School, Users } from "lucide-react"
 import { HomeSubjectStructureDialog } from "./HomeSubjectStructureDialog"
-// import { NAVI_SUBJECT_DATA } from "@/data/nav"
 import { HomeGradeMethodDialog } from "./HomeGradeMethodDialog"
 
 function SubjectNavHome() {
     return (
         <div className="w-full">
-            {/* --- 1. 히어로 섹션 (Hero Section) --- */}
             <section className="relative overflow-hidden bg-white border-b border-slate-100 min-h-[70vh] lg:min-h-130 flex items-center py-12">
-                {/* 배경 패턴 (선택사항: 격자 무늬로 정적인 느낌 강조) */}
                 <div
                     className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
                     style={{
@@ -17,11 +14,8 @@ function SubjectNavHome() {
                         backgroundSize: '20px 20px' // 'size'를 'backgroundSize'로 수정
                     }}
                 />
-
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-
-                        {/* 텍스트 영역 */}
                         <div className="flex-1 text-center md:text-left">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6">
                                 <Compass size={16} />
@@ -55,27 +49,72 @@ function SubjectNavHome() {
                                         성적 산출 방식 보기
                                     </Button>
                                 </HomeGradeMethodDialog>
-                                {/* <button onClick={() => console.log(NAVI_SUBJECT_DATA[154])}>test</button> */}
                             </div>
                         </div>
 
-                        {/* 시각화 영역 (인포그래픽 느낌) */}
-                        <div className="flex-1 relative max-w-md w-full">
-                            <div className="aspect-square rounded-3xl bg-slate-50 border border-slate-100 p-8 flex items-center justify-center relative">
-                                {/* 장식용 아이콘들 (중앙 집중형) */}
-                                <div className="absolute top-10 right-10 p-4 bg-white rounded-2xl shadow-sm border border-slate-100 animate-bounce transition-all duration-1000">
-                                    <FileText className="text-blue-500" size={32} />
-                                </div>
-                                <div className="absolute bottom-12 left-8 p-4 bg-white rounded-2xl shadow-sm border border-slate-100">
-                                    <MousePointer2 className="text-indigo-500" size={32} />
+                        {/* 행정 서비스용 세련된 타임라인 인포그래픽 */}
+                        <div className="flex-1 relative w-full max-w-xl pl-8 mt-12 lg:mt-0">
+                            {/* 배경에 흐르는 듯한 부드러운 라인 (Path) - 시선의 흐름을 유도 */}
+                            <svg className="absolute left-[-20px] top-0 h-full w-24 opacity-20 pointer-events-none hidden sm:block" viewBox="0 0 100 600">
+                                <path d="M50,0 Q80,150 20,300 T50,600" fill="none" stroke="url(#lineGrad)" strokeWidth="4" strokeDasharray="8 8" />
+                                <defs>
+                                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stopColor="#3b82f6" />
+                                        <stop offset="100%" stopColor="#10b981" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
+                            <div className="space-y-4">
+                                {/* Step 1: 교과군별 교과안내 */}
+                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-blue-100/50 border border-transparent hover:border-blue-100 cursor-pointer">
+                                    <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-100 group-hover:scale-110 transition-transform">
+                                        <BookOpen size={28} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">교과군별 교과 안내</h4>
+                                        <p className="text-sm text-slate-500 mt-1">2022 개정 교육과정의 과목 체계를 한눈에 확인하세요.</p>
+                                    </div>
+                                    <ArrowRight className="text-slate-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" size={20} />
                                 </div>
 
-                                {/* 중앙 메인 그래픽 (SVG나 큰 아이콘) */}
-                                <div className="text-center">
-                                    <div className="w-32 h-32 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl shadow-blue-100">
-                                        <Compass size={64} className="text-white" />
+                                {/* Step 2: 대학 및 학과 추천 */}
+                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50 border border-transparent hover:border-indigo-100 cursor-pointer">
+                                    <div className="flex-shrink-0 w-14 h-14 bg-indigo-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
+                                        <GraduationCap size={28} />
                                     </div>
-                                    <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Navigation Center</span>
+                                    <div className="flex-1">
+                                        <h4 className="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">대학 및 학과 추천</h4>
+                                        <p className="text-sm text-slate-500 mt-1">목표하는 전공에 꼭 필요한 핵심 과목을 제안해 드립니다.</p>
+                                    </div>
+                                    <ArrowRight className="text-slate-300 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" size={20} />
+                                </div>
+
+                                {/* Step 3: 계열별 과목추천 */}
+                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-purple-100/50 border border-transparent hover:border-purple-100 cursor-pointer">
+                                    <div className="flex-shrink-0 w-14 h-14 bg-purple-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-purple-100 group-hover:scale-110 transition-transform">
+                                        <LayoutGrid size={28} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors">계열별 과목 추천</h4>
+                                        <p className="text-sm text-slate-500 mt-1">인문, 사회, 공학 등 진로 계열별 최적의 선택지를 탐색하세요.</p>
+                                    </div>
+                                    <ArrowRight className="text-slate-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" size={20} />
+                                </div>
+
+                                {/* Step 4: 오프라인 공동교육과정 (전남 특화) */}
+                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-emerald-100/50 border border-transparent hover:border-emerald-100 cursor-pointer">
+                                    <div className="flex-shrink-0 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100 group-hover:scale-110 transition-transform">
+                                        <Map size={28} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <h4 className="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">오프라인 공동교육과정</h4>
+                                            {/* <span className="bg-emerald-50 text-emerald-600 text-[10px] px-2 py-0.5 rounded-md font-bold border border-emerald-100">전남 특화</span> */}
+                                        </div>
+                                        <p className="text-sm text-slate-500 mt-1">우리 학교에 없는 과목, 가까운 거점 학교에서 찾아보세요.</p>
+                                    </div>
+                                    <ArrowRight className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all" size={20} />
                                 </div>
                             </div>
                         </div>
