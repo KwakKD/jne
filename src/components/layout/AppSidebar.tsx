@@ -7,7 +7,7 @@ import {
     Map,           // 오프라인 현황
     PieChart,      // 과목별 통계
     School,        // 학교별 통계
-    CalendarDays,
+    // CalendarDays,
     LogOut
 } from "lucide-react"
 import {
