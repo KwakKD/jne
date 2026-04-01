@@ -30,7 +30,7 @@ export function AppSidebar() {
             <SidebarHeader className="p-4 gap-4">
                 <div className="flex items-center gap-3 px-1 cursor-pointer" onClick={() => navigate('/')}>
                     <div className="h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-[#005eb8] p-1.5 flex items-center justify-center shadow-sm">
-                        <img src="/logo.png" alt="전남교육청" className="brightness-0 invert object-contain" />
+                        {/* <img src="/logo.png" alt="전남교육청" className="brightness-0 invert object-contain" /> */}
                     </div>
                     <div className="flex flex-col group-data-[collapsible=icon]:hidden">
                         <span className="text-sm font-bold text-slate-900 leading-tight">전남교육청</span>
@@ -39,13 +39,13 @@ export function AppSidebar() {
                 </div>
 
                 {/* 학년도 선택: 업무의 기준점 */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-xl border border-slate-100 group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:justify-center">
+                {/* <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-xl border border-slate-100 group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:justify-center">
                     <CalendarDays size={16} className="text-[#005eb8] shrink-0" />
                     <select className="bg-transparent text-xs font-bold text-slate-700 focus:outline-none cursor-pointer w-full group-data-[collapsible=icon]:hidden">
                         <option>2026학년도</option>
                         <option>2025학년도</option>
                     </select>
-                </div>
+                </div> */}
             </SidebarHeader>
 
             {/* [중앙] 핵심 메뉴 구성 */}
@@ -53,9 +53,9 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton isActive={location.pathname === '/'} onClick={() => navigate('/')} tooltip="대시보드 홈">
+                            <SidebarMenuButton isActive={location.pathname === '/'} onClick={() => navigate('/')} tooltip="홈으로 가기">
                                 <LayoutDashboard />
-                                <span className="font-semibold">대시보드 홈</span>
+                                <span className="font-semibold">홈으로 가기</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -69,7 +69,7 @@ export function AppSidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {[
-                                { title: "과목별 교사 수 입력", icon: UserPlus, path: "/manage/teacher-count" },
+                                { title: "과목별 교사 수 입력", icon: UserPlus, path: "/high-school/teacher-count" },
                                 { title: "학교 교육과정 편성", icon: FileEdit, path: "/manage/curriculum" },
                                 { title: "공동(추가)교육과정 편성", icon: Library, path: "/manage/joint" },
                                 { title: "학교별 시수 관리", icon: Clock, path: "/manage/hours" },

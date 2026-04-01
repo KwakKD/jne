@@ -22,13 +22,13 @@ function AppHeader() {
                     onClick={() => navigate('/')}
                 >
                     {/* 이미지가 없다면 임시 방편으로 원형 div를 사용하세요 */}
-                    <div className="h-12 w-12 overflow-hidden rounded-full bg-white p-1">
+                    {/* <div className="h-12 w-12 overflow-hidden rounded-full bg-white p-1">
                         <img
                             src="/logo.png"
                             alt="전남교육청 로고"
                             className="h-full w-full object-contain"
                         />
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-4">
                         <h1 className="text-xl font-bold leading-tight">전라남도교육청</h1>
                         <p className="text-sm font-light opacity-90">교육과정 통합정보시스템</p>

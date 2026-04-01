@@ -22,12 +22,12 @@ function SubjectNavHome() {
                                 <span>2022 개정 교육과정 가이드</span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.2] mb-6">
-                                나의 꿈을 잇는 <span className="text-blue-600">전남 교육과정</span>,<br />
+                                나의 꿈을 잇는 <span className="text-blue-600">전라남도 교육과정</span>,<br />
                                 당신의 선택을 돕습니다.
                             </h1>
                             <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
                                 복잡한 과목 선택, 어디서부터 시작해야 할지 고민인가요? <br className="hidden md:block" />
-                                교과 영역별 정보부터 진로 계열별 추천 과목까지, 전남의 학생들이 자신만의 교육과정을 설계할 수 있도록 모든 정보를 담았습니다.
+                                교과 영역별 정보부터 진로 계열별 추천 과목까지, 전라남도의 학생들이 자신만의 교육과정을 설계할 수 있도록 모든 정보를 담았습니다.
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">

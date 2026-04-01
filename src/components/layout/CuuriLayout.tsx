@@ -3,11 +3,17 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Outlet } from "react-router-dom"
 import { Separator } from "../ui"
+import type React from "react"
 
 export function CurriLayout() {
     return (
         <TooltipProvider delayDuration={0}>
-            <SidebarProvider>
+            <SidebarProvider
+                style={{
+                    "--sidebar-width": "280px",
+                    "--sidebar-width-icon": "64px"
+                } as React.CSSProperties}
+            >
                 <div className="flex h-screen w-full overflow-hidden bg-white">
                     {/* 사이드바가 화면 왼쪽 전체(Top to Bottom)를 차지합니다 */}
                     <AppSidebar />
