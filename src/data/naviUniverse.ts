@@ -1,5 +1,5 @@
 import type { StandardCategoryType, UniverseType } from "@/type/nav";
-import { GATHOLIC, GORYU, GUKMIN, GUNGUK, GWANGWON, GYOUNGHWE } from "./universe";
+import { DUKSUNG, GATHOLIC, GORYU, GUKMIN, GUNGUK, GWANGWON, GYOUNGHWE, SEOULGWAGI } from "./universe";
 
 const NAV_UNIVERSE_REGIONS = [
     { id: "all", name: "전체" }, { id: "seoul", name: "서울" },
@@ -33,6 +33,10 @@ export const CATEGORY_MAP: Record<StandardCategoryType, string> = {
     liberal_arts: "자유전공",
 };
 
-const NAV_UNIVERSE_DATA: UniverseType[] = [...GATHOLIC, ...GORYU, ...GUNGUK, ...GWANGWON,...GYOUNGHWE,...GUKMIN]
+const NAV_UNIVERSE_DATA: UniverseType[] = [
+    ...GATHOLIC, ...GORYU, ...GUNGUK, ...GWANGWON, ...GYOUNGHWE, ...GUKMIN,
+    ...DUKSUNG, ...SEOULGWAGI
+
+]
 
 export { NAV_UNIVERSE_REGIONS, NAV_UNIVERSE_DATA }

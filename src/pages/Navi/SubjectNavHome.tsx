@@ -2,8 +2,10 @@ import { Button } from "@/components/ui"
 import { ArrowRight, BookOpen, Building2, Compass, GraduationCap, LayoutGrid, Map, School, Users } from "lucide-react"
 import { HomeSubjectStructureDialog } from "./HomeSubjectStructureDialog"
 import { HomeGradeMethodDialog } from "./HomeGradeMethodDialog"
+import { useNavigate } from "react-router-dom"
 
 function SubjectNavHome() {
+    const navigate = useNavigate()
     return (
         <div className="w-full">
             <section className="relative overflow-hidden bg-white border-b border-slate-100 min-h-[70vh] lg:min-h-130 flex items-center py-12">
@@ -67,7 +69,10 @@ function SubjectNavHome() {
 
                             <div className="space-y-4">
                                 {/* Step 1: 교과군별 교과안내 */}
-                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-blue-100/50 border border-transparent hover:border-blue-100 cursor-pointer">
+                                <div
+                                    className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-blue-100/50 border border-transparent hover:border-blue-100 cursor-pointer"
+                                    onClick={() => navigate('/subject-navigation/guide')}
+                                >
                                     <div className="flex-shrink-0 w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-100 group-hover:scale-110 transition-transform">
                                         <BookOpen size={28} />
                                     </div>
@@ -79,7 +84,10 @@ function SubjectNavHome() {
                                 </div>
 
                                 {/* Step 2: 대학 및 학과 추천 */}
-                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50 border border-transparent hover:border-indigo-100 cursor-pointer">
+                                <div
+                                    className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-indigo-100/50 border border-transparent hover:border-indigo-100 cursor-pointer"
+                                    onClick={() => navigate('/subject-navigation/uni')}
+                                >
                                     <div className="flex-shrink-0 w-14 h-14 bg-indigo-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
                                         <GraduationCap size={28} />
                                     </div>
@@ -91,7 +99,10 @@ function SubjectNavHome() {
                                 </div>
 
                                 {/* Step 3: 계열별 과목추천 */}
-                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-purple-100/50 border border-transparent hover:border-purple-100 cursor-pointer">
+                                <div
+                                    className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-purple-100/50 border border-transparent hover:border-purple-100 cursor-pointer"
+                                    onClick={() => navigate('/subject-navigation/uniGroup')}
+                                >
                                     <div className="flex-shrink-0 w-14 h-14 bg-purple-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-purple-100 group-hover:scale-110 transition-transform">
                                         <LayoutGrid size={28} />
                                     </div>
@@ -103,7 +114,10 @@ function SubjectNavHome() {
                                 </div>
 
                                 {/* Step 4: 오프라인 공동교육과정 (전남 특화) */}
-                                <div className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-emerald-100/50 border border-transparent hover:border-emerald-100 cursor-pointer">
+                                <div
+                                    className="group relative flex items-center gap-6 p-5 rounded-[2rem] transition-all hover:bg-white hover:shadow-2xl hover:shadow-emerald-100/50 border border-transparent hover:border-emerald-100 cursor-pointer"
+                                    onClick={() => navigate('/subject-navigation/offline')}
+                                >
                                     <div className="flex-shrink-0 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100 group-hover:scale-110 transition-transform">
                                         <Map size={28} />
                                     </div>

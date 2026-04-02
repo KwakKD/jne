@@ -15,7 +15,7 @@ function AppHeader() {
         navigate('/')
     }
     return (
-        <header className="w-full flex bg-blue-700 text-white shadow-md py-0.5 px-3 h-14 shrink-0 z-[100]">
+        <header className="w-full flex bg-gradient-to-r from-[#005eb8] via-[#86a7c4] to-[#005eb8] text-white shadow-lg py-0.5 px-3 h-14 shrink-0 z-[100]">
             <div className="container mx-auto flex items-center justify-between px-4">
                 <div
                     className="flex items-center gap-4 cursor-pointer"

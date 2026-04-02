@@ -27,6 +27,8 @@ function TeacherCount() {
             return fetchSchoolInfo(user.id);
         },
         enabled: !!user?.id,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 30,
     })
 
     const { data: dbTeacherData, isLoading: dbteacherLoading } = useQuery({
@@ -36,6 +38,8 @@ function TeacherCount() {
             return fetchTeacherInfo(user.id);
         },
         enabled: !!user?.id,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 30,
     })
 
     useEffect(() => {

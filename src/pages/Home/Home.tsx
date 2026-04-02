@@ -23,7 +23,16 @@ function Home() {
     }
 
     return (
-        <div className="flex min-h-[calc(100vh-120px)] items-center justify-center bg-slate-50 p-6">
+        <div className="relative flex min-h-[calc(100vh-90px)] items-center justify-center bg-slate-50 p-6 overflow-hidden">
+            {/* 1. 은은한 배경 그라데이션 (장식용) */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-300/40 blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/50 blur-[120px] pointer-events-none" />
+
+            {/* 2. 도트 패턴 (선택 사항: 더욱 세련된 느낌) */}
+            <div className="absolute inset-0 opacity-[0.5] pointer-events-none"
+                style={{ backgroundImage: `radial-gradient(#cbd5e1 1px, transparent 1px)`, backgroundSize: '30px 30px' }}
+            />
+
             <div className="grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
 
                 {/* 1. 과목선택 네비게이션 (누구나 이용 가능) */}

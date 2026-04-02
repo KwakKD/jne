@@ -226,7 +226,7 @@ function NaviUniver() {
                                                 {currentMajor.note && (
                                                     <div className="p-6 bg-blue-50/50 rounded-[1.5rem] border border-blue-100/50 flex gap-4">
                                                         <Info className="text-blue-500 shrink-0 mt-1" size={20} />
-                                                        <div className="text-sm text-slate-600 leading-relaxed italic">
+                                                        <div className="text-sm text-slate-600 leading-relaxed italic whitespace-pre-wrap">
                                                             {currentMajor.note}
                                                         </div>
                                                     </div>
