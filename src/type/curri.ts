@@ -10,3 +10,13 @@ export interface SchoolInfo {
     grade_3: number;
 }
 
+export interface SubjectType {
+    "과목명": string
+    "교과군": string
+    "유형": string
+    "기준학점": number
+    "Tag": number
+    "최소학점": number
+    "최대학점": number
+}
+

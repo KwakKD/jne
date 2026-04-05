@@ -70,7 +70,7 @@ export function AppSidebar() {
                         <SidebarMenu>
                             {[
                                 { title: "과목별 교사 수 입력", icon: UserPlus, path: "/high-school/teacher-count" },
-                                { title: "학교 교육과정 편성", icon: FileEdit, path: "/manage/curriculum" },
+                                { title: "학교 교육과정 편성", icon: FileEdit, path: "/high-school/curriculum" },
                                 { title: "공동(추가)교육과정 편성", icon: Library, path: "/manage/joint" },
                                 { title: "학교별 시수 관리", icon: Clock, path: "/manage/hours" },
                             ].map((item) => (

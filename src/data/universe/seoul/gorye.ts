@@ -202,7 +202,7 @@ const GORYU: UniverseType[] = [
         id: 'goryu_12',
         region: 'seoul',
         univName: '고려대',
-        category: '공학계열',
+        category: '자연계열',
         standardCategory: 'engineering',
         majorName: '건축학과',
         standardMajor: '건축학',

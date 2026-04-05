@@ -328,7 +328,7 @@ const DUKSUNG: UniverseType[] = [
         category: '교육계열',
         standardCategory: 'education',
         majorName: '유아교육학과',
-        standardMajor: '유아교육학',
+        standardMajor: '유아교육과',
         subjects: [
             { group: '국어', name: '국어', type: 'all', isGeneral: false },
             { group: '영어', name: '영어', type: 'all', isGeneral: false },

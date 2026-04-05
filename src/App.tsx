@@ -5,6 +5,7 @@ import { CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUni
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 import { CurriLayout } from './components/layout/CuuriLayout'
+import { Curriculum } from './pages/Curri/CurriCulum/CurriCulum'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path='/high-school' element={<CurriLayout />}>
           <Route index element={<CurriHome />} />
           <Route path='teacher-count' element={<TeacherCount />} />
+          <Route path='curriculum' element={<Curriculum />} />
         </Route>
       </Routes >
       <Toaster position='top-center' richColors closeButton />

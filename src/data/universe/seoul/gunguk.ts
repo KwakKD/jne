@@ -143,7 +143,7 @@ const GUNGUK: UniverseType[] = [
         category: '교육계열',
         standardCategory: 'education',
         majorName: '일어교육과',
-        standardMajor: '일어교육학',
+        standardMajor: '일어교육과',
         subjects: [
             { group: '국어', name: '국어', type: 'all', isGeneral: false },
             { group: '영어', name: '영어', type: 'all', isGeneral: false },
@@ -158,7 +158,7 @@ const GUNGUK: UniverseType[] = [
         category: '교육계열',
         standardCategory: 'education',
         majorName: '수학교육과',
-        standardMajor: '수학교육학',
+        standardMajor: '수학교육과',
         subjects: [
             { group: '국어', name: '국어', type: 'all', isGeneral: false },
             { group: '영어', name: '영어', type: 'all', isGeneral: false },
@@ -173,7 +173,7 @@ const GUNGUK: UniverseType[] = [
         category: '교육계열',
         standardCategory: 'education',
         majorName: '체육교육과',
-        standardMajor: '체육교육학',
+        standardMajor: '체육교육과',
         subjects: [
             { group: '국어', name: '국어', type: 'all', isGeneral: false },
             { group: '영어', name: '영어', type: 'all', isGeneral: false },
@@ -188,7 +188,7 @@ const GUNGUK: UniverseType[] = [
         category: '교육계열',
         standardCategory: 'education',
         majorName: '음악교육과',
-        standardMajor: '음악교육학',
+        standardMajor: '음악교육과',
         subjects: [
             { group: '국어', name: '국어', type: 'all', isGeneral: false },
             { group: '영어', name: '영어', type: 'all', isGeneral: false },

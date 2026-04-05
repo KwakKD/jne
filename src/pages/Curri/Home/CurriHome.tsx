@@ -213,7 +213,7 @@ function CurriHome() {
                                     desc="3개년 교과 편제와 이수 학점을 설계합니다."
                                     icon={<LayoutGrid size={28} />}
                                     color="indigo"
-                                    path="/subject-navigation/uniGroup"
+                                    path="/high-school/curriculum"
                                 />
                                 <MenuCardWithDesc
                                     title="공동교육과정 편성"
