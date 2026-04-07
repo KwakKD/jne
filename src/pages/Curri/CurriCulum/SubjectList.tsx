@@ -86,7 +86,7 @@ const SubjectLibrary = () => {
 
                         {filteredSubjects.map((subject) => (
                             <div key={subject.Tag} className="flex items-center gap-2 group">
-                            
+
                                 <div className="flex-1">
                                     {/* 카드에도 선택 상태를 넘겨줍니다 */}
                                     <DraggableSubject

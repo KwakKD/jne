@@ -400,7 +400,7 @@ const DUKSUNG: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '화학과',
-        standardMajor: '화학과',
+        standardMajor: '화학',
         subjects: [
             { group: '수학', name: '수학', type: 'all', isGeneral: false },
             { group: '과학', name: '과학', type: 'all', isGeneral: false },
