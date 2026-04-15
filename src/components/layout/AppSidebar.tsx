@@ -18,11 +18,22 @@ import {
 import { useAuth } from "@/hooks/useAuth"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "../ui"
+import { useQueryClient } from "@tanstack/react-query"
+import { supabase } from "@/lib/supabase"
 
 export function AppSidebar() {
     const { data: user } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const queryClient = useQueryClient()
+    
+    const handleLogout = async () => {
+        await supabase.auth.signOut()
+        queryClient.invalidateQueries({ queryKey: ['auth-user'] })
+        localStorage.removeItem('schoolJsonData')
+        navigate('/')
+    }
+
 
     return (
         <Sidebar variant="sidebar" collapsible="icon" className="border-r border-slate-200 bg-white">
@@ -33,7 +44,7 @@ export function AppSidebar() {
                         {/* <img src="/logo.png" alt="전남교육청" className="brightness-0 invert object-contain" /> */}
                     </div>
                     <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                        <span className="text-sm font-bold text-slate-900 leading-tight">전남교육청</span>
+                        <span className="text-sm font-bold text-slate-900 leading-tight">전라남도교육청</span>
                         <span className="text-[10px] text-slate-500 font-medium">교육과정 통합시스템</span>
                     </div>
                 </div>
@@ -53,7 +64,7 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton isActive={location.pathname === '/'} onClick={() => navigate('/')} tooltip="홈으로 가기">
+                            <SidebarMenuButton isActive={location.pathname === '/'} onClick={() => navigate('/high-school')} tooltip="홈으로 가기">
                                 <LayoutDashboard />
                                 <span className="font-semibold">홈으로 가기</span>
                             </SidebarMenuButton>
@@ -134,7 +145,7 @@ export function AppSidebar() {
                     variant="ghost"
                     size="sm"
                     className="w-full mt-3 h-8 text-slate-400 hover:text-red-600 hover:bg-red-50 group-data-[collapsible=icon]:hidden"
-                    onClick={() => {/* 로그아웃 로직 */ }}
+                    onClick={handleLogout}
                 >
                     <LogOut size={14} className="mr-2" />
                     <span className="text-xs font-bold">로그아웃</span>

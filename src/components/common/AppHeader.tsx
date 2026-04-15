@@ -12,6 +12,7 @@ function AppHeader() {
     const handleLogout = async () => {
         await supabase.auth.signOut()
         queryClient.invalidateQueries({ queryKey: ['auth-user'] })
+        localStorage.removeItem('schoolJsonData')
         navigate('/')
     }
     return (

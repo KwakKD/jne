@@ -24,12 +24,12 @@ export type JsonData = {
     Section: '지정' | '선택',
     IsGroup: string,
     SubjectGroup: string,
-    SubjectProperty: '공통' | '일반' | '진로' | '융합',
+    SubjectProperty: string,
     SubjectName: string,
     BasicCredit: number,
     Tag: number,
-    Grade: 1 | 2 | 3 | null,
-    Semester: 1 | 2 | null,
+    Grade: number | null,
+    Semester: number | null,
     Credit: number | null,
     IsTable: number | null
 }
@@ -49,8 +49,8 @@ export interface GroupCell {
     Subject: number[]; // 문자열 배열
     Grouptag: number | null
     Credit: number | null;
-    Grade: 1 | 2 | 3 | null;
-    Semester: 1 | 2 | null;
+    Grade: number | null;
+    Semester: number | null;
     Choice: number | null;
 }
 

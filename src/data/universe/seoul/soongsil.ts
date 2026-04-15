@@ -381,7 +381,7 @@ const SOONGSIL: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '물리학과',
-        standardMajor: '물리학과',
+        standardMajor: '물리학',
         subjects: [
             { group: '수학', name: '수학', type: 'all', isGeneral: false },
             { group: '과학', name: '물리학', type: 'all', isGeneral: false },

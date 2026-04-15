@@ -31,13 +31,18 @@ export const createAddSubjectSlice: StateCreator<
     }),
 
     // 특정 Tag를 가진 과목만 쏙 빼는 로직
-    delSubject: (year, tag) => set((state) => ({
-        userData: {
-            ...state.userData,
-            [year]: {
-                ...state.userData[year],
-                AddSubject: state.userData[year].AddSubject.filter(s => s.Tag !== tag)
+    delSubject: (year, tag) => set((state) => {
+        const currentYearData = state.userData[year];
+        if (!currentYearData) return state;
+
+        return {
+            userData: {
+                ...state.userData,
+                [year]: {
+                    ...currentYearData,
+                    AddSubject: currentYearData.AddSubject.filter(s => s.Tag !== tag)
+                }
             }
-        }
-    }))
+        };
+    })
 })

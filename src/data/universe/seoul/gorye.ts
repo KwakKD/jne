@@ -76,7 +76,7 @@ const GORYU: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '수학과',
-        standardMajor: '수학',
+        standardMajor: '수학과',
         subjects: [
             { group: '수학', name: '미적분Ⅱ', type: 'recommended', isGeneral: false },
             { group: '수학', name: '기하', type: 'recommended', isGeneral: false },
@@ -388,7 +388,7 @@ const GORYU: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '데이터과학학과',
-        standardMajor: '데이터과학과',
+        standardMajor: '데이터사이언스학',
         subjects: [
             { group: '수학', name: '미적분Ⅱ', type: 'recommended', isGeneral: false },
             { group: '수학', name: '기하', type: 'recommended', isGeneral: false },

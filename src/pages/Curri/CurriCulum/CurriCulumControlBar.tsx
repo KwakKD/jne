@@ -1,11 +1,12 @@
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator } from "@/components/ui";
 import { YEARS } from "@/data/data";
 import { useCurriTableStore } from "@/store/CurriSubjectStore";
-import { BookOpen, CalendarDays, GraduationCap, Layers} from "lucide-react";
+import { BookOpen, CalendarDays, GraduationCap, Layers } from "lucide-react";
 //그룹명
 const SUBJECT_GROUPS = [...Array.from({ length: 50 }, (_, i) => `그룹 ${i + 1}`)];
 // 학년학기
 const SUBJECT_SEMESTERS = [
+    { label: '학기 선택', value: "0-0" },
     { label: "1학년 1학기", value: "1-1" },
     { label: "1학년 2학기", value: "1-2" },
     { label: "2학년 1학기", value: "2-1" },
@@ -74,6 +75,7 @@ export const CurriculumControlBar = ({ config, onConfigChange }: ControlBarProps
 
                         {/* ✨ 핵심: max-h를 설정하고 overflow-y-auto를 부여합니다. */}
                         <SelectContent className="max-h-20 overflow-y-auto [&>div]:p-1">
+                            <SelectItem key='학교지정' value="학교지정">학교지정</SelectItem>
                             {SUBJECT_GROUPS.map((group) => (
                                 <SelectItem key={group} value={group}>
                                     {group}

@@ -434,8 +434,8 @@ const SEOUL: UniverseType[] = [
         id: 'seoul_33',
         region: 'seoul',
         univName: '서울대',
-        category: '사회계열',
-        standardCategory: 'social',
+        category: '인문계열',
+        standardCategory: 'humanities',
         majorName: '소비자아동학부(아동가족학전공)',
         standardMajor: '아동가족학',
         subjects: [
@@ -517,7 +517,7 @@ const SEOUL: UniverseType[] = [
         note: "과학 교과의 진로 선택 과목 중 3과목 이상"
     },
     {
-        id: 'seoul_39',
+        id: 'seoul_74',
         region: 'seoul',
         univName: '서울대',
         category: '자연계열',
@@ -586,7 +586,7 @@ const SEOUL: UniverseType[] = [
         category: '의약계열',
         standardCategory: 'medical',
         majorName: '간호대학',
-        standardMajor: '간호학',
+        standardMajor: '간호학과',
         subjects: [
             { group: '수학', name: '기하 또는 미적분Ⅱ', type: 'recommended', isGeneral: false },
             { group: '과학', name: '과학', type: 'recommended', isGeneral: false },

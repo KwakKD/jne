@@ -386,7 +386,7 @@ const GUNGUK: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '수학과',
-        standardMajor: '수학',
+        standardMajor: '수학과',
         subjects: [
             { group: '과학', name: '과학', type: 'all', isGeneral: false },
             { group: '수학', name: '대수', type: 'all', isGeneral: false },

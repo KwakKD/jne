@@ -444,7 +444,7 @@ const GATHOLIC: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '수학과',
-        standardMajor: '수학',
+        standardMajor: '수학과',
         subjects: [
             { group: '수학', name: '수학(3과목 이상)', type: 'all', isGeneral: false },
         ],

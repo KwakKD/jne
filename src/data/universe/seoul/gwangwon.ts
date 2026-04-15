@@ -364,7 +364,7 @@ const GWANGWON: UniverseType[] = [
         category: '자연계열',
         standardCategory: 'natural',
         majorName: '수학과',
-        standardMajor: '수학',
+        standardMajor: '수학과',
         subjects: [
             { group: '수학', name: '대수', type: 'core', isGeneral: false },
             { group: '수학', name: '미적분Ⅰ', type: 'core', isGeneral: false },

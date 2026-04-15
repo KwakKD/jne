@@ -261,8 +261,8 @@ const DUKSUNG: UniverseType[] = [
         id: 'duksung_16',
         region: 'seoul',
         univName: '덕성여대',
-        category: '사회계열',
-        standardCategory: 'social',
+        category: '인문계열',
+        standardCategory: 'humanities',
         majorName: '아동가족학과',
         standardMajor: '아동가족학',
         subjects: [

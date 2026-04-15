@@ -1,16 +1,25 @@
 import { useState, useMemo } from 'react';
-import { Search, Library } from 'lucide-react';
+import { Search, Library, Settings2 } from 'lucide-react';
 import { SUBJECT } from '@/data/Curri/subject';
 import { Input, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
 import { DraggableSubject } from './DraggableSubject';
+import { useCurriTableStore } from '@/store/CurriSubjectStore';
+import { SubjectManagerModal } from './SubjectManageModal';
 
 const SubjectLibrary = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedGroup, setSelectedGroup] = useState("all");
     const [selectedType, setSelectedType] = useState("all");
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const year = useCurriTableStore((state) => state.year)
+    const userData = useCurriTableStore((state) => state.userData)
+    const addSubjects = userData[year].AddSubject
+    const totalSubject = [...SUBJECT, ...addSubjects]
+
     const filteredSubjects = useMemo(() => {
-        return SUBJECT.filter(subject => {
+        return totalSubject.filter(subject => {
             const matchesSearch = subject.과목명.includes(searchTerm);
             const matchesGroup = selectedGroup === "all" || subject.교과군 === selectedGroup;
             const matchesType = selectedType === "all" || subject.유형 === selectedType;
@@ -19,16 +28,23 @@ const SubjectLibrary = () => {
     }, [searchTerm, selectedGroup, selectedType]);
 
     return (
-        <aside className="w-66 bg-white border-r border-slate-200 flex flex-col h-full overflow-hidden">
-            {/* 헤더 섹션: shadcn의 Input과 Select 활용 */}
+        // <aside className="w-66 bg-white border-r border-slate-200 flex flex-col h-full overflow-hidden">
+        <>
             <div className="flex-none p-5 border-b border-slate-100 space-y-4 bg-white">
-                <div className="flex items-center gap-4 mb-3">
+                <div className="flex items-center gap-2 mb-3">
                     <div className="p-2 bg-indigo-600 rounded-lg text-white shadow-sm">
                         <Library size={18} />
                     </div>
                     <h3 className="font-bold text-slate-900">과목 리스트</h3>
-                </div>
 
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-200 hover:bg-indigo-100 text-slate-600 hover:text-indigo-600 rounded-lg text-xs font-bold transition-all group"
+                    >
+                        <Settings2 size={14} className="group-hover:rotate-45 transition-transform" />
+                        과목 관리
+                    </button>
+                </div>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10" size={14} />
                     <Input
@@ -74,7 +90,6 @@ const SubjectLibrary = () => {
                 </div>
             </div>
 
-            {/* 과목 리스트 영역: shadcn의 ScrollArea 활용 */}
             <div className="flex-1 min-h-0">
                 <ScrollArea className="h-full bg-slate-50/30">
                     <div className="p-4 space-y-2">
@@ -88,7 +103,6 @@ const SubjectLibrary = () => {
                             <div key={subject.Tag} className="flex items-center gap-2 group">
 
                                 <div className="flex-1">
-                                    {/* 카드에도 선택 상태를 넘겨줍니다 */}
                                     <DraggableSubject
                                         subject={subject}
                                     />
@@ -98,7 +112,12 @@ const SubjectLibrary = () => {
                     </div>
                 </ScrollArea>
             </div>
-        </aside>
+            <SubjectManagerModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
+        </>
+        // </aside>
     );
 };
 

@@ -100,3 +100,4 @@ export {
 
 export { Skeleton } from './skeleton'
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip'
+export { Progress } from './progress'
