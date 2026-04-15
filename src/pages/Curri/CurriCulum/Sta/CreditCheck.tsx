@@ -15,7 +15,7 @@ export function CreditCheck() {
 
             <div className="grid grid-cols-1 gap-2">
                 {subjectGroupList.map((item, idx) => {
-                    const [min, max] = statistics_subjectCreditCheck[item] || [0, 0];
+                    const [min, _max] = statistics_subjectCreditCheck[item] || [0, 0];
                     const isLow = min < leastCredit[idx];
 
                     return (
