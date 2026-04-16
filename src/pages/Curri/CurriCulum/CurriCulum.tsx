@@ -20,6 +20,7 @@ import { CreditCheck } from "./Sta/CreditCheck";
 import { useStatistics } from "@/hooks/curriSta";
 import { exprotToExcel } from "@/utils/Curri/ExportExcel";
 import { useAuth } from "@/hooks/useAuth";
+import { CurriDataManageModal } from "./CurriDataManageModal";
 
 // 드롭존이 아닌 부분에 드롭이 된 경우 생각함.
 
@@ -30,6 +31,7 @@ const Curriculum = () => {
     const [activeSubject, setActiveSubject] = useState<SubjectType | null>(null);
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true)
     const [isRightSidebarOpen, setIsRighttSidebarOpen] = useState(false)
+    const [isDataModalOpen, setIsDataModalOpen] = useState(false);
 
     const year = useCurriTableStore((state) => state.year)
     const userData = useCurriTableStore((state) => state.userData)
@@ -206,6 +208,13 @@ const Curriculum = () => {
 
         // 드래그 종료 후 상태 초기화
         setActiveSubject(null);
+        setConfig({
+            group: '학교지정',
+            grade: 0,
+            sem: 0,
+            choice: 1,
+            credit: 2
+        })
 
     };
 
@@ -296,7 +305,7 @@ const Curriculum = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <button
-                                    onClick={() => { /* 자료 관리 모달 또는 드롭다운 */ }}
+                                    onClick={() => setIsDataModalOpen(true)}
                                     className="flex items-center gap-2 px-2 py-2 bg-white hover:bg-slate-50 text-slate-600 text-[12px] font-bold rounded-xl border border-slate-200 shadow-sm transition-all active:scale-95"
                                 >
                                     <FolderOpen size={18} className="text-slate-400" />
@@ -419,6 +428,10 @@ const Curriculum = () => {
                     </div>
                 ) : null}
             </DragOverlay>
+            <CurriDataManageModal
+                isOpen={isDataModalOpen}
+                onClose={() => setIsDataModalOpen(false)}
+            />
         </DndContext>
     );
 };

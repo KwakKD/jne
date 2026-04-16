@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase"
 import type { SchoolInfoProps } from "./supabaseAPI"
 import type { FullUserInfo } from "@/hooks/useAuth"
 import type { SubjectCode } from "@/data/Curri/teacher"
-import type { subT } from "@/type/curri"
+import type { SchoolJsonDataType, subT } from "@/type/curri"
 
 export const saveSchoolInfo = async (user: FullUserInfo, data: SchoolInfoProps) => {
     const { error } = await supabase
@@ -31,6 +31,35 @@ export const saveTeacherInfo = async (user: FullUserInfo, data: Record<SubjectCo
             teacher_info: data
         }, { onConflict: 'user_id' })
         .select()
+
+    if (error) throw error
+    return true
+}
+
+export const saveCurriData = async (user: FullUserInfo, userData: Record<string, SchoolJsonDataType>) => {
+    const rows = (Object.keys(userData) as Array<keyof typeof userData>).map(
+        (key) => {
+            const insertData = userData[key]
+            return {
+                user_id: user.id,
+                year: key,
+                location: user.location,
+                schoolname: user.schoolname,
+                role: 'admin',
+                fix: insertData.학교지정,
+                choice: insertData.선택과목,
+                groupdata: insertData.Group,
+                addsubjects: insertData.AddSubject,
+                CEA: insertData.CEA,
+            }
+        }
+    )
+
+    const { error } = await supabase
+        .from("schoolsdata")
+        .upsert(rows, {
+            onConflict: 'user_id,year',
+        });
 
     if (error) throw error
     return true

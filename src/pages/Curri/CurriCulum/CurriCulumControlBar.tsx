@@ -2,6 +2,7 @@ import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, S
 import { YEARS } from "@/data/data";
 import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { BookOpen, CalendarDays, GraduationCap, Layers } from "lucide-react";
+import { useEffect } from "react";
 //그룹명
 const SUBJECT_GROUPS = [...Array.from({ length: 50 }, (_, i) => `그룹 ${i + 1}`)];
 // 학년학기
@@ -31,10 +32,43 @@ interface ControlBarProps {
 export const CurriculumControlBar = ({ config, onConfigChange }: ControlBarProps) => {
     const year = useCurriTableStore((state) => state.year)
     const setYear = useCurriTableStore((state) => state.setYear)
+    const userData = useCurriTableStore((state) => state.userData);
+
+    const currentGroups = userData[year].Group
+    const schoolFixedCount = userData[year].학교지정.filter(item => item.IsGroup === '').length
+
     // 헬퍼 함수: 특정 키값만 업데이트하여 부모로 전달
     const updateConfig = (updates: Partial<configProps>) => {
         onConfigChange({ ...config, ...updates });
     };
+
+    useEffect(() => {
+        // 1. '학교지정'이거나 그룹명이 없는 경우는 제외
+        if (!config.group || config.group === '학교지정') return;
+
+        // 2. 현재 선택된 그룹의 상세 데이터 가져오기
+        const selectedGroupData = userData[year]?.Group?.[config.group];
+
+        // 3. 그룹 데이터가 존재하고, 실제로 설정된 값이 있는 경우에만 업데이트
+        // (Zone이 null이 아니거나 Grouptag가 있는 등 '설정됨'의 기준을 체크)
+        if (selectedGroupData && selectedGroupData.Zone !== null) {
+            onConfigChange({
+                ...config,
+                grade: selectedGroupData.Grade || 0,
+                sem: selectedGroupData.Semester || 0,
+                choice: selectedGroupData.Choice || 1,
+                credit: selectedGroupData.Credit || 2,
+            });
+        } else {
+            onConfigChange({
+                ...config,
+                grade: 0,
+                sem: 0,
+                choice: 1,
+                credit: 2,
+            })
+        }
+    }, [config.group, year]); // 그룹명이나 연도가 바뀔 때마다 실행
 
     return (
         <div className="sticky top-0 z-30 flex items-center gap-4 p-3 bg-white/80 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-sm mb-4">
@@ -74,13 +108,56 @@ export const CurriculumControlBar = ({ config, onConfigChange }: ControlBarProps
                         </SelectTrigger>
 
                         {/* ✨ 핵심: max-h를 설정하고 overflow-y-auto를 부여합니다. */}
-                        <SelectContent className="max-h-20 overflow-y-auto [&>div]:p-1">
-                            <SelectItem key='학교지정' value="학교지정">학교지정</SelectItem>
-                            {SUBJECT_GROUPS.map((group) => (
-                                <SelectItem key={group} value={group}>
-                                    {group}
-                                </SelectItem>
-                            ))}
+                        <SelectContent className="max-h-80 overflow-y-auto">
+                            <SelectItem key='학교지정' value="학교지정">
+                                <div className="flex items-center justify-between w-full gap-4">
+                                    <span>학교지정</span>
+                                    {schoolFixedCount > 0 && (
+                                        <span className="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-full font-medium">
+                                            {schoolFixedCount}
+                                        </span>
+                                    )}
+                                </div>
+                            </SelectItem>
+
+                            <Separator className="my-1" />
+
+                            {SUBJECT_GROUPS.map((groupName) => {
+                                const groupData = currentGroups[groupName];
+                                const subjectCount = groupData?.Subject?.length || 0;
+                                const subjectProps = groupData?.Zone; // "선택", "지정" 등
+                                const hasData = subjectCount > 0;
+
+                                return (
+                                    <SelectItem key={groupName} value={groupName}>
+                                        <div className="flex items-center justify-between w-full gap-3">
+                                            <div className="flex items-center gap-2">
+                                                {/* 1. 그룹 이름 (데이터 유무에 따라 강조) */}
+                                                <span className={hasData ? "font-bold text-indigo-600" : "text-slate-600"}>
+                                                    {groupName}
+                                                </span>
+
+                                                {/* 2. Zone 정보 (subjectProps) 표시 - 데이터가 있을 때만 작은 텍스트로 표시 */}
+                                                {hasData && subjectProps && (
+                                                    <span className={`text-[10px] px-1 rounded border ${subjectProps === '선택'
+                                                        ? "text-blue-500 border-blue-100 bg-blue-50"
+                                                        : "text-slate-400 border-slate-100 bg-slate-50"
+                                                        }`}>
+                                                        {subjectProps}
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            {/* 3. 과목 수 배지 */}
+                                            {hasData && (
+                                                <span className="text-[10px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded-md border border-indigo-100 font-bold">
+                                                    {subjectCount}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </SelectItem>
+                                );
+                            })}
                         </SelectContent>
                     </Select>
                 </div>
