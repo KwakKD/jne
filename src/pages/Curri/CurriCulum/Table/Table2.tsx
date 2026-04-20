@@ -23,7 +23,7 @@ export const Table2 = () => {
         const spanNumber = groupInfo[item.IsGroup].Subject.length;
         const spanSubject = data.filter(sub => sub.IsGroup === item.IsGroup);
         const rowNumber = data.length;
-        const classname = "text-center align-middle font-bold text-[12px] text-indigo-600 bg-indigo-50/30 border-r border-slate-200 last:border-r-0 px-1"
+        const classname = "text-center align-middle font-bold text-[12px] text-slate-600 bg-indigo-50/30 border border-slate-300 last:border-r-0 px-1"
 
         if (idx !== rowNumber - 1) {
             if (item.IsTable !== data[idx + 1].IsTable) {
@@ -34,46 +34,70 @@ export const Table2 = () => {
                             ?
                             <>
                                 <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                <td></td><td></td><td></td><td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                             </>
                             : (item.Grade === 1 && item.Semester === 2)
                                 ?
                                 <>
-                                    <td></td>
+                                    <td className={classname}></td>
                                     <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                    <td></td><td></td><td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                 </>
                                 : (item.Grade === 2 && item.Semester === 1)
                                     ?
                                     <>
-                                        <td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                         <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                        <td></td><td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                     </>
                                     : (item.Grade === 2 && item.Semester === 2)
                                         ?
                                         <>
-                                            <td></td><td></td><td></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
                                             <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                            <td></td><td></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
                                         </>
                                         : (item.Grade === 3 && item.Semester === 1)
                                             ?
                                             <>
-                                                <td></td><td></td><td></td><td></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
                                                 <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                                <td></td>
+                                                <td className={classname}></td>
                                             </>
                                             :
                                             <>
-                                                <td></td><td></td><td></td><td></td><td></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
                                                 <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
                                             </>
                     )
                 } else {
                     return (
                         <>
-                            <td></td><td></td><td></td><td></td><td></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
                         </>
                     )
                 }
@@ -89,19 +113,27 @@ export const Table2 = () => {
                             <>
                                 <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_1}</td>
                                 <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
-                                <td></td><td></td><td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                             </>
                             : item.Grade === 2
                                 ?
                                 <>
-                                    <td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                     <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_1}</td>
                                     <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
-                                    <td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                 </>
                                 :
                                 <>
-                                    <td></td><td></td><td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                     <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_1}</td>
                                     <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
                                 </>
@@ -113,25 +145,36 @@ export const Table2 = () => {
                             ?
                             <>
                                 <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
-                                <td></td><td></td><td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                             </>
                             : item.Grade === 2
                                 ?
                                 <>
-                                    <td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                     <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
-                                    <td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                 </>
                                 :
                                 <>
-                                    <td></td><td></td><td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                     <td className={classname} rowSpan={spanNumber_1} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
                                 </>
                     )
                 } else if (item.Tag !== spanSubject[0].Tag && data[idx + 1].Tag !== spanSubject_1[0].Tag) {
                     return (
                         <>
-                            <td></td><td></td><td></td><td></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
                         </>
                     )
                 }
@@ -143,39 +186,59 @@ export const Table2 = () => {
                     ?
                     <>
                         <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                        <td></td><td></td><td></td><td></td><td></td>
+                        <td className={classname}></td>
+                        <td className={classname}></td>
+                        <td className={classname}></td>
+                        <td className={classname}></td>
+                        <td className={classname}></td>
                     </>
                     : (item.Grade === 1 && item.Semester === 2)
                         ?
                         <>
-                            <td></td>
+                            <td className={classname}></td>
                             <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                            <td></td><td></td><td></td><td></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
                         </>
                         : (item.Grade === 2 && item.Semester === 1)
                             ?
                             <>
-                                <td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                                 <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                <td></td><td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                             </>
                             : (item.Grade === 2 && item.Semester === 2)
                                 ?
                                 <>
-                                    <td></td><td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                     <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                    <td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                 </>
                                 : (item.Grade === 3 && item.Semester === 1)
                                     ?
                                     <>
-                                        <td></td><td></td><td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                         <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                        <td></td>
+                                        <td className={classname}></td>
                                     </>
                                     :
                                     <>
-                                        <td></td><td></td><td></td><td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                         <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
                                     </>
             )
@@ -184,7 +247,11 @@ export const Table2 = () => {
                 if (data[idx - 1].IsGroup === item.IsGroup) {
                     return (
                         <>
-                            <td></td><td></td><td></td><td></td><td></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
+                            <td className={classname}></td>
                         </>
                     )
                 } else {
@@ -194,39 +261,59 @@ export const Table2 = () => {
                             ?
                             <>
                                 <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                <td></td><td></td><td></td><td></td><td></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
                             </>
                             : (item.Grade === 1 && item.Semester === 2)
                                 ?
                                 <>
-                                    <td></td>
+                                    <td className={classname}></td>
                                     <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                    <td></td><td></td><td></td><td></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
                                 </>
                                 : (item.Grade === 2 && item.Semester === 1)
                                     ?
                                     <>
-                                        <td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                         <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                        <td></td><td></td><td></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
+                                        <td className={classname}></td>
                                     </>
                                     : (item.Grade === 2 && item.Semester === 2)
                                         ?
                                         <>
-                                            <td></td><td></td><td></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
                                             <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                            <td></td><td></td>
+                                            <td className={classname}></td>
+                                            <td className={classname}></td>
                                         </>
                                         : (item.Grade === 3 && item.Semester === 1)
                                             ?
                                             <>
-                                                <td></td><td></td><td></td><td></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
                                                 <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
-                                                <td></td>
+                                                <td className={classname}></td>
                                             </>
                                             :
                                             <>
-                                                <td></td><td></td><td></td><td></td><td></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
+                                                <td className={classname}></td>
                                                 <td className={classname} style={{ whiteSpace: 'pre-line' }}>{insertText}</td>
                                             </>
                     )
@@ -242,11 +329,12 @@ export const Table2 = () => {
         const choice2 = groupInfo[data[idx + 1]?.IsGroup]?.Choice ?? 0
         const subjectNumber1 = groupInfo[item.IsGroup].Subject.length
         const subjectNumber2 = groupInfo[data[idx + 1]?.IsGroup]?.Subject.length ?? 0
+        const tdstyle = "px-2 py-0 text-center text-[12px] font-slate-700 border border-slate-300"
 
         if (data.length === 1) {
             return (
                 <td
-                    className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                    className={tdstyle}
                     style={{ background: ERROR_BG }}>{soloGroupText}</td>
             )
         } else {
@@ -255,24 +343,24 @@ export const Table2 = () => {
                     if (choice1 < subjectNumber1 && choice2 < subjectNumber2) {
                         return (
                             <td
-                                className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                                className={tdstyle}
                             >{joinGroupText}</td>
                         )
                     } else {
                         return (
                             <td
-                                className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                                className={tdstyle}
                                 style={{ background: ERROR_BG }}>{joinGroupText}</td>
                         )
                     }
                 } else {
                     if (choice1 < subjectNumber1) {
                         return <td
-                            className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                            className={tdstyle}
                         >{soloGroupText}</td>
                     } else {
                         return <td
-                            className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                            className={tdstyle}
                             style={{ background: ERROR_BG }}>{soloGroupText}</td>
                     }
                 }
@@ -280,11 +368,11 @@ export const Table2 = () => {
                 if (data[idx - 1].IsTable !== item.IsTable) {
                     if (choice1 < subjectNumber1) {
                         return <td
-                            className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                            className={tdstyle}
                         >{soloGroupText}</td>
                     } else {
                         return <td
-                            className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
+                            className={tdstyle}
                             style={{ background: ERROR_BG }}>{soloGroupText}</td>
                     }
                 }
@@ -334,51 +422,66 @@ export const Table2 = () => {
                     (item.IsTable !== data[idx + 1]?.IsTable && idx > 0 && item.IsTable === data[idx - 1].IsTable)
                         ? null
                         :
-                        <tr key={idx} style={{ border: '1px solid #ddd' }}>
+                        <tr
+                            key={idx}
+                            // style={{ border: '1px solid #ddd' }}
+                            className="group hover:bg-blue-50/30 transition-colors border-b border-slate-300"
+                        >
                             <td
-                                className="px-4 py-0 text-center text-xs text-slate-500 border-r border-slate-200 bg-slate-50/30"
+                                className="px-2 py-1.5 text-center text-[12px] text-slate-700 border border-slate-300 uppercase tracking-tighter"
                             >
                                 {item.Section}
                             </td>
                             {groupRendering(item, idx, data)}
                             <td
-                                className="px-3 py-0 text-center text-sm border-r border-slate-200"
+                                className="px-3 py-0 text-center text-[12px] text-slate-700 border border-slate-300 leading-tight"
                             >
                                 {item.SubjectGroup}
                             </td>
                             <td
-                                className="px-2 py-0 text-center text-[11px] text-slate-500 border-r border-slate-200"
+                                className="px-2 py-0 text-center text-[12px] text-slate-700 border border-slate-300"
                             >
                                 {item.SubjectProperty}
                             </td>
                             <td
-                                className="px-4 py-0 text-left text-sm font-bold text-slate-800 border-r border-slate-200"
+                                className="px-4 py-1.5 text-left text-[12px] font-semibold text-slate-900 border border-slate-300"
                             >
                                 {item.SubjectName}
                             </td>
                             <td
-                                className="px-2 py-0 text-center text-sm text-slate-400 border-r border-slate-200"
+                                className="px-2 py-0 text-center text-[12px] text-slate-700 border border-slate-300"
                             >
                                 {item.BasicCredit}
                             </td>
                             <td
-                                className="px-2 py-0 text-center text-sm font-semibold text-indigo-600 border-r border-slate-200"
+                                className="px-2 py-0 text-center text-[12px] font-bold text-indigo-700 border border-slate-300 bg-indigo-50/20"
                             >
                                 {item.Credit}
                             </td>
                             {rows(item, idx, data)}
-                            <td className="px-2 py-0 text-center border-l border-slate-200">
+                            {/* <td className="px-2 py-0 text-center border-l border-slate-200">
                                 <button
                                     onClick={() => handleDelete(item)}
                                     className="p-1 rounded-md hover:bg-red-50 text-slate-300 hover:text-red-500 transition-colors"
                                 >
                                     <span className="text-xs">❌</span>
                                 </button>
+                            </td> */}
+                            <td className="px-2 py-0 text-center border border-slate-200">
+                                <button
+                                    onClick={() => handleDelete(item)}
+                                    className="p-1.5 rounded-full opacity-0 group-hover:opacity-100 hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all"
+                                    title="과목 삭제"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                 ))
             )}
-            {table2Data.length > 0 && (
+            {/* {table2Data.length > 0 && (
                 <tr className="px-4 py-3 text-center text-sm text-slate-700 border-r border-slate-200">
                     <td colSpan={5} >선택과목 소계</td>
                     <td className="border-r border-slate-200 bg-slate-100/50"></td>
@@ -390,6 +493,23 @@ export const Table2 = () => {
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{statistics_2["3-1"]}</td>
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{statistics_2["3-2"]}</td>
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{allCredit_2}</td>
+                </tr>
+            )} */}
+            {table2Data.length >0 && (
+                <tr className="bg-slate-100/80 shadow-sm">
+                    <td colSpan={5} className="px-4 py-2.5 text-center border border-slate-300 font-bold text-[12px] text-slate-600 tracking-tight">
+                        선택과목 과목 학점 소계
+                    </td>
+                    <td className="border border-slate-300"></td>
+                    <td className="border border-slate-300"></td>
+                    {["1-1", "1-2", "2-1", "2-2", "3-1", "3-2"].map((key) => (
+                        <td key={key} className="px-2 py-2 text-center font-black text-[13px] text-indigo-800 border border-slate-300 bg-indigo-100/30">
+                            {statistics_2[key] || 0}
+                        </td>
+                    ))}
+                    <td className="px-2 py-2 text-center font-black text-[13px] text-white bg-indigo-600 border border-indigo-700">
+                        {allCredit_2}
+                    </td>
                 </tr>
             )}
         </>

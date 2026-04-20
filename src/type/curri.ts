@@ -71,3 +71,24 @@ for (let i = 1; i <= 50; i++) {
     };
     GROUPDATA[groupname] = groupCell;
 }
+
+export type STA_SUBJECTS = {
+    user_id: string
+    schoolname: string
+    year: string
+    sub_type: string
+    sub_name: string
+    sub_grade: number | null
+    sub_sem: number | null
+    sub_credit: number | null
+    sub_isgroup: string
+    sub_class: number | null
+    sub_teach: TeachProps[] | null
+    sub_subgroup: string | null
+    location: string
+}
+
+export type TeachProps = {
+    subject: string
+    credit: number
+}

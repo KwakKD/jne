@@ -220,7 +220,7 @@ function CurriHome() {
                                     desc="타교 연계 오프라인 공동 과목을 개설하고 수강 정원 및 거점 학교를 관리합니다."
                                     icon={<Share2 size={28} />}
                                     color="emerald"
-                                    path="/curriculum/joint-setup"
+                                    path="/high-school/union-curriculum"
                                 />
                                 <MenuCardWithDesc
                                     title="학교별 시수 관리"

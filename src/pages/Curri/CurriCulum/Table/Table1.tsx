@@ -15,7 +15,7 @@ const COLUMN = [
     { name: "col6", grade: 3, semester: 2, idx: 5 },
 ]
 
-const DEFAULT_BG = "rgb(205, 222, 255)";
+const DEFAULT_BG = "rgba(205, 222, 255,0.6)";
 const SUCCESS_BG = "#ffffff";
 const ERROR_BG = "rgba(255, 165, 165, 1)";
 
@@ -116,7 +116,7 @@ export const Table1 = () => {
                 <td
                     key={idx}
                     rowSpan={spanNumber}
-                    className="text-center align-middle font-bold text-[12px] text-indigo-600 bg-indigo-50/30 border-r border-slate-200 last:border-r-0 px-1"
+                    className="text-center align-middle font-bold text-[12px] text-slate-600 bg-indigo-50/30 border border-slate-300 last:border-r-0 px-1"
                     style={{ whiteSpace: "pre-line" }} // pre 대신 pre-line 권장 (자동 줄바꿈 방지)
                 >
                     {content ?? ""}
@@ -234,29 +234,30 @@ export const Table1 = () => {
             {table1Data.map((item) => (
                 <tr
                     key={item.Tag}
-                    className="group hover:bg-slate-50/50 transition-colors border-b border-slate-200"
+                    className="group hover:bg-blue-50/30 transition-colors border-b border-slate-300"
                 >
-                    <td className="px-4 py-0 text-center text-xs text-slate-500 border-r border-slate-200 bg-slate-50/30">{item.Section}</td>
+                    <td className="px-2 py-1.5 text-center text-[12px] text-slate-700 border border-slate-300 uppercase tracking-tighter">{item.Section}</td>
                     <td
-                        className="px-2 py-0 text-center text-xs font-medium border-r border-slate-200"
-                        style={item.IsGroup && Group[item.IsGroup]?.Subject.length < 2 ? { background: ERROR_BG } : {}}
+                        className="px-2 py-0 text-center text-[12px] font-slate-700 border border-slate-300"
+                        style={item.IsGroup && Group[item.IsGroup]?.Subject.length < 2 ? { background: ERROR_BG, color: 'white' } : { color: '#94a3b8' }}
                     >
                         {item.IsGroup}
                     </td>
-                    <td className="px-3 py-0 text-center text-sm border-r border-slate-200">{item.SubjectGroup}</td>
-                    <td className="px-2 py-0 text-center text-[11px] text-slate-500 border-r border-slate-200">{item.SubjectProperty}</td>
-                    <td className="px-4 py-0 text-left text-sm font-bold text-slate-800 border-r border-slate-200">{item.SubjectName}</td>
-                    <td className="px-2 py-0 text-center text-sm text-slate-400 border-r border-slate-200">{item.BasicCredit}</td>
-                    <td className="px-2 py-0 text-center text-sm font-semibold text-indigo-600 border-r border-slate-200">{item.Credit}</td>
+                    <td className="px-3 py-0 text-center text-[12px] text-slate-700 border border-slate-300 leading-tight">{item.SubjectGroup}</td>
+                    <td className="px-2 py-0 text-center text-[12px] text-slate-700 border border-slate-300">{item.SubjectProperty}</td>
+                    <td className="px-4 py-1.5 text-left text-[12px] font-semibold text-slate-900 border border-slate-300">{item.SubjectName}</td>
+                    <td className="px-2 py-0 text-center text-[12px] text-slate-700 border border-slate-300">{item.BasicCredit}</td>
+                    <td className="px-2 py-0 text-center text-[12px] font-bold text-indigo-700 border border-slate-300 bg-indigo-50/20">{item.Credit}</td>
 
                     {item.IsGroup === "" ? (
                         COLUMN.map((col) => (
                             <td
                                 key={col.name}
-                                className="p-0 border-r border-slate-200 last:border-r-0 h-2 w-10"
+                                className="p-0 border border-slate-300 last:border-r-0 h-2 w-10"
                             >
                                 <input
-                                    className="w-full h-full text-center text-sm font-bold focus:outline-none focus:bg-indigo-50/50 focus:ring-1 focus:ring-inset focus:ring-indigo-500 transition-all"
+                                    // className="w-full h-full text-center text-sm font-bold focus:outline-none focus:bg-indigo-50/50 focus:ring-1 focus:ring-inset focus:ring-indigo-500 transition-all"
+                                    className="w-full h-full text-center text-[12px] font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-inset focus:ring-indigo-400 transition-all placeholder:text-slate-200"
                                     name={col.name}
                                     type="text"
                                     inputMode="numeric"
@@ -271,17 +272,28 @@ export const Table1 = () => {
                         renderGroup(item)
                     )}
 
-                    <td className="px-2 py-0 text-center border-l border-slate-200">
+                    {/* <td className="px-2 py-0 text-center border-l border-slate-200">
                         <button
                             onClick={() => handleDelete(item)}
                             className="p-1 rounded-md hover:bg-red-50 text-slate-300 hover:text-red-500 transition-colors"
                         >
                             <span className="text-xs">❌</span>
                         </button>
+                    </td> */}
+                    <td className="px-2 py-0 text-center border border-slate-200">
+                        <button
+                            onClick={() => handleDelete(item)}
+                            className="p-1.5 rounded-full opacity-0 group-hover:opacity-100 hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all"
+                            title="과목 삭제"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </td>
                 </tr>
             ))}
-            {table1Data.length > 0 && (
+            {/* {table1Data.length > 0 && (
                 <tr className="px-4 py-3 text-center text-sm text-slate-700 border-r border-slate-200">
                     <td colSpan={5} >학교지정 과목 소계</td>
                     <td className="border-r border-slate-200 bg-slate-100/50"></td>
@@ -293,6 +305,23 @@ export const Table1 = () => {
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{statistics_1["3-1"]}</td>
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{statistics_1["3-2"]}</td>
                     <td className="px-2 py-1 text-center font-bold text-sm text-indigo-700 border-r border-slate-200 bg-indigo-50/30">{allCredit_1}</td>
+                </tr>
+            )} */}
+            {table1Data.length > 0 && (
+                <tr className="bg-slate-100/80 shadow-sm">
+                    <td colSpan={5} className="px-4 py-2.5 text-center border border-slate-300 font-bold text-[12px] text-slate-600 tracking-tight">
+                        학교지정 과목 학점 소계
+                    </td>
+                    <td className="border border-slate-300"></td>
+                    <td className="border border-slate-300"></td>
+                    {["1-1", "1-2", "2-1", "2-2", "3-1", "3-2"].map((key) => (
+                        <td key={key} className="px-2 py-2 text-center font-black text-[13px] text-indigo-800 border border-slate-300 bg-indigo-100/30">
+                            {statistics_1[key] || 0}
+                        </td>
+                    ))}
+                    <td className="px-2 py-2 text-center font-black text-[13px] text-white bg-indigo-600 border border-indigo-700">
+                        {allCredit_1}
+                    </td>
                 </tr>
             )}
 

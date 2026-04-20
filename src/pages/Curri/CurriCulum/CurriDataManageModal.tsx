@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Progress, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Progress, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 import { YEARS } from "@/data/data";
 import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { AlertCircle, ArrowRight, Copy, Database, Trash2 } from "lucide-react";
@@ -142,14 +142,35 @@ export function CurriDataManageModal({ isOpen, onClose }: CurriDataManageModalPr
                                             </div>
                                         </div>
                                         <div className="flex justify-center">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                className="h-8 w-8 text-slate-300 hover:text-red-500 hover:bg-red-50 transition-all"
-                                                onClick={() => handleDelete(y)}
-                                            >
-                                                <Trash2 size={16} />
-                                            </Button>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-8 w-8 text-slate-300 hover:text-red-500 hover:bg-red-50"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle className="text-red-600">정말 삭제하시겠습니까?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            {y}학년도의 모든 교육과정 데이터가 초기화됩니다.
+                                                            이 작업은 실행 후 되돌릴 수 없습니다.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>취소</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            className="bg-red-600 hover:bg-red-700"
+                                                            onClick={() => handleDelete(y)}
+                                                        >
+                                                            데이터 삭제
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
                                         </div>
                                     </div>
                                 );
@@ -201,13 +222,44 @@ export function CurriDataManageModal({ isOpen, onClose }: CurriDataManageModalPr
                                     </div>
                                 </div>
                             </div>
-                            <Button
-                                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 font-bold shadow-md shadow-indigo-100 transition-all"
-                                disabled={copyYear === SELECT_PLACEHOLDER || pasteYear === SELECT_PLACEHOLDER}
-                                onClick={handleCopy}
-                            >
-                                데이터 복사 실행
-                            </Button>
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 font-bold shadow-md shadow-indigo-100 transition-all"
+                                        disabled={copyYear === SELECT_PLACEHOLDER || pasteYear === SELECT_PLACEHOLDER}
+                                    >
+                                        데이터 복사 실행
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle className="flex items-center gap-4">
+                                            <Copy className="text-indigo-600" size={20} />
+                                            데이터를 덮어씌우시겠습니까?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription className="bg-slate-50 p-6 rounded-lg border border-slate-100 mt-2">
+                                            <div className="flex items-center justify-center gap-4 text-slate-700 font-bold">
+                                                <span className="text-indigo-600">{copyYear}학년도 데이터</span>
+                                                <ArrowRight size={16} className="text-slate-400" />
+                                                <span className="text-red-600">{pasteYear}학년도 데이터</span>
+                                            </div>
+                                            <p className="text-center mt-3 text-xs text-slate-600">
+                                                대상 학년도({pasteYear})의 기존 데이터는 <span className="text-red-500 font-bold">모두 삭제</span>되며,<br />
+                                                복사 후에는 이전 상태로 되돌릴 수 없습니다.
+                                            </p>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>취소</AlertDialogCancel>
+                                        <AlertDialogAction
+                                            className="bg-indigo-600 hover:bg-indigo-700"
+                                            onClick={handleCopy}
+                                        >
+                                            확인, 복사 실행
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </div>
 
                         <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-center">

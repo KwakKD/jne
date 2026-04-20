@@ -3,7 +3,7 @@ import type { UniverseType } from "@/type/nav";
 const GYOUNGSUNG: UniverseType[] = [
     {
         id: 'gyoungsung_0',
-        region: 'buans',
+        region: 'busan',
         univName: '경성대',
         category: '보건계열',
         standardCategory: 'medical',
@@ -19,7 +19,7 @@ const GYOUNGSUNG: UniverseType[] = [
     },
     {
         id: 'gyoungsung_1',
-        region: 'buans',
+        region: 'busan',
         univName: '경성대',
         category: '자유계열',
         standardCategory: 'liberal_arts',

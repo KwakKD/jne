@@ -101,3 +101,17 @@ export {
 export { Skeleton } from './skeleton'
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip'
 export { Progress } from './progress'
+export {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './alert-dialog'

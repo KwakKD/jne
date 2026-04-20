@@ -1,7 +1,7 @@
 // import { ChevronRight, Home, Layout } from "lucide-react";
 import { SubjectLibrary } from "./SubjectList";
 import { useCurriDragStore } from "@/store/CurriDragStroe";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GroupCell, SubjectType } from "@/type/curri";
 import { DndContext, DragOverlay, PointerSensor, pointerWithin, useSensor, useSensors, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
 import { SUBJECT } from "@/data/Curri/subject";
@@ -12,7 +12,7 @@ import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { CurriculumPreview } from "./CurriCulumPreview";
 import { toast } from "sonner";
 import { duplicateSuject_1, duplicateSuject_2, inJsonData1, inJsonData3 } from "@/utils/Curri/AfterDrop";
-import { FileSpreadsheet, FolderOpen, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Save } from "lucide-react";
+import { FileSpreadsheet, FolderOpen, Loader2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Save } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui";
 import { CurriAllProgress } from "./CurriAllProgress";
 import { KEMcheck } from "./Sta/KEMcheck";
@@ -21,10 +21,16 @@ import { useStatistics } from "@/hooks/curriSta";
 import { exprotToExcel } from "@/utils/Curri/ExportExcel";
 import { useAuth } from "@/hooks/useAuth";
 import { CurriDataManageModal } from "./CurriDataManageModal";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSchoolInfo } from "@/api/supabaseAPI";
+import { useSchoolInfoStore } from "@/store/SchoolInfo";
+import { saveCurriData } from "@/api/saveAPI";
 
 // 드롭존이 아닌 부분에 드롭이 된 경우 생각함.
 
 const Curriculum = () => {
+    const { data: user, isLoading: authLoading } = useAuth()
+    const { schoolinfo, setSchoolInfo } = useSchoolInfoStore()
     const selectedTags = useCurriDragStore((state) => state.selectedTags);
     const clearSelection = useCurriDragStore((state) => state.clearSelection);
     const toggleSelect = useCurriDragStore((state) => state.toggleSelect);
@@ -32,6 +38,7 @@ const Curriculum = () => {
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true)
     const [isRightSidebarOpen, setIsRighttSidebarOpen] = useState(false)
     const [isDataModalOpen, setIsDataModalOpen] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
 
     const year = useCurriTableStore((state) => state.year)
     const userData = useCurriTableStore((state) => state.userData)
@@ -43,6 +50,18 @@ const Curriculum = () => {
     const { data: loginUser } = useAuth()
 
     const { statistics_KEM } = useStatistics()
+
+    const { data: dbSchoolData, isLoading: dbschoolLoading } = useQuery({
+        queryKey: ['schoolInfo', user?.id],
+        queryFn: async () => {
+            if (!user?.id) throw new Error("사용자 ID가 없습니다.");
+            return fetchSchoolInfo(user.id);
+        },
+        enabled: !!user?.id,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 30,
+    })
+
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -66,6 +85,25 @@ const Curriculum = () => {
         const dragged = SUBJECT.find(s => s.Tag === active.id);
         if (dragged) setActiveSubject(dragged);
     };
+
+    useEffect(() => {
+        if (dbSchoolData) {
+            setSchoolInfo('grade_1', dbSchoolData.grade_1)
+            setSchoolInfo('grade_2', dbSchoolData.grade_2)
+            setSchoolInfo('grade_3', dbSchoolData.grade_3)
+        }
+
+    }, [dbSchoolData, setSchoolInfo])
+
+    if (authLoading || dbschoolLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
+                <Loader2 className="animate-spin text-blue-600" size={40} />
+                <p className="text-slate-500 font-medium">학교 정보를 불러오는 중입니다...</p>
+            </div>
+        )
+    }
+    
     const handleDragEnd = (event: DragEndEvent) => {
         const { over, active } = event;
 
@@ -218,6 +256,29 @@ const Curriculum = () => {
 
     };
 
+    const handleSave = async () => {
+        // 1. 사전 체크
+        if (!user?.id) {
+            toast.error("사용자 정보를 찾을 수 없습니다. 다시 로그인해주세요.");
+            return;
+        }
+
+        try {
+            setIsSaving(true); // 로딩 시작
+
+            // 2. 데이터 저장 실행 (await 필수)
+            await saveCurriData(user, userData, schoolinfo);
+
+            // 3. 성공 알림
+            toast.success("성공적으로 저장되었습니다.");
+        } catch (error) {
+            // 4. 에러 처리
+            console.error("Save Error:", error);
+            toast.error("저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        } finally {
+            setIsSaving(false); // 로딩 종료
+        }
+    };
 
     return (
         <DndContext
@@ -312,13 +373,20 @@ const Curriculum = () => {
                                     자료 관리
                                 </button>
                                 <button
-                                    onClick={() => { /* 저장 로직 */ toast.success("현재 편성이 저장되었습니다.") }}
-                                    className="flex items-center gap-2 px-2 py-2.5 bg-white text-slate-700 text-[12px] font-bold rounded-xl border border-slate-200 shadow-sm transition-all duration-200 
-                                            hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600 hover:shadow-md 
-                                            active:scale-95 group"
+                                    onClick={handleSave}
+                                    disabled={isSaving} // 저장 중에는 중복 클릭 방지
+                                    className={`flex items-center gap-2 px-2 py-2.5 bg-white text-[12px] font-bold rounded-xl border border-slate-200 shadow-sm transition-all duration-200
+            ${isSaving
+                                            ? "opacity-70 cursor-not-allowed bg-slate-50"
+                                            : "text-slate-700 hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600 hover:shadow-md active:scale-95 group"
+                                        }`}
                                 >
-                                    <Save size={18} className="text-slate-500" />
-                                    저장
+                                    {isSaving ? (
+                                        <Loader2 size={18} className="animate-spin text-indigo-500" />
+                                    ) : (
+                                        <Save size={18} className="text-slate-500 group-hover:text-indigo-500" />
+                                    )}
+                                    {isSaving ? "저장 중..." : "저장"}
                                 </button>
 
                                 <button
@@ -432,7 +500,7 @@ const Curriculum = () => {
                 isOpen={isDataModalOpen}
                 onClose={() => setIsDataModalOpen(false)}
             />
-        </DndContext>
+        </DndContext >
     );
 };
 

@@ -3,7 +3,7 @@ import type { UniverseType } from "@/type/nav";
 const DONGAH: UniverseType[] = [
     {
         id: 'dongah_0',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -17,7 +17,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_1',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -31,7 +31,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_2',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -46,7 +46,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_3',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '교육계열',
         standardCategory: 'education',
@@ -61,7 +61,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_4',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -76,7 +76,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_5',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -90,7 +90,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_6',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -104,7 +104,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_7',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -119,7 +119,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_8',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -133,7 +133,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_9',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -148,7 +148,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_10',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -162,7 +162,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_11',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -177,7 +177,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_12',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -192,7 +192,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_13',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -207,7 +207,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_14',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -222,7 +222,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_15',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -236,7 +236,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_16',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -250,7 +250,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_17',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -264,7 +264,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_18',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -278,7 +278,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_19',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -293,7 +293,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_20',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -308,7 +308,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_21',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -323,7 +323,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_22',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -337,7 +337,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_23',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -351,7 +351,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_25',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -365,7 +365,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_26',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -379,7 +379,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_27',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -393,7 +393,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_28',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -407,7 +407,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_29',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -421,7 +421,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_30',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -435,7 +435,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_31',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -449,7 +449,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_32',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -463,7 +463,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_33',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -478,7 +478,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_34',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -493,7 +493,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_35',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -508,7 +508,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_36',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -523,7 +523,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_37',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -538,7 +538,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_38',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -554,7 +554,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_39',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -569,7 +569,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_61',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -584,7 +584,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_40',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -599,7 +599,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_41',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -613,7 +613,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_42',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -627,7 +627,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_43',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -641,7 +641,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_44',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -655,7 +655,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_45',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -669,7 +669,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_46',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '예체능계열',
         standardCategory: 'arts_sports',
@@ -686,7 +686,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_47',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -700,7 +700,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_48',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -714,7 +714,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_49',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -729,7 +729,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_50',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '의약계열',
         standardCategory: 'medical',
@@ -745,7 +745,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_51',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '의약계열',
         standardCategory: 'medical',
@@ -761,7 +761,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_52',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '사회계열',
         standardCategory: 'social',
@@ -776,7 +776,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_53',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -791,7 +791,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_54',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -806,7 +806,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_55',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '인문계열',
         standardCategory: 'humanities',
@@ -821,7 +821,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_56',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '공학계열',
         standardCategory: 'engineering',
@@ -836,7 +836,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_57',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자연계열',
         standardCategory: 'natural',
@@ -851,7 +851,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_58',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '의약계열',
         standardCategory: 'medical',
@@ -867,7 +867,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_59',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자유계열',
         standardCategory: 'liberal_arts',
@@ -883,7 +883,7 @@ const DONGAH: UniverseType[] = [
     },
     {
         id: 'dongah_60',
-        region: 'buans',
+        region: 'busan',
         univName: '동아대',
         category: '자유계열',
         standardCategory: 'liberal_arts',
