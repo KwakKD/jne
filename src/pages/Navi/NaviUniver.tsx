@@ -93,7 +93,7 @@ function NaviUniver() {
                     </h1>
 
                     <p className="text-slate-200 text-lg max-w-2xl mx-auto leading-relaxed">
-                        목표하는 대학 전공과 커리어에 꼭 필요한 핵심 과목을 확인하세요.
+                        목표하는 대학 및 학과에 꼭 필요한 핵심 과목을 확인하세요.
                     </p>
                 </div>
             </section>

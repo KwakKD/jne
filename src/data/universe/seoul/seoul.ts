@@ -304,8 +304,8 @@ const SEOUL: UniverseType[] = [
         id: 'seoul_23',
         region: 'seoul',
         univName: '서울대',
-        category: '농림수산계열',
-        standardCategory: 'agriculture',
+        category: '자연계열',
+        standardCategory: 'natural',
         majorName: '농경제사회학부',
         standardMajor: '농경제사회학',
         subjects: [

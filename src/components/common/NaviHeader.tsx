@@ -18,7 +18,7 @@ function NaviHeader () {
                         <Compass size={22} strokeWidth={2.5} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-extrabold text-slate-800 tracking-tight">과목선택 가이드</h2>
+                        <h2 className="text-lg font-extrabold text-slate-800 tracking-tight">과목선택 네비게이션</h2>
                         <p className="text-[10px] text-blue-600 font-semibold uppercase tracking-wider">Information Hub</p>
                     </div>
                 </div>
@@ -53,12 +53,12 @@ function NaviHeader () {
                         오프라인 공동교육과정
                     </button>
 
-                    <button 
-                        onClick={() => navigate('/subject-navigation/help')} // <-- 경로 연결
+                    {/* <button 
+                        onClick={() => navigate('/subject-navigation/help')}
                         className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
                     >
                         자주하는 질문
-                    </button>
+                    </button> */}
                 </nav>
 
                 {/* 오른쪽: 홈 버튼 */}

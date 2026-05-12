@@ -25,7 +25,7 @@ export function NavSubjectDetail({ selectedSubject }: Props) {
                         </Badge>
 
                         {/* 3. 등급: 신뢰감을 주는 인디고(보라)색 */}
-                        {selectedSubject.rank !== '-' && (
+                        {selectedSubject.rank !== '∙' && (
                             <Badge className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/20 px-2.5 py-0.5 shadow-sm">
                                 석차 {selectedSubject.rank}
                             </Badge>

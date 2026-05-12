@@ -7,6 +7,8 @@ export interface SchoolDataSlice {
     setYear: (year: string) => void
     userData: Record<string, SchoolJsonDataType>
     setYearData: (year: string, data: SchoolJsonDataType) => void
+    staUserData: Record<string, SchoolJsonDataType>
+    setStaUserData: (year: string, data: SchoolJsonDataType) => void
 }
 
 export const createDefaultYear = (): SchoolJsonDataType => ({
@@ -36,6 +38,18 @@ export const createUserSlice: StateCreator<SchoolDataSlice> = (set) => ({
         set((state) => ({
             userData: {
                 ...state.userData,
+                [targetYear]: data,
+            },
+        })),
+    // Credit 페이지를 위한 임시 데이터
+    staUserData: YEARS.reduce((acc, y) => ({
+        ...acc,
+        [y]: createDefaultYear()
+    }), {} as Record<string, SchoolJsonDataType>),
+    setStaUserData: (targetYear, data) =>
+        set((state) => ({
+            staUserData: {
+                ...state.staUserData,
                 [targetYear]: data,
             },
         })),

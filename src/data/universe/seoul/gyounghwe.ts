@@ -473,7 +473,7 @@ const GYOUNGHWE: UniverseType[] = [
         region: 'seoul',
         univName: '경희대',
         category: '자연계열',
-        standardCategory: 'agriculture',
+        standardCategory: 'natural',
         majorName: '스마트팜과학과',
         standardMajor: '스마트팜과학',
         subjects: [

@@ -3,14 +3,57 @@ import { useAuth } from "@/hooks/useAuth"
 import {
     FileBarChart, Users, BarChart3, Activity,
     PieChart, Info, LayoutGrid, Share2,
-    Clock, MapPin, School
+    Clock, MapPin, School,
+    Loader2
 } from "lucide-react"
 import { MenuCardWithDesc } from "./MenuCardWithDesc"
 import { NoticeItem } from "./NoticeItem"
 import { MiniStatCard } from "./MiniStatCard"
+import { useQuery } from "@tanstack/react-query"
+import { fetchSchoolData } from "@/api/supabaseAPI"
+import { useEffect } from "react"
+import { useCurriTableStore } from "@/store/CurriSubjectStore"
+import type { SchoolJsonDataType } from "@/type/curri"
 
 function CurriHome() {
-    const { data: user } = useAuth()
+    const setYearData = useCurriTableStore((state) => state.setYearData)
+
+    const { data: user, isLoading: authLoading } = useAuth()
+
+    const { data: dbschoolsData, isLoading: dbschoolsdataLoading } = useQuery({
+        queryKey: ['schoolsdata', user?.id],
+        queryFn: async () => {
+            if (!user?.id) throw new Error('사용자 ID가 없습니다.')
+            return fetchSchoolData(user.id)
+        },
+        enabled: !!user?.id,
+        staleTime: 1000 * 60 * 30,
+        gcTime: 1000 * 60 * 30,
+    })
+
+    useEffect(() => {
+        if (dbschoolsData) {
+            dbschoolsData.forEach(item => {
+                const inData: SchoolJsonDataType = {
+                    "학교지정": item.fix,
+                    "선택과목": item.choice,
+                    "Group": item.groupdata,
+                    "AddSubject": item.addsubjects,
+                    "CEA": item.CEA
+                }
+                setYearData(String(item.year), inData)
+            })
+        }
+    }, [setYearData, dbschoolsData])
+
+    if (authLoading || dbschoolsdataLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
+                <Loader2 className="animate-spin text-blue-600" size={40} />
+                <p className="text-slate-500 font-medium">학교 정보를 불러오는 중입니다...</p>
+            </div>
+        )
+    }
 
     return (
         // <div className="w-full bg-slate-50/50">
@@ -227,7 +270,7 @@ function CurriHome() {
                                     desc="교사별 주간 수업 시수를 실시간으로 점검하고 조정합니다."
                                     icon={<Clock size={28} />}
                                     color="emerald"
-                                    path="/curriculum/teacher"
+                                    path="/high-school/credit"
                                 />
 
                                 {/* --- [B. 통계 및 현황 섹션] --- */}
@@ -236,7 +279,7 @@ function CurriHome() {
                                     desc="현재 운영 중인 오프라인 공동과목 개설 현황을 확인합니다."
                                     icon={<MapPin size={28} />}
                                     color="purple"
-                                    path="/curriculum/joint-status"
+                                    path="/stats/union"
                                 />
                                 <MenuCardWithDesc
                                     title="과목별 통계"

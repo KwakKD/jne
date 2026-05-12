@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase"
 import type { SchoolInfoProps } from "./supabaseAPI"
 import type { FullUserInfo } from "@/hooks/useAuth"
 import type { SubjectCode } from "@/data/Curri/teacher"
-import type { SchoolInfo, SchoolJsonDataType, STA_SUBJECTS, subT } from "@/type/curri"
+import type { SchoolInfo, SchoolJsonDataType, STA_SUBJECTS, subT, UnionSubjects } from "@/type/curri"
 import { YEARS } from "@/data/data"
 
 const MUST_SELECT_SUBJECT = ['예술', '교양', '기술∙가정/정보', '제2외국어/한문']
@@ -168,3 +168,92 @@ export const saveCurriData = async (user: FullUserInfo, userData: Record<string,
 
     return true
 }
+
+export const saveUnionData = async (
+    user: FullUserInfo, unionData: UnionSubjects[], year: string
+) => {
+    const activeIds = unionData
+        .filter((sub) => sub.id.length > 20)
+        .map((sub) => sub.id)
+
+    try {
+        // [STEP 1] 삭제: 현재 연도/학교 데이터 중, activeIds에 포함되지 않은 것들 삭제
+        // 만약 activeIds가 비어있다면 해당 연도/학교의 모든 데이터를 삭제하게 됩니다.
+        let deleteQuery = supabase
+            .from("union_subjects")
+            .delete()
+            .eq("year", year)
+            .eq("school_name", user.schoolname);
+
+        // 유지할 데이터가 있다면 그 데이터들만 제외하고 삭제
+        if (activeIds.length > 0) {
+            deleteQuery = deleteQuery.not("id", "in", `(${activeIds.join(",")})`);
+        }
+
+        const { error: deleteError } = await deleteQuery;
+        if (deleteError) throw new Error(`삭제 중 오류 발생: ${deleteError.message}`);
+
+        // [STEP 2] Upsert: 데이터가 하나도 없을 경우(모두 삭제한 경우)는 건너뜀
+        if (unionData.length === 0) return [];
+
+        // DB 컬럼명(Snake Case)에 맞춰 데이터 매핑
+        const dataToUpsert = unionData.map((sub) => ({
+            // UUID가 아니면(새로 추가된 행이면) id를 아예 보내지 않아 DB에서 자동 생성하게 함
+            ...(sub.id.length > 20 ? { id: sub.id } : {}),
+            year: sub.year,
+            subject_type: sub.subjectType,
+            subject_name: sub.subjectName,
+            grade: sub.grade,
+            semester: sub.semester,
+            start_date: sub.start,
+            end_date: sub.end,
+            operating_time: sub.time,
+            credit: sub.credit,
+            classroom: sub.classroom,
+            school_name: user.schoolname,
+            location: user.location,
+            mode: sub.mode,
+            memo: sub.memo,
+            created_at: new Date().toISOString(),
+            user_id: user.id,
+            subject_group: sub.subjectGroup,
+            custom: sub.isCustom
+        }));
+
+        const { data, error: upsertError } = await supabase
+            .from("union_subjects")
+            .upsert(dataToUpsert)
+            .select();
+
+        if (upsertError) throw new Error(`저장 중 오류 발생: ${upsertError.message}`);
+
+        return data;
+    } catch (error) {
+        console.error("Critical Save Error:", error);
+        throw error;
+    }
+}
+
+export const saveCreditData = async (user: FullUserInfo, userSubjects: STA_SUBJECTS[]) => {
+    // 각 연도별 저장 작업을 Promise 배열로 생성
+    const savePromises = YEARS.map(async (y) => {
+        const itemsForYear = userSubjects.filter(x => x.year === y);
+
+        // 해당 연도에 데이터가 있을 때만 요청 보냄 (선택 사항)
+        if (itemsForYear.length === 0) return null;
+
+        const { error } = await supabase.rpc("sync_schoolsdatasta_year", {
+            p_schoolname: user.schoolname,
+            p_year: y,
+            p_subjects: itemsForYear,
+        });
+
+        if (error) {
+            console.error(`${y}년도 저장 중 오류 발생:`, error);
+            throw error;
+        }
+    });
+
+    // 모든 요청이 완료될 때까지 대기
+    await Promise.all(savePromises);
+};

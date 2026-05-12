@@ -127,7 +127,7 @@ function NaviGuide() {
                                                             </span>
                                                         )}
 
-                                                        {subject.rank !== '-' && (
+                                                        {subject.rank !== '∙' && (
                                                             <span className="text-[10px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-bold border border-blue-100">
                                                                 {subject.rank}
                                                             </span>

@@ -83,7 +83,7 @@ export function AppSidebar() {
                                 { title: "과목별 교사 수 입력", icon: UserPlus, path: "/high-school/teacher-count" },
                                 { title: "학교 교육과정 편성", icon: FileEdit, path: "/high-school/curriculum" },
                                 { title: "공동(추가)교육과정 편성", icon: Library, path: "/high-school/union-curriculum" },
-                                { title: "학교별 시수 관리", icon: Clock, path: "/manage/hours" },
+                                { title: "학교별 시수 관리", icon: Clock, path: "/high-school/credit" },
                             ].map((item) => (
                                 <SidebarMenuItem key={item.path}>
                                     <SidebarMenuButton
@@ -109,7 +109,7 @@ export function AppSidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {[
-                                { title: "오프라인 공동교육 현황", icon: Map, path: "/stats/offline" },
+                                { title: "오프라인 공동교육 현황", icon: Map, path: "/stats/union" },
                                 { title: "과목별 통계", icon: PieChart, path: "/stats/subject" },
                                 { title: "학교별 통계", icon: School, path: "/stats/school" },
                             ].map((item) => (

@@ -92,3 +92,26 @@ export type TeachProps = {
     subject: string
     credit: number
 }
+
+export type UnionSubjects = {
+    id: string // 고유 id
+    year: string // 운영 년도
+    subjectGroup: string //교과군
+    subjectType: string // 과목 유형(ex 진로, 융합)
+    subjectName: string // 과목 이름
+    grade: string // 운영 학년
+    semester: '1학기' | '여름방학' | '2학기' | '겨울방학' // 운영학기 (1학기, 2학기, 여름방학, 겨울방학)
+    start: string // 예상 시작 날짜
+    end: string // 예상 종료 날짜
+    time: string // 운영 시간
+    credit: number // 학점
+    classroom: string // 수정장소(본교 또는 다른 장소)
+    schoolName: string // 학교이름(개설학교)
+    location: string // 지역명
+    mode: string // 운영방식(오프라인, 온라인 등)
+    memo: string // 비고
+    isCustom: boolean //고시외 여부
+    user_id?: string // userid
+    min: number
+    max: number
+}

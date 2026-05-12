@@ -15,7 +15,7 @@ const CATEGORIES = [
     { id: 'medical', name: '의학(보건)' },
     { id: 'education', name: '교육' },
     { id: 'arts_sports', name: '예체능' },
-    { id: 'agriculture', name: '농림/수산' },
+    // { id: 'agriculture', name: '농림/수산' },
     { id: 'liberal_arts', name: '자유전공' },
 ];
 
@@ -175,7 +175,7 @@ function NaviGroup() {
                             대학 입시요강 전수 분석
                         </Badge>
                         <Badge className="bg-slate-800 text-slate-100 border border-slate-700 px-4 py-1.5">
-                            2026학년도 최신 데이터
+                            2028학년도 대입
                         </Badge>
                     </div>
 

@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, Building2, Compass, GraduationCap, LayoutGrid, Ma
 import { HomeSubjectStructureDialog } from "./HomeSubjectStructureDialog"
 import { HomeGradeMethodDialog } from "./HomeGradeMethodDialog"
 import { useNavigate } from "react-router-dom"
+import { NAVI_SUBJECT_DATA } from "@/data/nav"
 
 function SubjectNavHome() {
     const navigate = useNavigate()
@@ -148,22 +149,10 @@ function SubjectNavHome() {
                                 <Building2 size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">45</span>
-                                <span className="text-slate-500 font-medium">개교(예시)</span>
+                                <span className="text-3xl font-black text-slate-900">47</span>
+                                <span className="text-slate-500 font-medium">개교</span>
                             </div>
                             <p className="text-sm text-slate-500 font-medium">분석 대상 주요 대학</p>
-                        </div>
-
-                        {/* 개설 학교 수 */}
-                        <div className="flex flex-col items-center md:items-start space-y-2">
-                            <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600 mb-2">
-                                <School size={24} />
-                            </div>
-                            <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">120</span>
-                                <span className="text-slate-500 font-medium">+(예시)</span>
-                            </div>
-                            <p className="text-sm text-slate-500 font-medium">공동교육과정 참여교</p>
                         </div>
 
                         {/* 개설 과목 수 */}
@@ -172,11 +161,24 @@ function SubjectNavHome() {
                                 <BookOpen size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">850</span>
-                                <span className="text-slate-500 font-medium">건(예시)</span>
+                                <span className="text-3xl font-black text-slate-900">{NAVI_SUBJECT_DATA.length}</span>
+                                <span className="text-slate-500 font-medium">과목</span>
                             </div>
-                            <p className="text-sm text-slate-500 font-medium">제공 과목 정보(예시)</p>
+                            <p className="text-sm text-slate-500 font-medium">제공 과목 정보</p>
                         </div>
+
+                        {/* 개설 학교 수 */}
+                        <div className="flex flex-col items-center md:items-start space-y-2">
+                            <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600 mb-2">
+                                <School size={24} />
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-3xl font-black text-slate-900">0</span>
+                                <span className="text-slate-500 font-medium">+</span>
+                            </div>
+                            <p className="text-sm text-slate-500 font-medium">공동교육과정 개설교</p>
+                        </div>
+
 
                         {/* 누적 이용자 (예시) */}
                         <div className="flex flex-col items-center md:items-start space-y-2">
@@ -184,10 +186,10 @@ function SubjectNavHome() {
                                 <Users size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">12.5</span>
-                                <span className="text-slate-500 font-medium">k(예시)</span>
+                                <span className="text-3xl font-black text-slate-900">0</span>
+                                <span className="text-slate-500 font-medium">과목</span>
                             </div>
-                            <p className="text-sm text-slate-500 font-medium">전남 학생/교사 활용(예시)</p>
+                            <p className="text-sm text-slate-500 font-medium">공공교육과정 개설과목 수</p>
                         </div>
 
                     </div>

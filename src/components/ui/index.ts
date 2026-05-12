@@ -115,3 +115,5 @@ export {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './alert-dialog'
+
+export { Alert, AlertTitle, AlertDescription, AlertAction } from './alert'
