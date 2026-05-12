@@ -44,7 +44,7 @@ export function GradeMethodTable() {
                         <TableCell className="p-5 font-bold text-slate-900 border-r-2 bg-white">사회·과학 융합선택</TableCell>
                         <TableCell className="p-4 text-center"><StatusMark mark="O" /></TableCell>
                         <TableCell className="p-4 text-center font-mono text-sm text-rose-700 bg-rose-50/30">A·B·C·D·E</TableCell>
-                        <TableCell className="p-4 text-center"><StatusMark mark="-" /></TableCell>
+                        <TableCell className="p-4 text-center">·</TableCell>
                         <TableCell className="p-4 text-center"><StatusMark mark="O" /></TableCell>
                         <TableCell className="p-4 text-center"><StatusMark mark="O" /></TableCell>
                         <TableCell className="p-4 text-center"><StatusMark mark="O" /></TableCell>
@@ -63,7 +63,7 @@ export function GradeMethodTable() {
                             A·B·C
                         </TableCell>
                         <TableCell className="p-4 text-center border-t border-slate-100">
-                            <StatusMark mark="-" />
+                            ·
                         </TableCell>
                         <TableCell className="p-4 text-center border-t border-slate-100">
                             <StatusMark mark="-" />
@@ -88,7 +88,7 @@ export function GradeMethodTable() {
                             P
                         </TableCell>
                         <TableCell className="p-4 text-center border-t border-slate-100">
-                            <StatusMark mark="-" />
+                            ·
                         </TableCell>
                         <TableCell className="p-4 text-center border-t border-slate-100">
                             <StatusMark mark="-" />

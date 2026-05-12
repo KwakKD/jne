@@ -1,0 +1,147 @@
+export interface RegionInfo {
+    id: string;
+    name: string;
+    viewBox: string; // 확대했을 때의 viewBox 값
+}
+
+interface SchoolLocation {
+    id: string;
+    name: string;
+    x: number;
+    y: number;
+    regionId: string; // 어느 지역에 속하는지
+}
+
+export interface Region {
+    id: string;
+    name: string;
+    x: number;
+    y: number;
+}
+
+export const regions: Region[] = [
+    { id: 'mokpo_si', name: '목포시', x: 305, y: 435 },
+    { id: 'muan_gun', name: '무안군', x: 320, y: 380 },
+    { id: 'yeongam_gun', name: '영암군', x: 420, y: 450 },
+    { id: 'shinan_gun', name: '신안군', x: 140, y: 420 },
+    { id: 'jindo_gun', name: '진도군', x: 210, y: 600 },
+    { id: 'wando_gun', name: '완도군', x: 570, y: 700 },
+    { id: 'goheung_gun', name: '고흥군', x: 890, y: 550 },
+    { id: 'yeosu_si', name: '여수시', x: 1080, y: 480 },
+    { id: 'suncheon_si', name: '순천시', x: 930, y: 370 },
+    { id: 'gwangyang_si', name: '광양시', x: 1100, y: 370 },
+    { id: 'boseong_gun', name: '보성군', x: 820, y: 450 },
+    { id: 'hwasun_gun', name: '화순군', x: 710, y: 350 },
+    { id: 'jangheung_gun', name: '장흥군', x: 650, y: 520 },
+    { id: 'damyang_gun', name: '담양군', x: 710, y: 200 },
+    { id: 'jangseong_gun', name: '장성군', x: 530, y: 200 },
+    { id: 'yeonggwang_gun', name: '영광군', x: 360, y: 230 },
+    { id: 'hanpyeong_gun', name: '함평군', x: 380, y: 300 },
+    { id: 'naju_si', name: '나주시', x: 500, y: 350 },
+    { id: 'gokseong_gun', name: '곡성군', x: 850, y: 250 },
+    { id: 'gurye_gun', name: '구례군', x: 980, y: 250 },
+    { id: 'haenam_gun', name: '해남군', x: 370, y: 570 },
+    { id: 'gangjin_gun', name: '강진군', x: 530, y: 530 },
+] as const
+
+export const SCHOOL_LOCATION_DATA: SchoolLocation[] = [
+    { id: "hg1", name: "목포고등학교", x: 288, y: 408, regionId: "목포시" }, 
+    { id: "hg2", name: "목포여자고등학교", x: 295, y: 417, regionId: "목포시" },
+    { id: "hg3", name: "목포제일여자고등학교", x: 315, y: 425, regionId: "목포시" }, 
+    { id: "hg4", name: "여수고등학교", x: 1150, y: 460, regionId: "여수시" },
+    { id: "hg5", name: "여수여자고등학교", x: 1140, y: 475, regionId: "여수시" },
+    { id: "hg6", name: "순천고등학교", x: 930, y: 380, regionId: "순천시" },
+    { id: "hg7", name: "순천여자고등학교", x: 900, y: 365, regionId: "순천시" },
+    { id: "hg8", name: "나주고등학교", x: 490, y: 330, regionId: "나주시" },
+    { id: "hg9", name: "봉황고등학교", x: 540, y: 350, regionId: "나주시" },
+    { id: "hg10", name: "여천고등학교", x: 1060, y: 455, regionId: "여수시" },
+    { id: "hg11", name: "부영여자고등학교", x: 1025, y: 475, regionId: "여수시" },
+    { id: "hg12", name: "광양백운고등학교", x: 1100, y: 370, regionId: "광양시" },
+    { id: "hg13", name: "광양고등학교", x: 1030, y: 350, regionId: "광양시" },
+    { id: "hg14", name: "광양여자고등학교", x: 1040, y: 365, regionId: "광양시" },
+    { id: "hg15", name: "여수화양고등학교", x: 1050, y: 490, regionId: "여수시" },
+    { id: "hg16", name: "여남고등학교", x: 1130, y: 560, regionId: "여수시" },
+    { id: "hg17", name: "담양고등학교", x: 690, y: 200, regionId: "담양군" },
+    { id: "hg18", name: "곡성고등학교", x: 850, y: 220, regionId: "곡성군" },
+    { id: "hg19", name: "구례고등학교", x: 960, y: 250, regionId: "구례군" },
+    { id: "hg20", name: "고흥고등학교", x: 890, y: 525, regionId: "고흥군" },
+    { id: "hg21", name: "녹동고등학교", x: 800, y: 555, regionId: "고흥군" },
+    { id: "hg22", name: "보성고등학교", x: 760, y: 455, regionId: "보성군" },
+    { id: "hg23", name: "화순고등학교", x: 680, y: 330, regionId: "화순군" },
+    { id: "hg24", name: "장흥고등학교", x: 640, y: 500, regionId: "장흥군" },
+    { id: "hg25", name: "장흥관산고등학교", x: 650, y: 555, regionId: "장흥군" },
+    { id: "hg26", name: "강진고등학교", x: 530, y: 550, regionId: "강진군" },
+    { id: "hg27", name: "성전고등학교", x: 500, y: 515, regionId: "강진군" },
+    { id: "hg28", name: "해남고등학교", x: 420, y: 545, regionId: "해남군" },
+    { id: 'hg29', name: '영암고등학교', x: 470, y: 440, regionId: '영암군' },
+    { id: 'hg30', name: '영암낭주고등학교', x: 360, y: 465, regionId: '영암군' },
+    { id: 'hg31', name: '영광고등학교', x: 340, y: 210, regionId: '영광군' },
+    { id: 'hg32', name: '완도고등학교', x: 500, y: 670, regionId: '완도군' },
+    { id: 'hg33', name: '완도금일고등학교', x: 720, y: 650, regionId: '완도군' },
+    { id: 'hg34', name: '약산고등학교', x: 625, y: 635, regionId: '완도군' },
+    { id: 'hg35', name: '도초고등학교', x: 60, y: 490, regionId: '신안군' },
+    { id: "hg36", name: "목상고등학교", x: 298.5, y:413, regionId: "목포시" },
+    { id: "hg37", name: "문향고등학교", x: 530, y: 200, regionId: "장성군" },
+    { id: "hg38", name: "화순이양고등학교", x: 680, y: 411, regionId: "화순군" },
+    { id: "hg39", name: "무안고등학교", x: 310, y: 380, regionId: "무안군" },
+    { id: 'hg40', name: '삼호고등학교', x: 330, y: 450, regionId: '영암군' },
+    { id: "hg41", name: "고금고등학교", x: 570, y: 630, regionId: "완도군" },
+    { id: "hg42", name: "노화고등학교", x: 440, y: 725, regionId: "완도군" },
+    { id: "hg43", name: "지명고등학교", x: 205, y: 305, regionId: "신안군" },
+    { id: "hg44", name: "하의고등학교", x: 110, y: 530, regionId: "신안군" },
+    { id: "hg45", name: "임자고등학교", x: 130, y: 301, regionId: "신안군" },
+    { id: "hg46", name: "매성고등학교", x: 550, y: 330, regionId: "나주시" },
+    { id: "hg47", name: "조도고등학교", x: 120, y: 680, regionId: "진도군" },
+    { id: "hg48", name: "순천제일고등학교", x: 920, y: 315, regionId: "순천시" },
+    { id: "hg49", name: "여수충무고등학교", x: 1100, y: 431, regionId: "여수시" },
+    { id: "hg50", name: "중마고등학교", x: 1100, y: 355, regionId: "광양시" },
+    { id: "hg51", name: "순천팔마고등학교", x: 953, y: 350, regionId: "순천시" },
+    { id: 'hg52', name: '남악고등학교', x: 340, y: 430, regionId: '무안군' },
+    { id: 'hg53', name: '광영고등학교', x: 1120, y: 335, regionId: '광양시' },
+    { id: 'hs54', name: '함평고등학교', x: 360, y: 280, regionId: '함평군' },
+    { id: "hs55", name: "문태고등학교", x: 309, y: 415, regionId: "목포시" },
+    { id: "hs56", name: "목포홍일고등학교", x: 280, y: 417, regionId: "목포시" },
+    { id: "hs57", name: "영흥고등학교", x: 312, y: 421, regionId: "목포시" },
+    { id: "hs58", name: "목포덕인고등학교", x: 280, y: 413, regionId: "목포시" },
+    { id: "hs59", name: "목포마리아회고등학교", x: 300, y: 406.5, regionId: "목포시" },
+    { id: "hs60", name: "목포정명여자고등학교", x: 295, y: 421, regionId: "목포시" },
+    { id: "hs61", name: "목포혜인여자고등학교", x: 279, y: 421, regionId: "목포시" },
+    { id: "hs62", name: "한영고등학교", x: 1110, y: 450, regionId: "여수시" },
+    { id: "hs63", name: "여수중앙여자고등학교", x: 1080, y: 470, regionId: "여수시" },
+    { id: "hs64", name: "순천매산고등학교", x: 890, y: 350, regionId: "순천시" },
+    { id: "hs65", name: "순천금당고등학교", x: 990, y: 363, regionId: "순천시" },
+    { id: "hs66", name: "순천효천고등학교", x: 900, y: 398, regionId: "순천시" },
+    { id: "hs67", name: "순천매산여자고등학교", x: 920, y: 330, regionId: "순천시" },
+    { id: "hs68", name: "순천강남여자고등학교", x: 980, y: 330, regionId: "순천시" },
+    { id: "hs69", name: "금성고등학교", x: 490, y: 310, regionId: "나주시" },
+    { id: "hs70", name: "광남고등학교", x: 590, y: 338, regionId: "나주시" },
+    { id: "hs71", name: "광양제철고등학교", x: 1155, y: 365, regionId: "광양시" },
+    { id: "hs72", name: "여양고등학교", x: 1050, y: 430, regionId: "여수시" },
+    { id: "hs73", name: "창평고등학교", x: 710, y: 248, regionId: "담양군" },
+    { id: "hs74", name: "벌교고등학교", x: 910, y:440, regionId: "보성군" },
+    { id: "hs75", name: "벌교여자고등학교", x: 900, y: 420, regionId: "보성군" },
+    { id: "hs76", name: "예당고등학교", x: 830, y: 440, regionId: "보성군" },
+    { id: "hs77", name: "능주고등학교", x: 660, y: 378, regionId: "화순군" },
+    { id: "hs78", name: "화원고등학교", x: 280, y: 480, regionId: "해남군" },
+    { id: "hs79", name: '영암여자고등학교', x: 500, y: 420, regionId: '영암군' },
+    { id: "hg80", name: '함평학다리고등학교', x: 380, y: 295, regionId: '함평군' },
+    { id: "hs81", name: '해룡고등학교', x: 345, y: 225, regionId: '영광군' },
+    { id: "hs82", name: '장성고등학교', x: 570, y: 200, regionId: '장성군' },
+    { id: "hs83", name: '진도고등학교', x: 230, y: 600, regionId: '진도군' },
+    { id: "hg84", name: '순천복성고등학교', x: 1000, y: 380, regionId: '순천시' },
+    { id: "hs85", name: '영산고등학교', x: 480, y: 350, regionId: '나주시' },
+    { id: "hs86", name: '옥과고등학교', x: 780, y: 220, regionId: '곡성군' },
+    { id: "hg87", name: '송지고등학교', x: 420, y: 650, regionId: '해남군' },
+    { id: "hg88", name: '안좌고등학교', x: 160, y: 460, regionId: '신안군' },//입력해야함.
+    { id: "hs89", name: '백제고등학교', x: 330, y: 360, regionId: '무안군' },
+    // { id: "hg90", name: '한울고등학교', x: 870, y: 280, regionId: '곡성군' },
+    { id: "hg91", name: '한국바둑고등학교', x: 840, y: 320, regionId: '순천시' },
+    { id: "hg92", name: '함평골프고등학교', x: 400, y: 320, regionId: '함평군' },
+    { id: "hg93", name: '전남체육고등학교', x: 360, y: 410, regionId: '무안군' },
+    { id: "hg94", name: '전남과학고등학교', x: 530, y: 315, regionId: '나주시' },
+    { id: "hg95", name: '진도국악고등학교', x: 170, y: 620, regionId: '진도군' },
+    { id: "hg96", name: '한국창의예술고등학교', x: 1145, y: 350, regionId: '광양시' },
+    { id: "hs97", name: '전남예술고등학교', x: 310, y: 410, regionId: '무안군' },
+    { id: "hg98", name: '전남외국어고등학교', x: 490, y: 370, regionId: '나주시' },
+    // ... 데이터 추가
+] as const;

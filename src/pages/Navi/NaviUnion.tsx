@@ -119,17 +119,17 @@ function NaviUnion() {
         return matchYear && matchGrade && matchSem && matchName && matchLocation && matchSchool;
     })
 
-    const subjectOptions = Array.from(new Set(NAV_UNUON_SUBJECTS.map(s => s.sub_name)));
-    const schoolOptions = Array.from(new Set(NAV_UNUON_SUBJECTS.map(s => s.schoolName)));
+    const subjectOptions = Array.from(new Set(filteredSubjects.map(s => s.sub_name)));
+    const schoolOptions = Array.from(new Set(filteredSubjects.map(s => s.schoolName)));
 
     const locationCounts = useMemo(() => {
         const counts: Record<string, number> = {};
         // 전체 데이터에서 각 지역(location)의 개수를 셉니다.
-        NAV_UNUON_SUBJECTS.forEach(sub => {
+        filteredSubjects.forEach(sub => {
             counts[sub.location] = (counts[sub.location] || 0) + 1;
         });
         return counts;
-    }, []);
+    }, [filteredSubjects]);
     return (
         <div className="h-screen bg-slate-50/50 flex flex-col overflow-hidden">
             {/* 1. 히어로 섹션 */}
@@ -203,9 +203,10 @@ function NaviUnion() {
                                     </Badge>
 
                                     {/* 오른쪽 위 숫자 배지 */}
-                                    <span className="absolute -top-2 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 text-[10px] font-black text-white shadow-sm ring-2 ring-white">
-                                        {locationCounts[loc] || 0}
-                                    </span>
+                                    {locationCounts[loc] > 0 && (<span className="absolute -top-2 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 text-[10px] font-black text-white shadow-sm ring-2 ring-white">
+                                        {locationCounts[loc]}
+                                    </span>)}
+
                                 </div>
                             ))}
                         </div>

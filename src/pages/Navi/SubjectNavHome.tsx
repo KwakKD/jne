@@ -173,7 +173,7 @@ function SubjectNavHome() {
                                 <School size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">0</span>
+                                <span className="text-3xl font-black text-slate-900">53</span>
                                 <span className="text-slate-500 font-medium">+</span>
                             </div>
                             <p className="text-sm text-slate-500 font-medium">공동교육과정 개설교</p>
@@ -186,10 +186,10 @@ function SubjectNavHome() {
                                 <Users size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">0</span>
-                                <span className="text-slate-500 font-medium">과목</span>
+                                <span className="text-3xl font-black text-slate-900">100</span>
+                                <span className="text-slate-500 font-medium">과목(예시)</span>
                             </div>
-                            <p className="text-sm text-slate-500 font-medium">공공교육과정 개설과목 수</p>
+                            <p className="text-sm text-slate-500 font-medium">공동교육과정 개설과목 수</p>
                         </div>
 
                     </div>

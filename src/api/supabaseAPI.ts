@@ -89,6 +89,16 @@ const fetchUnionSubInfo = async (userId: string): Promise<UnionInfoProps[]> => {
     return unionData
 }
 
+const fetchStaUnionInfo = async (): Promise<UnionInfoProps[]> => {
+    const { data: staUnionData, error } = await supabase
+        .from('union_subjects')
+        .select('*')
+
+    if (error) throw new Error(error.message)
+
+    return staUnionData
+}
+
 const fetchSchoolDataSta = async (userId: string): Promise<STA_SUBJECTS[]> => {
     const { data: schoolDataSta, error } = await supabase
         .from('schoolsdatasta')
@@ -110,4 +120,4 @@ const fetchSchoolData = async (userId: string) => {
     return schoolsdata
 }
 
-export { fetchUser, fetchSchoolInfo, fetchTeacherInfo, fetchUnionSubInfo, fetchSchoolDataSta, fetchSchoolData }
+export { fetchUser, fetchSchoolInfo, fetchTeacherInfo, fetchUnionSubInfo, fetchStaUnionInfo, fetchSchoolDataSta, fetchSchoolData }

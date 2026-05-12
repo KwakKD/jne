@@ -1,0 +1,51 @@
+.back {
+    fill: rgb(166, 219, 255);
+    fill-opacity: 1;
+    stroke: #838383;
+    stroke-width: 0.60353607;
+    stroke-miterlimit: 4;
+    stroke-opacity: 0;
+    stroke-dasharray: none;
+}
+
+.line {
+    color: #000;
+    fill: none;
+    stroke: #bfd2eb;
+    stroke-width: 1.5;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-opacity: 1;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    marker: none;
+    visibility: visible;
+    display: inline;
+    overflow: visible;
+    enable-background: accumulate;
+}
+
+.city {
+    /* fill: #fefee9; */
+    fill: #919aaf;
+    fill-opacity: 1;
+    stroke: #838383;
+    stroke-width: 0.17854446;
+    stroke-miterlimit: 4;
+    stroke-opacity: 0;
+    stroke-dasharray: none;
+}
+
+.city_2 {
+    /* fill: #fefee9; */
+    fill: #e8f4ff;
+    fill-opacity: 1;
+    stroke: none;
+}
+
+.outCity {
+    fill: #ffffff;
+    fill-opacity: 1;
+    stroke: none;
+}
