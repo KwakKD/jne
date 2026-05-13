@@ -1,11 +1,12 @@
 import { fetchStaUnionInfo } from "@/api/supabaseAPI"
-import { Badge, Card, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
+import { Badge, Button, Card, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { YEARS } from "@/data/data"
 import { useUnionStaStore } from "@/store/UnionStaStore"
 import { useQuery } from "@tanstack/react-query"
-import { BookOpen, Info, Loader2, School, Sun, Users } from "lucide-react"
-import { useEffect, useState } from "react"
+import { BookOpen, ExternalLink, Info, Loader2, School, Sun, Users } from "lucide-react"
+import React, { useEffect, useMemo, useState } from "react"
 import { UnionMapContainer } from "./UnionMapContainer"
+import { cn } from "@/lib/utils"
 
 const FilterGroup = ({ label, value, onChange, options }: any) => (
     // flex-col 대신 items-center를 추가하여 가로 정렬을 강제합니다.
@@ -27,11 +28,15 @@ const FilterGroup = ({ label, value, onChange, options }: any) => (
     </div>
 );
 
+const ITEMS_PER_PAGE = 10; // 페이지당 표시할 개수
+
 const StaUnion = () => {
     const [selectedYear, setSelectedYear] = useState('전체')
     const [selectedGrade, setSelectedGrade] = useState("전체");
     const [selectedSem, setSelectedSem] = useState("전체");
     const [selectedSubject, setSelectedSubject] = useState("전체");
+
+    const [currentPage, setCurrentPage] = useState(1);
 
     const setUnionSubjects = useUnionStaStore((state) => state.setUnionSubjects)
     const unionSubjects = useUnionStaStore((state) => state.unionSubjects)
@@ -48,14 +53,20 @@ const StaUnion = () => {
         }
     }, [dbStaUnionData, setUnionSubjects])
 
-    const filteredSubjects = unionSubjects.filter((sub) => {
-        const matchYear = selectedYear === '전체' || sub.year === selectedYear
-        const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
-        const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
-        const matchSubject = selectedSubject === "전체" || sub.subject_name === selectedSubject;
+    const filteredSubjects = useMemo(() => {
+        const filtered = unionSubjects.filter((sub) => {
+            const matchYear = selectedYear === '전체' || sub.year === selectedYear
+            const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
+            const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
+            const matchSubject = selectedSubject === "전체" || sub.subject_name === selectedSubject;
+            return matchYear && matchGrade && matchSem && matchSubject
+        });
+        setCurrentPage(1); // 필터 변경 시 첫 페이지로 리셋
+        return filtered;
+    }, [unionSubjects, selectedYear, selectedGrade, selectedSem, selectedSubject]);
 
-        return matchYear && matchGrade && matchSem && matchSubject
-    })
+    // 페이지네이션 계산
+    const totalPages = Math.ceil(filteredSubjects.length / ITEMS_PER_PAGE);
 
     const subjectOptions = Array.from(new Set(filteredSubjects.map(s => s.subject_name)))
 
@@ -123,7 +134,7 @@ const StaUnion = () => {
                     <FilterGroup label="과목명" value={selectedSubject} onChange={setSelectedSubject} options={subjectOptions} />
                 </div>
             </Card>
-            <main className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-100px)] overflow-hidden">
+            <main className="p-2 grid grid-cols-1 lg:grid-cols-2 gap-3 h-[calc(100vh-100px)] overflow-hidden">
 
                 {/* [좌측: 지도 영역] */}
                 <Card className="shadow-sm border-slate-200 overflow-hidden relative flex flex-col">
@@ -140,47 +151,149 @@ const StaUnion = () => {
                 </Card>
 
                 {/* [우측: 통계 및 데이터 리스트 영역] */}
-                <div className="flex flex-col gap-6 overflow-hidden">
+                <div className="flex flex-col gap-6 overflow-hidden relative border-slate-600">
 
                     {/* 우측 상단: 통계 요약 (2x2 Grid) */}
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* <StatCard title="개설 강좌" value={`${stats.totalCourses}개`} icon={<BookOpen size={16} className="text-blue-500" />} color="blue" />
+                    {/* <div className="grid grid-cols-2 gap-4">
+                        <StatCard title="개설 강좌" value={`${stats.totalCourses}개`} icon={<BookOpen size={16} className="text-blue-500" />} color="blue" />
                 <StatCard title="수용 인원" value={`${stats.totalCapacity}명`} icon={<Users size={16} className="text-emerald-500" />} color="emerald" />
                 <StatCard title="방학 강좌" value={`${stats.specialCourses}개`} icon={<Sun size={16} className="text-amber-500" />} color="amber" />
-                <StatCard title="참여 학교" value={`${stats.totalSchools}개교`} icon={<School size={16} className="text-rose-500" />} color="rose" /> */}
-                    </div>
+                <StatCard title="참여 학교" value={`${stats.totalSchools}개교`} icon={<School size={16} className="text-rose-500" />} color="rose" />
+                    </div> */}
 
                     {/* 우측 하단: 데이터 리스트 (스크롤 가능) */}
                     <Card className="flex-1 shadow-sm border-slate-200 flex flex-col overflow-hidden">
+                        {/* 테이블 헤더 영역 */}
                         <div className="px-4 py-3 border-b border-slate-100 bg-white flex justify-between items-center sticky top-0 z-10">
-                            <h2 className="font-bold text-slate-700 flex items-center gap-2">
-                                <div className="w-1 h-4 bg-orange-500 rounded-full" />
-                                상세 강좌 목록
-                            </h2>
-                            <span className="text-xs text-slate-400 font-medium">총 {filteredSubjects.length}건</span>
+                            <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-4 bg-indigo-600 rounded-full" />
+                                <h2 className="font-bold text-slate-700">강좌 상세 목록</h2>
+                                <Badge variant="secondary" className="ml-2 bg-slate-100 text-slate-500 font-normal">
+                                    {filteredSubjects.length}건
+                                </Badge>
+                            </div>
                         </div>
 
-                        {/* 리스트 본체: 여기가 스크롤되는 영역입니다 */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/30">
-                            {filteredSubjects.length > 0 ? (
-                                filteredSubjects.map((sub) => (
-                                    <div key={sub.id} className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 transition-colors shadow-sm">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <Badge className="bg-slate-100 text-slate-600 hover:bg-slate-100 border-none">{sub.semester}</Badge>
-                                            <span className="text-[13px] font-bold text-indigo-600">{sub.school_name}</span>
-                                        </div>
-                                        <h3 className="font-bold text-slate-800 text-lg mb-1">{sub.subject_name}</h3>
-                                        <div className="flex gap-4 text-xs text-slate-500">
-                                            <span className="flex items-center gap-1 font-medium text-slate-700 underline decoration-indigo-200 underline-offset-4">{sub.location}</span>
-                                        </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-2 py-20">
-                                    <Info size={40} strokeWidth={1} />
-                                    <p>선택된 지역에 개설된 강좌가 없습니다.</p>
-                                </div>
-                            )}
+                        {/* 테이블 본체 */}
+                        <div className="flex-1 overflow-auto">
+                            <table className="w-full text-sm text-left border-collapse">
+                                <thead className="bg-slate-50/80 sticky top-0 z-10 backdrop-blur-sm border-b border-slate-200">
+                                    <tr>
+                                        <th className="px-4 py-3 font-semibold text-slate-600 w-10">연번</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20">학기</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20">지역</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600">학년</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600">과목명</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600">개설학교</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600 w-15 text-center">학점</th>
+                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20 text-center">상세</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100 bg-white">
+                                    {filteredSubjects.length > 0 ? (
+                                        filteredSubjects.map((sub, idx) => (
+                                            <tr
+                                                key={sub.id}
+                                                className={cn(
+                                                    "hover:bg-indigo-50/30 transition-colors cursor-pointer group",
+                                                    // unionSelectSchool === sub.school_name && "bg-indigo-50/50"
+                                                )}
+                                            // onClick={() => setUnionSelectSchool(sub.school_name)}
+                                            >
+                                                <td className="px-4 py-3 text-slate-500 font-medium">{idx + 1}</td>
+                                                <td className="px-4 py-3">
+                                                    <Badge variant="outline" className="text-[11px] font-medium border-slate-200 bg-slate-50">
+                                                        {sub.semester}
+                                                    </Badge>
+                                                </td>
+                                                <td className="px-4 py-3 text-slate-500 font-medium">{sub.location}</td>
+                                                <td className="px-4 py-3 text-slate-500 font-medium">{sub.grade}학년</td>
+                                                <td className="px-4 py-3 font-bold text-slate-900 group-hover:text-indigo-600">
+                                                    {sub.subject_name}
+                                                </td>
+                                                <td className="px-4 py-3 text-slate-600">{sub.school_name}</td>
+                                                <td className="px-4 py-3 text-center font-medium text-slate-500">{sub.credit}</td>
+                                                <td className="px-4 py-3 text-center font-medium text-slate-500">
+                                                    <Button size="sm" variant="ghost" className="h-7 w-7 p-0 hover:bg-indigo-50 hover:text-indigo-600">
+                                                        <ExternalLink size={14} />
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan={6} className="py-20 text-center text-slate-400">
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <Info size={32} strokeWidth={1.5} className="text-slate-300" />
+                                                    <p>조건에 맞는 강좌가 없습니다.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* 페이지네이션 */}
+                        <div className="px-4 py-3 border-t bg-white">
+                            <Pagination>
+                                <PaginationContent>
+                                    {/* 이전 페이지 버튼 */}
+                                    <PaginationItem>
+                                        <PaginationPrevious
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setCurrentPage(p => Math.max(1, p - 1));
+                                            }}
+                                            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                        />
+                                    </PaginationItem>
+
+                                    {/* 페이지 번호 목록 (간단한 구현 예시) */}
+                                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                                        .filter(page => {
+                                            // 현재 페이지 기준 전후 1페이지만 노출 (데이터가 많을 때 유용)
+                                            return page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
+                                        })
+                                        .map((page, index, array) => {
+                                            const showEllipsis = index > 0 && page - array[index - 1] > 1;
+
+                                            return (
+                                                <React.Fragment key={page}>
+                                                    {showEllipsis && (
+                                                        <PaginationItem>
+                                                            <PaginationEllipsis />
+                                                        </PaginationItem>
+                                                    )}
+                                                    <PaginationItem>
+                                                        <PaginationLink
+                                                            href="#"
+                                                            isActive={currentPage === page}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setCurrentPage(page);
+                                                            }}
+                                                        >
+                                                            {page}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                </React.Fragment>
+                                            );
+                                        })}
+
+                                    {/* 다음 페이지 버튼 */}
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setCurrentPage(p => Math.min(totalPages, p + 1));
+                                            }}
+                                            className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                        />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
                         </div>
                     </Card>
                 </div>

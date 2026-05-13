@@ -117,3 +117,13 @@ export {
 } from './alert-dialog'
 
 export { Alert, AlertTitle, AlertDescription, AlertAction } from './alert'
+
+export {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from './pagination'
