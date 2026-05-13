@@ -149,7 +149,7 @@ function SubjectNavHome() {
                                 <Building2 size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">47</span>
+                                <span className="text-3xl font-black text-slate-900">44</span>
                                 <span className="text-slate-500 font-medium">개교</span>
                             </div>
                             <p className="text-sm text-slate-500 font-medium">분석 대상 주요 대학</p>
