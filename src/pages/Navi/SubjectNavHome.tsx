@@ -186,8 +186,8 @@ function SubjectNavHome() {
                                 <Users size={24} />
                             </div>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-3xl font-black text-slate-900">100</span>
-                                <span className="text-slate-500 font-medium">과목(예시)</span>
+                                <span className="text-3xl font-black text-slate-900">186</span>
+                                <span className="text-slate-500 font-medium">과목</span>
                             </div>
                             <p className="text-sm text-slate-500 font-medium">공동교육과정 개설과목 수</p>
                         </div>
