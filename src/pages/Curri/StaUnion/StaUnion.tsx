@@ -1,12 +1,15 @@
 import { fetchStaUnionInfo } from "@/api/supabaseAPI"
-import { Badge, Button, Card, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
+import { Badge, Card, Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { YEARS } from "@/data/data"
 import { useUnionStaStore } from "@/store/UnionStaStore"
 import { useQuery } from "@tanstack/react-query"
-import { BookOpen, ExternalLink, Info, Loader2, School, Sun, Users } from "lucide-react"
+import { BookOpen, Info, Loader2, MapPin, PieChartIcon, School, Sun, Users } from "lucide-react"
 import React, { useEffect, useMemo, useState } from "react"
 import { UnionMapContainer } from "./UnionMapContainer"
 import { cn } from "@/lib/utils"
+import { UnionSubGroupChart } from "./UnionSubGroupChart"
+import { UnionSemChart } from "./UnionSemChart"
+import { UnionTable } from "./UnionTable"
 
 const FilterGroup = ({ label, value, onChange, options }: any) => (
     // flex-col 대신 items-center를 추가하여 가로 정렬을 강제합니다.
@@ -28,6 +31,26 @@ const FilterGroup = ({ label, value, onChange, options }: any) => (
     </div>
 );
 
+const StatCard = ({ label, value, icon, activeColor, bgColor, textColor }: any) => (
+    <Card className={cn(
+        "relative overflow-hidden border-none shadow-sm transition-all hover:shadow-md",
+        bgColor
+    )}>
+        {/* 상단 액센트 바 */}
+        <div className={cn("absolute top-0 left-0 w-full h-1.5", activeColor)} />
+
+        <div className="px-3 py-1.5">
+            <div className="flex justify-between items-center mb-1">
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-tight">{label}</p>
+                <div className={cn("p-1.5 rounded-lg bg-white shadow-sm", textColor)}>
+                    {icon}
+                </div>
+            </div>
+            <p className="text-xl font-black text-slate-800 tracking-tight">{value}</p>
+        </div>
+    </Card>
+);
+
 const ITEMS_PER_PAGE = 10; // 페이지당 표시할 개수
 
 const StaUnion = () => {
@@ -40,6 +63,8 @@ const StaUnion = () => {
 
     const setUnionSubjects = useUnionStaStore((state) => state.setUnionSubjects)
     const unionSubjects = useUnionStaStore((state) => state.unionSubjects)
+    const unionSelectSchool = useUnionStaStore((state) => state.unionSelectSchool)
+    const unionSelectLocation = useUnionStaStore((state) => state.unionSelectLocation)
 
     const { data: dbStaUnionData, isLoading: dbStaUnionLoading } = useQuery({
         queryKey: ['unionSubjects'],
@@ -59,16 +84,54 @@ const StaUnion = () => {
             const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
             const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
             const matchSubject = selectedSubject === "전체" || sub.subject_name === selectedSubject;
-            return matchYear && matchGrade && matchSem && matchSubject
+            const matchLocation = unionSelectLocation === "" || sub.location === unionSelectLocation;
+            const matchSchool = unionSelectSchool === "" || sub.school_name === unionSelectSchool
+            return matchYear && matchGrade && matchSem && matchSubject && matchLocation && matchSchool
         });
         setCurrentPage(1); // 필터 변경 시 첫 페이지로 리셋
         return filtered;
-    }, [unionSubjects, selectedYear, selectedGrade, selectedSem, selectedSubject]);
+    }, [unionSubjects, selectedYear, selectedGrade, selectedSem, selectedSubject, unionSelectLocation, unionSelectSchool]);
+
+    const filteredMapSubjects = useMemo(() => {
+        const filtered = unionSubjects.filter((sub) => {
+            const matchYear = selectedYear === '전체' || sub.year === selectedYear
+            const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
+            const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
+
+            return matchYear && matchGrade && matchSem
+        });
+        return filtered
+    }, [selectedYear, selectedGrade, selectedSem])
 
     // 페이지네이션 계산
     const totalPages = Math.ceil(filteredSubjects.length / ITEMS_PER_PAGE);
+    const paginatedData = filteredSubjects.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+    );
 
-    const subjectOptions = Array.from(new Set(filteredSubjects.map(s => s.subject_name)))
+
+    const chartData = useMemo(() => {
+        const filtered = unionSubjects.filter((sub) => {
+            const matchYear = selectedYear === '전체' || sub.year === selectedYear
+            return matchYear
+        })
+        return filtered
+    }, [unionSubjects, selectedYear])
+
+    const schoolCount = Array.from(new Set(chartData.map(s => s.school_name))).length
+    const subjectOptions = Array.from(new Set(chartData.map(s => s.subject_name)))
+    const gradeSubjectCount = useMemo(() => {
+        const counts = { '1': 0, '2': 0, '3': 0 };
+
+        chartData.forEach(sub => {
+            if (sub.grade === '1') counts['1']++;
+            else if (sub.grade === '2') counts['2']++;
+            else if (sub.grade === '3') counts['3']++;
+        });
+
+        return counts;
+    }, [chartData]);
 
     if (dbStaUnionLoading) {
         return (
@@ -84,44 +147,64 @@ const StaUnion = () => {
             <div className="bg-white border-b border-slate-200">
                 <div className="container mx-auto px-2 py-0">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div>
+                        <div className="pb-0">
                             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">전라남도 공동교육과정 현황 탐색</h1>
                             <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
                                 <Info size={14} /> 전라남도 내 개설된 모든 오프라인 공동교육과정을 한눈에 확인하세요.
                             </p>
                         </div>
                         {/* 퀵 통계 요약 */}
-                        <div className="flex gap-4">
-                            <Card className="p-4 mb-4 border-l-4 border-l-blue-500 shadow-sm">
-                                <div className="flex justify-between items-start gap-3">
-                                    <p className="text-xs font-medium text-slate-500">총 개설 과목</p>
-                                    <BookOpen size={16} className="text-blue-500" />
-                                </div>
-                                <p className="text-2xl font-bold mt-0">128개</p>
-                            </Card>
-                            <Card className="p-4 mb-4 border-l-4 border-l-emerald-500 shadow-sm">
-                                <div className="flex justify-between items-start gap-3">
-                                    <p className="text-xs font-medium text-slate-500">총 수용 가능 인원</p>
-                                    <Users size={16} className="text-emerald-500" />
-                                </div>
-                                <p className="text-2xl font-bold mt-0">1,840명</p>
-                            </Card>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-1">
 
-                            <Card className="p-4 mb-4 border-l-4 border-l-amber-500 shadow-sm">
-                                <div className="flex justify-between items-start gap-3">
-                                    <p className="text-xs font-medium text-slate-500">방학 중 특별강좌</p>
-                                    <Sun size={16} className="text-amber-500" />
-                                </div>
-                                <p className="text-2xl font-bold mt-0">32개</p>
-                            </Card>
+                            {/* 개설 학교 수 - 로즈 */}
+                            <StatCard
+                                label="개설 학교"
+                                value={`${schoolCount}개교`}
+                                icon={<School size={14} />}
+                                activeColor="bg-rose-500"
+                                bgColor="bg-rose-50/30"
+                                textColor="text-rose-600"
+                            />
 
-                            <Card className="p-4 mb-4 border-l-4 border-l-rose-500 shadow-sm">
-                                <div className="flex justify-between items-start gap-3">
-                                    <p className="text-xs font-medium text-slate-500">참여 학교 수</p>
-                                    <School size={16} className="text-rose-500" />
-                                </div>
-                                <p className="text-2xl font-bold mt-0">64개교</p>
-                            </Card>
+                            {/* 총 개설 과목 - 블루 */}
+                            <StatCard
+                                label="총 개설 과목"
+                                value={`${chartData.length}개`}
+                                icon={<BookOpen size={14} />}
+                                activeColor="bg-blue-500"
+                                bgColor="bg-blue-50/30"
+                                textColor="text-blue-600"
+                            />
+
+                            {/* 1학년 - 에메랄드 */}
+                            <StatCard
+                                label="1학년 과목"
+                                value={`${gradeSubjectCount['1']}개`}
+                                icon={<Users size={14} />}
+                                activeColor="bg-emerald-500"
+                                bgColor="bg-emerald-50/30"
+                                textColor="text-emerald-600"
+                            />
+
+                            {/* 2학년 - 인디고 (앰버 대신 더 세련된 색상 조합 추천) */}
+                            <StatCard
+                                label="2학년 과목"
+                                value={`${gradeSubjectCount['2']}개`}
+                                icon={<Sun size={14} />}
+                                activeColor="bg-indigo-500"
+                                bgColor="bg-indigo-50/30"
+                                textColor="text-indigo-600"
+                            />
+
+                            {/* 3학년 - 바이올렛 */}
+                            <StatCard
+                                label="3학년 과목"
+                                value={`${gradeSubjectCount['3']}개`}
+                                icon={<Sun size={14} />}
+                                activeColor="bg-violet-500"
+                                bgColor="bg-violet-50/30"
+                                textColor="text-violet-600"
+                            />
                         </div>
                     </div>
                 </div>
@@ -143,27 +226,25 @@ const StaUnion = () => {
                             <div className="w-1 h-4 bg-indigo-500 rounded-full" />
                             지역별 개설 현황 지도
                         </h2>
-                        {/* <Badge variant="outline" className="text-[11px] font-normal">전라남도 {unionSelectLocation || "전체"}</Badge> */}
+                        <div className="flex items-center gap-4 p-0">
+                            <Badge variant="outline" className="text-[12px] font-normal">전라남도 {unionSelectLocation || "전체"}</Badge>
+                            {unionSelectSchool && (
+                                <Badge className="bg-indigo-600 text-white py-1.5 px-3 shadow-md animate-in zoom-in-95">
+                                    <MapPin size={12} className="mr-1" />
+                                    {unionSelectSchool}
+                                </Badge>
+                            )}
+                        </div>
+
                     </div>
                     <div className="flex-1 relative bg-slate-50">
-                        <UnionMapContainer unionData={filteredSubjects} />
+                        <UnionMapContainer unionData={filteredMapSubjects} />
                     </div>
                 </Card>
 
                 {/* [우측: 통계 및 데이터 리스트 영역] */}
-                <div className="flex flex-col gap-6 overflow-hidden relative border-slate-600">
-
-                    {/* 우측 상단: 통계 요약 (2x2 Grid) */}
-                    {/* <div className="grid grid-cols-2 gap-4">
-                        <StatCard title="개설 강좌" value={`${stats.totalCourses}개`} icon={<BookOpen size={16} className="text-blue-500" />} color="blue" />
-                <StatCard title="수용 인원" value={`${stats.totalCapacity}명`} icon={<Users size={16} className="text-emerald-500" />} color="emerald" />
-                <StatCard title="방학 강좌" value={`${stats.specialCourses}개`} icon={<Sun size={16} className="text-amber-500" />} color="amber" />
-                <StatCard title="참여 학교" value={`${stats.totalSchools}개교`} icon={<School size={16} className="text-rose-500" />} color="rose" />
-                    </div> */}
-
-                    {/* 우측 하단: 데이터 리스트 (스크롤 가능) */}
-                    <Card className="flex-1 shadow-sm border-slate-200 flex flex-col overflow-hidden">
-                        {/* 테이블 헤더 영역 */}
+                <div className="flex flex-col gap-4 h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar">
+                    <Card className="shrink-0 shadow-sm border-slate-200 flex flex-col overflow-hidden bg-white">
                         <div className="px-4 py-3 border-b border-slate-100 bg-white flex justify-between items-center sticky top-0 z-10">
                             <div className="flex items-center gap-2">
                                 <div className="w-1.5 h-4 bg-indigo-600 rounded-full" />
@@ -173,65 +254,8 @@ const StaUnion = () => {
                                 </Badge>
                             </div>
                         </div>
-
-                        {/* 테이블 본체 */}
-                        <div className="flex-1 overflow-auto">
-                            <table className="w-full text-sm text-left border-collapse">
-                                <thead className="bg-slate-50/80 sticky top-0 z-10 backdrop-blur-sm border-b border-slate-200">
-                                    <tr>
-                                        <th className="px-4 py-3 font-semibold text-slate-600 w-10">연번</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20">학기</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20">지역</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600">학년</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600">과목명</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600">개설학교</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600 w-15 text-center">학점</th>
-                                        <th className="px-4 py-3 font-semibold text-slate-600 w-20 text-center">상세</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100 bg-white">
-                                    {filteredSubjects.length > 0 ? (
-                                        filteredSubjects.map((sub, idx) => (
-                                            <tr
-                                                key={sub.id}
-                                                className={cn(
-                                                    "hover:bg-indigo-50/30 transition-colors cursor-pointer group",
-                                                    // unionSelectSchool === sub.school_name && "bg-indigo-50/50"
-                                                )}
-                                            // onClick={() => setUnionSelectSchool(sub.school_name)}
-                                            >
-                                                <td className="px-4 py-3 text-slate-500 font-medium">{idx + 1}</td>
-                                                <td className="px-4 py-3">
-                                                    <Badge variant="outline" className="text-[11px] font-medium border-slate-200 bg-slate-50">
-                                                        {sub.semester}
-                                                    </Badge>
-                                                </td>
-                                                <td className="px-4 py-3 text-slate-500 font-medium">{sub.location}</td>
-                                                <td className="px-4 py-3 text-slate-500 font-medium">{sub.grade}학년</td>
-                                                <td className="px-4 py-3 font-bold text-slate-900 group-hover:text-indigo-600">
-                                                    {sub.subject_name}
-                                                </td>
-                                                <td className="px-4 py-3 text-slate-600">{sub.school_name}</td>
-                                                <td className="px-4 py-3 text-center font-medium text-slate-500">{sub.credit}</td>
-                                                <td className="px-4 py-3 text-center font-medium text-slate-500">
-                                                    <Button size="sm" variant="ghost" className="h-7 w-7 p-0 hover:bg-indigo-50 hover:text-indigo-600">
-                                                        <ExternalLink size={14} />
-                                                    </Button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan={6} className="py-20 text-center text-slate-400">
-                                                <div className="flex flex-col items-center gap-2">
-                                                    <Info size={32} strokeWidth={1.5} className="text-slate-300" />
-                                                    <p>조건에 맞는 강좌가 없습니다.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                        <div className="flex-1">
+                            <UnionTable data={paginatedData} currentPage={currentPage} />
                         </div>
                         {/* 페이지네이션 */}
                         <div className="px-4 py-3 border-t bg-white">
@@ -295,6 +319,23 @@ const StaUnion = () => {
                                 </PaginationContent>
                             </Pagination>
                         </div>
+                        <Card className="shrink-0 shadow-sm border-slate-200 p-5 bg-white mb-4">
+                            <div className="flex items-center justify-between mb-2">
+                                <h2 className="font-bold text-slate-700 text-sm flex items-center gap-2">
+                                    <PieChartIcon size={16} className="text-orange-500" />
+                                    데이터 분석 요약
+                                </h2>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 items-center">
+                                <div className="h-full border-l border-slate-50 pl-0">
+                                    <UnionSubGroupChart data={chartData} year={selectedYear} />
+                                </div>
+                                <div className="flex justify-center pl-0">
+                                    <UnionSemChart data={chartData} year={selectedYear} />
+                                </div>
+                            </div>
+                        </Card>
                     </Card>
                 </div>
             </main>

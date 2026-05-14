@@ -3,7 +3,7 @@ import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from 
 import { useMemo, useRef, useState } from "react";
 import { useUnionStaStore } from "@/store/UnionStaStore";
 import { Badge, Button } from "@/components/ui";
-import { MapPin, Navigation, RefreshCcw } from "lucide-react";
+import { Navigation, RefreshCcw } from "lucide-react";
 import { regions, SCHOOL_LOCATION_DATA } from "@/data/Curri/mapConfig";
 import { cn } from "@/lib/utils";
 import UnionMap from "./UnionMap";
@@ -74,6 +74,14 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
         }
     };
 
+    const getRegionSubjectsCount = (locationName: string) => {
+        return unionData.filter(item => item.location === locationName).length
+    }
+
+    const handleMarkerClick = (schoolName: string) => {
+        setUnionSelectSchool(unionSelectSchool === schoolName ? '' : schoolName)
+    }
+
     return (
         <div className="relative w-full h-150 bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden shadow-inner">
 
@@ -96,12 +104,6 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                     <Navigation size={12} className="text-indigo-500" />
                     {unionSelectLocation || "전라남도 전체"}
                 </Badge>
-                {unionSelectSchool && (
-                    <Badge className="bg-indigo-600 text-white py-1.5 px-3 shadow-md animate-in zoom-in-95">
-                        <MapPin size={12} className="mr-1" />
-                        {unionSelectSchool}
-                    </Badge>
-                )}
             </div>
 
             <TransformWrapper
@@ -143,7 +145,7 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                                         <span className="text-[13px] font-bold tracking-tight">{region.name}</span>
                                         {(counts.regionMap[region.name] || 0) > 0 && (
                                             <span className="ml-2 flex items-center justify-center bg-orange-500 text-white text-[10px] font-black w-5 h-5 rounded-full ring-2 ring-white shadow-sm group-hover:bg-indigo-500 transition-colors">
-                                                {counts.regionMap[region.name]}
+                                                {getRegionSubjectsCount(region.name)}
                                             </span>
                                         )}
                                     </div>
@@ -170,7 +172,7 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                                             className="overflow-visible"
                                         >
                                             <div
-                                                // onClick={() => handleMarkerClick(school.name)}
+                                                onClick={() => handleMarkerClick(school.name)}
                                                 className={cn(
                                                     "relative flex items-center justify-center bg-indigo-600 text-white rounded shadow-lg cursor-pointer hover:bg-indigo-700 transition-all active:scale-95",
                                                     unionSelectSchool === school.name && "ring-2 ring-white ring-offset-2 ring-offset-indigo-600"
