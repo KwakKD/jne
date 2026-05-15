@@ -35,7 +35,7 @@ function Home() {
 
             <div className="grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
 
-                {/* 1. 과목선택 네비게이션 (누구나 이용 가능) */}
+                {/* 1. 과목선택 내비게이션 (누구나 이용 가능) */}
                 <Card
                     onClick={() => handleCardClick('/subject-navigation', false)}
                     className="group relative cursor-pointer border-2 border-slate-200 transition-all hover:border-blue-600 hover:shadow-xl"
@@ -44,7 +44,7 @@ function Home() {
                         <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
                             <Compass size={44} />
                         </div>
-                        <CardTitle className="text-2xl font-bold text-slate-900">과목선택 네비게이션</CardTitle>
+                        <CardTitle className="text-2xl font-bold text-slate-900">과목선택 내비게이션</CardTitle>
                         <CardDescription className="mt-4 text-center text-base leading-relaxed">
                             나의 적성과 진로에 맞는 <br />
                             최적의 과목을 탐색하고 설계합니다.

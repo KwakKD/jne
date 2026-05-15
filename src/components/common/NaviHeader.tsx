@@ -18,7 +18,7 @@ function NaviHeader () {
                         <Compass size={22} strokeWidth={2.5} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-extrabold text-slate-800 tracking-tight">과목선택 네비게이션</h2>
+                        <h2 className="text-lg font-extrabold text-slate-800 tracking-tight">과목선택 내비게이션</h2>
                         <p className="text-[10px] text-blue-600 font-semibold uppercase tracking-wider">Information Hub</p>
                     </div>
                 </div>

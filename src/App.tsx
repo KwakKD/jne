@@ -19,7 +19,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
         </Route>
 
-        {/* 1. 과목선택 네비게이션 라인 (메인헤더 + 과목 서브헤더) */}
+        {/* 1. 과목선택 내비게이션 라인 (메인헤더 + 과목 서브헤더) */}
         <Route path='/subject-navigation' element={<SubjectNavLayout />}>
           <Route index element={<SubjectNavHome />} />
           <Route path='guide' element={<NaviGuide />} />

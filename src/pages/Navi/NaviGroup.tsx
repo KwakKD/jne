@@ -183,7 +183,7 @@ function NaviGroup() {
                         <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.1]">
                             내 전공의 시작, <br className="md:hidden" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
-                                과목 선택 네비게이션
+                                과목 선택 내비게이션
                             </span>
                         </h1>
                         <p className="text-slate-200 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed opacity-90">

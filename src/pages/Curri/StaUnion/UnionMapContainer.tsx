@@ -143,9 +143,10 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                                         className="flex items-center justify-center bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-200 shadow-sm cursor-pointer transition-all hover:-translate-y-0.5 hover:border-indigo-400 hover:text-indigo-600 group"
                                     >
                                         <span className="text-[13px] font-bold tracking-tight">{region.name}</span>
+                                        {/* {(counts.regionMap[region.name] || 0) > 0 && ( */}
                                         {(counts.regionMap[region.name] || 0) > 0 && (
                                             <span className="ml-2 flex items-center justify-center bg-orange-500 text-white text-[10px] font-black w-5 h-5 rounded-full ring-2 ring-white shadow-sm group-hover:bg-indigo-500 transition-colors">
-                                                {getRegionSubjectsCount(region.name)}
+                                                {counts.regionMap[region.name]}
                                             </span>
                                         )}
                                     </div>

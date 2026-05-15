@@ -288,7 +288,7 @@ const Curriculum = () => {
             onDragEnd={handleDragEnd}
         >
             <div className="relative min-h-screen bg-slate-50 overflow-hidden">
-                {/* 2. 페이지 상단 네비게이션 바 */}
+                {/* 2. 페이지 상단 내비게이션 바 */}
                 {/* <header className="relative z-10 flex items-center justify-between px-8 pt-0 pb-4 bg-white/70 backdrop-blur-md border-b border-slate-200">
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2 text-slate-400 text-sm">
