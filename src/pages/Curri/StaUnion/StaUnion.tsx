@@ -18,7 +18,7 @@ const FilterGroup = ({ label, value, onChange, options }: any) => (
             {label}
         </label>
         <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className="w-30 h-9 rounded-xl border-none bg-slate-100 font-medium text-slate-700 focus:ring-2 focus:ring-orange-500/20 transition-all">
+            <SelectTrigger className="w-50 h-9 rounded-xl border-none bg-slate-100 font-medium text-slate-700 focus:ring-2 focus:ring-orange-500/20 transition-all">
                 <SelectValue placeholder={label} />
             </SelectTrigger>
             <SelectContent className="rounded-xl border-slate-100">
@@ -97,11 +97,12 @@ const StaUnion = () => {
             const matchYear = selectedYear === '전체' || sub.year === selectedYear
             const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
             const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
+            const matchSubject = selectedSubject === "전체" || sub.subject_name === selectedSubject;
 
-            return matchYear && matchGrade && matchSem
+            return matchYear && matchGrade && matchSem && matchSubject
         });
         return filtered
-    }, [selectedYear, selectedGrade, selectedSem])
+    }, [selectedYear, selectedGrade, selectedSem, unionSubjects, selectedSubject])
 
     // 페이지네이션 계산
     const totalPages = Math.ceil(filteredSubjects.length / ITEMS_PER_PAGE);

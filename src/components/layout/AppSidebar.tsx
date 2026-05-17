@@ -111,7 +111,7 @@ export function AppSidebar() {
                             {[
                                 { title: "오프라인 공동교육 현황", icon: Map, path: "/stats/union" },
                                 { title: "과목별 통계", icon: PieChart, path: "/stats/subject" },
-                                { title: "학교별 통계", icon: School, path: "/stats/school" },
+                                { title: "학교별 통계", icon: School, path: "/stats/schools" },
                             ].map((item) => (
                                 <SidebarMenuItem key={item.path}>
                                     <SidebarMenuButton

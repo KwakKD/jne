@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
 import { Home } from './pages/Home'
-import { Credit, CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
+import { Credit, CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 import { CurriLayout } from './components/layout/CuuriLayout'
@@ -40,6 +40,8 @@ function App() {
         </Route>
         <Route path='/stats' element={<CurriLayout />}>
           <Route path='union' element={<StaUnion />} />
+          <Route path='subject' element={<StaSubject />} />
+          <Route path='schools' element={<StaSchool />} />
         </Route>
       </Routes >
       <Toaster position='top-center' richColors closeButton />

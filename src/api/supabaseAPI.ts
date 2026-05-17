@@ -36,6 +36,18 @@ export interface UnionInfoProps {
     custom: boolean
 }
 
+export interface SubjectStat {
+    location: string;
+    schoolname: string;
+    year: string;
+    sub_type: string;
+    sub_name: string;
+    sub_grade: number;
+    sub_sem: number;
+    sub_credit: number;
+    sub_isgroup: string;
+}
+
 const fetchUser = async (userId: string): Promise<UserInfoProps | null> => {
     const { data: userinfo, error: userinfoError } = await supabase
         .from('userinfo')
@@ -120,4 +132,16 @@ const fetchSchoolData = async (userId: string) => {
     return schoolsdata
 }
 
-export { fetchUser, fetchSchoolInfo, fetchTeacherInfo, fetchUnionSubInfo, fetchStaUnionInfo, fetchSchoolDataSta, fetchSchoolData }
+const fetchSubjectStats = async (subjectName: string): Promise<SubjectStat[] | null> => {
+    if (!subjectName) return null
+
+    const { data, error } = await supabase
+        .from('schoolsdatasta')
+        .select('location, schoolname, year, sub_type, sub_name, sub_grade, sub_sem, sub_credit, sub_isgroup')
+        .eq('sub_name', subjectName)
+
+    if (error) throw new Error(error.message)
+    return data
+}
+
+export { fetchUser, fetchSchoolInfo, fetchTeacherInfo, fetchUnionSubInfo, fetchStaUnionInfo, fetchSchoolDataSta, fetchSchoolData, fetchSubjectStats }

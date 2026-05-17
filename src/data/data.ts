@@ -1,3 +1,5 @@
 const YEARS = ['2025', '2026', '2027']
 
-export { YEARS }
+const JN_HIGHSCHOOL_NUMBER = 97
+
+export { YEARS, JN_HIGHSCHOOL_NUMBER }

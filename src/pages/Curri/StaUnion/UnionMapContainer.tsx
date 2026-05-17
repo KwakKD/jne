@@ -74,9 +74,9 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
         }
     };
 
-    // const getRegionSubjectsCount = (locationName: string) => {
-    //     return unionData.filter(item => item.location === locationName).length
-    // }
+    const getRegionSubjectsCount = (locationName: string) => {
+        return unionData.filter(item => item.location === locationName).length
+    }
 
     const handleMarkerClick = (schoolName: string) => {
         setUnionSelectSchool(unionSelectSchool === schoolName ? '' : schoolName)

@@ -286,14 +286,14 @@ function CurriHome() {
                                     desc="선택 과목에 대한 각종 통계자료를 제공합니다."
                                     icon={<BarChart3 size={28} />}
                                     color="amber"
-                                    path="/statistics/subjects"
+                                    path="/stats/subject"
                                 />
                                 <MenuCardWithDesc
                                     title="학교별 통계"
                                     desc="학교별 교육과정 편성 통계데이터를 제공합니다."
                                     icon={<School size={28} />}
                                     color="rose"
-                                    path="/statistics/schools"
+                                    path="/stats/schools"
                                 />
                                 {/* <MenuCardWithDesc
                                     title="편성 진척도 리포트"
