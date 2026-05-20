@@ -1,6 +1,7 @@
 import type { SubjectCode } from "@/data/Curri/teacher"
+import { YEARS } from "@/data/data"
 import { supabase } from "@/lib/supabase"
-import type { STA_SUBJECTS, subT } from "@/type/curri"
+import type { CEAtype, GroupData, JsonData, SchoolClassDataProps, STA_SUBJECTS, subT } from "@/type/curri"
 
 export interface UserInfoProps {
     role: string
@@ -48,6 +49,44 @@ export interface SubjectStat {
     sub_isgroup: string;
 }
 
+export interface SchoolCurriculumProps {
+    fix: JsonData[]
+    choice: JsonData[]
+    CEA: CEAtype
+    groupdata: GroupData
+}
+
+export interface SubJectGroupProps {
+    location: string;
+    schoolname: string;
+    year: string;
+    sub_type: string;
+    sub_name: string;
+    sub_grade: number;
+    sub_sem: number;
+    sub_credit: number;
+    sub_isgroup: string;
+    sub_class: number | null;
+    // sub_teach: TeachProps[] | null
+    sub_subgroup: string
+}
+
+const NOW_YEAR = [
+    { grade: 1, sem: 1, year: YEARS[1] },
+    { grade: 1, sem: 2, year: YEARS[1] },
+    { grade: 2, sem: 1, year: YEARS[0] },
+    { grade: 2, sem: 2, year: YEARS[0] }
+]
+
+const NEXT_YEAR = [
+    { grade: 1, sem: 1, year: YEARS[2] },
+    { grade: 1, sem: 2, year: YEARS[2] },
+    { grade: 2, sem: 1, year: YEARS[1] },
+    { grade: 2, sem: 2, year: YEARS[1] },
+    { grade: 3, sem: 1, year: YEARS[0] },
+    { grade: 3, sem: 2, year: YEARS[0] }
+]
+
 const fetchUser = async (userId: string): Promise<UserInfoProps | null> => {
     const { data: userinfo, error: userinfoError } = await supabase
         .from('userinfo')
@@ -64,7 +103,7 @@ const fetchSchoolInfo = async (userId: string): Promise<SchoolInfoProps | null> 
         .from('schoolinfo')
         .select('grade_1, grade_2, grade_3')
         .eq('user_id', userId)
-        .single()
+        .maybeSingle()
 
     if (schoolinfoError) throw new Error(schoolinfoError.message)
 
@@ -144,4 +183,60 @@ const fetchSubjectStats = async (subjectName: string): Promise<SubjectStat[] | n
     return data
 }
 
-export { fetchUser, fetchSchoolInfo, fetchTeacherInfo, fetchUnionSubInfo, fetchStaUnionInfo, fetchSchoolDataSta, fetchSchoolData, fetchSubjectStats }
+const fetchSchoolCurriculum = async (schoolName: string, year: string): Promise<SchoolCurriculumProps[]> => {
+
+    const { data, error } = await supabase
+        .from('schoolsdata')
+        .select('fix, choice, CEA, groupdata')
+        .eq('schoolname', schoolName)
+        .eq('year', year);
+
+    if (error) throw error
+    return data || [];
+}
+
+const fetchAllSchoolInfo = async (): Promise<SchoolClassDataProps[]> => {
+    const { data, error } = await supabase
+        .from('schoolinfo')
+        .select('schoolname, location, grade_1, grade_2, grade_3, allClass');
+
+    if (error) throw new Error(error.message);
+    return data || [];
+}
+
+const fetchSubjectGroupStats = async (subjectGroup: string, year: string): Promise<SubJectGroupProps[] | null> => {
+    if (!subjectGroup) return null
+
+    const nowYearConditions = NOW_YEAR.map(
+        item => `and(sub_grade.eq.${item.grade},sub_sem.eq.${item.sem},year.eq."${item.year}")`
+    ).join(',');
+
+    const nextYearConditions = NEXT_YEAR.map(
+        item => `and(sub_grade.eq.${item.grade},sub_sem.eq.${item.sem},year.eq."${item.year}")`
+    ).join(',');
+
+    const { data, error } = await supabase
+        .from('schoolsdatasta')
+        .select('schoolname, year, sub_type, sub_name, sub_grade, sub_sem, sub_credit, sub_isgroup, sub_class, sub_subgroup, location')
+        .eq('sub_subgroup', subjectGroup)
+        .in('sub_type', ['지정', '선택'])
+        .or(year === YEARS[1] ? nowYearConditions : nextYearConditions)
+        .limit(5000)
+
+    if (error) throw new Error(error.message)
+    return data
+}
+
+export {
+    fetchUser,
+    fetchSchoolInfo,
+    fetchTeacherInfo,
+    fetchUnionSubInfo,
+    fetchStaUnionInfo,
+    fetchSchoolDataSta,
+    fetchSchoolData,
+    fetchSubjectStats,
+    fetchSchoolCurriculum,
+    fetchAllSchoolInfo,
+    fetchSubjectGroupStats
+}

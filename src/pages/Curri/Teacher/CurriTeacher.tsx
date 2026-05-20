@@ -47,6 +47,10 @@ function TeacherCount() {
             setSchoolInfo('grade_1', dbSchoolData.grade_1)
             setSchoolInfo('grade_2', dbSchoolData.grade_2)
             setSchoolInfo('grade_3', dbSchoolData.grade_3)
+        } else {
+            setSchoolInfo('grade_1', 0)
+            setSchoolInfo('grade_2', 0)
+            setSchoolInfo('grade_3', 0)
         }
 
         if (dbTeacherData) {
@@ -63,7 +67,7 @@ function TeacherCount() {
         )
     }
     // 학급 수 총합 계산
-    const totalClasses = schoolinfo.grade_1 + schoolinfo.grade_2 + schoolinfo.grade_3
+    const totalClasses = (schoolinfo.grade_1 ?? 0) + (schoolinfo.grade_2 ?? 0) + (schoolinfo.grade_3 ?? 0)
 
     const handleSave = async () => {
         if (!user?.id) {
@@ -140,7 +144,7 @@ function TeacherCount() {
                                         <div className="flex items-center gap-4">
                                             <Input
                                                 type="number"
-                                                value={schoolinfo[key]}
+                                                value={schoolinfo[key] ?? 0}
                                                 onChange={(e) => {
                                                     const value = Number(e.target.value)
                                                     if (value < 0) return
@@ -212,7 +216,7 @@ function TeacherCount() {
                                     {(Object.keys(SUBJECT_LABEL) as SubjectCode[]).map((code) => {
                                         const group = GET_SUBJECT_GROUP(code)
                                         const label = SUBJECT_LABEL[code]
-                                        const data = teacher[code]
+                                        const data = teacher[code] || { Group: group, all: 0, outQuota: 0 }
 
                                         return (
                                             <tr key={code} className="hover:bg-blue-50/20 transition-colors group">
@@ -225,7 +229,7 @@ function TeacherCount() {
                                                 <td className="px-8 py-2 border-l border-slate-50/50">
                                                     <Input
                                                         type="number"
-                                                        value={data.all}
+                                                        value={data.all ?? 0}
                                                         onChange={(e) => {
                                                             const value = Number(e.target.value)
                                                             if (value < 0) return
@@ -238,7 +242,7 @@ function TeacherCount() {
                                                 <td className="px-8 py-2 border-l border-slate-50/50">
                                                     <Input
                                                         type="number"
-                                                        value={data.outQuota}
+                                                        value={data.outQuota ?? 0}
                                                         onChange={(e) => {
                                                             const value = Number(e.target.value)
                                                             if (value < 0) return
@@ -250,7 +254,7 @@ function TeacherCount() {
                                                 </td>
                                                 <td className="px-8 py-2 text-right font-bold text-slate-400 border-l border-slate-50/50 bg-slate-50/30">
                                                     <span className={data.all + data.outQuota > 0 ? "text-blue-700 font-black" : ""}>
-                                                        {data.all + data.outQuota}
+                                                        {(data.all ?? 0) + (data.outQuota ?? 0)}
                                                     </span>
                                                 </td>
                                             </tr>

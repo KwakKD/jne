@@ -4,12 +4,14 @@ import { BookOpen, Filter, Hash, Info, Loader2, School, X } from "lucide-react"
 import { SUBJECT } from "@/data/Curri/subject"
 import { Badge, Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui"
 import { useQuery } from "@tanstack/react-query"
-import { fetchSubjectStats, type SubjectStat } from "@/api/supabaseAPI"
+import { fetchSchoolCurriculum, fetchSubjectStats, type SubjectStat } from "@/api/supabaseAPI"
 import { useMemo, useState } from "react"
 import SubTable from "./StaSubTable"
 import SubGradeChart from "./StaGradeChart"
 import SubCreditChart from "./StaCreditChart"
 import SubTypeChart from "./StaTypeChart"
+import { StaModalTable } from "./StaModalTable"
+import { JN_HIGHSCHOOL_NUMBER, YEARS } from "@/data/data"
 
 type FilterType = {
     column: 'sub_credit' | 'sub_type' | 'sub_grade_sem';
@@ -29,6 +31,13 @@ const StaSubject = () => {
         queryFn: () => fetchSubjectStats(selectedSubject),
         enabled: !!selectedSubject, // 과목이 선택되었을 때만 API 호출 실행
         staleTime: 1000 * 60 * 5 // 5분간 데이터를 신선하게 유지 (캐시 활용)
+    })
+
+    const { data: curriCulumData, isLoading: isCurriculumLoading } = useQuery({
+        queryKey: ['schoolCurriculum', selectedSchool?.schoolname, selectedSchool?.year],
+        queryFn: () => fetchSchoolCurriculum(selectedSchool!.schoolname, selectedSchool!.year),
+        enabled: !!selectedSchool && isModalOpen,
+        staleTime: 1000 * 60 * 5
     })
     // 차트 클릭이벤트
     const handleFilterChange = (column: 'sub_credit' | 'sub_type' | 'sub_grade_sem', value: string | number) => {
@@ -71,6 +80,37 @@ const StaSubject = () => {
             return true
         })
     }, [stats, activeFilter])
+
+    const quickSummary = useMemo(() => {
+        if (!stats || stats.length === 0) {
+            return { y0Count: 0, y1Count: 0, y2Count: 0, averageCredit: "0.0" };
+        }
+
+        // A. 각 학년도별 고유 학교 수 계산 (Set 중복 제거)
+        const getSchoolCountByYear = (yearString: string) => {
+            const yearStats = stats.filter(item => item.year === yearString);
+            return new Set(yearStats.map(item => item.schoolname)).size;
+        };
+
+        const y0Count = getSchoolCountByYear(YEARS[0]);
+        const y1Count = getSchoolCountByYear(YEARS[1]);
+        const y2Count = getSchoolCountByYear(YEARS[2]);
+
+        // B. 전체 평균 이수 학점 계산
+        const totalCredit = stats.reduce((sum, item) => sum + (Number(item.sub_credit) || 0), 0);
+        const averageCredit = (totalCredit / stats.length).toFixed(1);
+
+        return {
+            y0Count,
+            y1Count,
+            y2Count,
+            averageCredit,
+            // 라벨 축약 (예: '2026학년도' -> '2026년')
+            y0Label: YEARS[0]?.replace("학년도", "년"),
+            y1Label: YEARS[1]?.replace("학년도", "년"),
+            y2Label: YEARS[2]?.replace("학년도", "년"),
+        };
+    }, [stats]);
 
     if (isLoading) {
         return (
@@ -120,24 +160,130 @@ const StaSubject = () => {
                         </div>
 
                         {/* 우측 퀵 통계 (과목 선택 시에만 노출) */}
-                        {selectedSubject && (
-                            <div className="flex items-center gap-4">
-                                <div className="flex flex-col items-end border-r pr-4 border-slate-200">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">편성 학교 수</p>
-                                    <div className="flex items-center gap-1.5">
-                                        <School size={16} className="text-indigo-500" />
-                                        <span className="text-xl font-black text-slate-800">90</span>
+                        {selectedSubject && stats && stats.length > 0 && (
+                            <div className="flex items-center gap-6 animate-in fade-in duration-300">
+{/* 
+                                <div className="flex flex-col items-end border-r pr-5 border-slate-200 min-h-[52px] justify-between">
+                                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
+                                        {quickSummary.y2Label}학년도 신입생
+                                    </p>
+                                    <div className="flex items-center gap-1.5 mt-auto">
+                                        <School size={15} className="text-slate-400" />
+                                        <span className="text-xl font-black text-slate-700">
+                                            {quickSummary.y2Count}
+                                        </span>
                                         <span className="text-xs font-medium text-slate-500">개교</span>
                                     </div>
                                 </div>
-                                <div className="flex flex-col items-end">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">평균 이수 학점</p>
+
+                                <div className="flex flex-col items-end border-r pr-5 border-slate-200 min-h-[52px] justify-between">
+                                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
+                                        {quickSummary.y1Label}학년도 신입생
+                                    </p>
+                                    <div className="flex items-center gap-1.5 mt-auto">
+                                        <School size={15} className="text-indigo-400" />
+                                        <span className="text-xl font-black text-slate-700">
+                                            {quickSummary.y1Count}
+                                        </span>
+                                        <span className="text-xs font-medium text-slate-500">개교</span>
+                                    </div>
+                                </div> */}
+                                <div className="flex flex-col items-end border-r pr-5 border-slate-200 min-h-13 justify-between">
                                     <div className="flex items-center gap-1.5">
-                                        <Hash size={16} className="text-emerald-500" />
-                                        <span className="text-xl font-black text-slate-800">4.2</span>
+                                        <p className="text-[11px] font-bold text-slate-900 uppercase tracking-tight">
+                                            {quickSummary.y2Label}학년도 신입생
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-baseline gap-3 mt-1">
+                                        {/* 개설 비율 텍스트를 숫자의 좌측에 배치하여 시각적 계층 구조를 최적화합니다 */}
+                                        <span className="text-[12px] font-bold text-indigo-600 bg-indigo-50/75 px-1.5 py-0.5 rounded-md tracking-tighter">
+                                            {(quickSummary.y2Count / JN_HIGHSCHOOL_NUMBER * 100).toFixed(1)}%
+                                        </span>
+                                        <div className="flex items-center gap-1">
+                                            <School size={15} className="text-indigo-600" />
+                                            <span className="text-xl font-black text-indigo-800">
+                                                {quickSummary.y2Count}
+                                            </span>
+                                            <span className="text-xs font-bold text-indigo-500">개교</span>
+                                        </div>
+                                    </div>
+
+                                    {/* 전체 분수 데이터는 가독성을 위해 아주 작고 투명하게 숫자 바로 밑에 배치 */}
+                                    <span className="text-[10px] text-slate-500 font-medium tracking-tight mt-0.5">
+                                        ({quickSummary.y2Count} / {JN_HIGHSCHOOL_NUMBER} 전체 학교 수)
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-end border-r pr-5 border-slate-200 min-h-13 justify-between">
+                                    <div className="flex items-center gap-1.5">
+                                        <p className="text-[11px] font-bold text-slate-900 uppercase tracking-tight">
+                                            {quickSummary.y1Label}학년도 신입생
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-baseline gap-3 mt-1">
+                                        {/* 개설 비율 텍스트를 숫자의 좌측에 배치하여 시각적 계층 구조를 최적화합니다 */}
+                                        <span className="text-[12px] font-bold text-indigo-600 bg-indigo-50/75 px-1.5 py-0.5 rounded-md tracking-tighter">
+                                            {(quickSummary.y1Count / JN_HIGHSCHOOL_NUMBER * 100).toFixed(1)}%
+                                        </span>
+                                        <div className="flex items-center gap-1">
+                                            <School size={15} className="text-indigo-600" />
+                                            <span className="text-xl font-black text-indigo-700">
+                                                {quickSummary.y1Count}
+                                            </span>
+                                            <span className="text-xs font-bold text-indigo-500">개교</span>
+                                        </div>
+                                    </div>
+
+                                    {/* 전체 분수 데이터는 가독성을 위해 아주 작고 투명하게 숫자 바로 밑에 배치 */}
+                                    <span className="text-[10px] text-slate-500 font-medium tracking-tight mt-0.5">
+                                        ({quickSummary.y1Count} / {JN_HIGHSCHOOL_NUMBER} 전체 학교 수)
+                                    </span>
+                                </div>
+
+                                {/* 3. YEARS[0] 학년도 (최신 + 전남 개설 비율 연동) */}
+                                {/* 높이를 유지하되, 비율 데이터를 우측 수직 정렬에 맞춰 콤팩트하게 마감합니다. */}
+                                <div className="flex flex-col items-end border-r pr-5 border-slate-200 min-h-13 justify-between">
+                                    <div className="flex items-center gap-1.5">
+                                        <p className="text-[11px] font-bold text-slate-900 uppercase tracking-tight">
+                                            {quickSummary.y0Label}학년도 신입생
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-baseline gap-3 mt-1">
+                                        {/* 개설 비율 텍스트를 숫자의 좌측에 배치하여 시각적 계층 구조를 최적화합니다 */}
+                                        <span className="text-[12px] font-bold text-indigo-600 bg-indigo-50/75 px-1.5 py-0.5 rounded-md tracking-tighter">
+                                            {(quickSummary.y0Count / JN_HIGHSCHOOL_NUMBER * 100).toFixed(1)}%
+                                        </span>
+                                        <div className="flex items-center gap-1">
+                                            <School size={15} className="text-indigo-600" />
+                                            <span className="text-xl font-black text-indigo-600">
+                                                {quickSummary.y0Count}
+                                            </span>
+                                            <span className="text-xs font-bold text-indigo-500">개교</span>
+                                        </div>
+                                    </div>
+
+                                    {/* 전체 분수 데이터는 가독성을 위해 아주 작고 투명하게 숫자 바로 밑에 배치 */}
+                                    <span className="text-[10px] text-slate-500 font-medium tracking-tight mt-0.5">
+                                        ({quickSummary.y0Count} / {JN_HIGHSCHOOL_NUMBER} 전체 학교 수)
+                                    </span>
+                                </div>
+
+                                {/* 4. 평균 이수 학점 */}
+                                <div className="flex flex-col items-end min-h-13 justify-between">
+                                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
+                                        평균 이수 학점
+                                    </p>
+                                    <div className="flex items-center gap-1.5 mt-auto">
+                                        <Hash size={15} className="text-emerald-500" />
+                                        <span className="text-xl font-black text-slate-800">
+                                            {quickSummary.averageCredit}
+                                        </span>
                                         <span className="text-xs font-medium text-slate-500">학점</span>
                                     </div>
                                 </div>
+
                             </div>
                         )}
                     </div>
@@ -231,7 +377,7 @@ const StaSubject = () => {
                 </div>
             </main>
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-                <DialogContent className="max-w-5xl h-[90vh] flex flex-col p-0 gap-0 overflow-hidden border-none shadow-2xl">
+                <DialogContent className="max-w-5xl! h-[90vh] w-full flex flex-col p-0 gap-0 overflow-hidden border-none shadow-2xl">
                     {/* 팝업 헤더 영역 */}
                     <DialogHeader className="p-6 bg-slate-50 border-b border-slate-200">
                         <div className="flex items-start gap-4">
@@ -242,7 +388,7 @@ const StaSubject = () => {
                                 <DialogTitle className="text-xl font-black text-slate-900 tracking-tight">
                                     {selectedSchool?.schoolname} <span className="text-indigo-600">편성표</span>
                                 </DialogTitle>
-                                <DialogDescription className="text-xs text-slate-500 font-medium">
+                                <DialogDescription className="text-sm text-slate-500 font-medium">
                                     {selectedSchool?.year}학년도 신입생 교육과정 편성표 (입력 데이터 기반)
                                 </DialogDescription>
                             </div>
@@ -262,9 +408,12 @@ const StaSubject = () => {
                                 </div>
 
                                 {/* [여기에 실제 편성표 테이블 컴포넌트가 들어갈 자리입니다] */}
-                                <div className="min-h-[400px] border-2 border-dashed border-slate-100 rounded-2xl flex items-center justify-center text-slate-400">
-                                    <p className="text-sm">편성표 데이터를 불러오는 중...(개발중)</p>
-                                    {/* <SubModalTable school={selectedSchool.schoolname} year={selectedSchool.year} /> */}
+                                <div className="min-h-100 border-2 border-dashed border-slate-100 rounded-2xl flex items-center justify-center text-slate-400">
+                                    {isCurriculumLoading ? (
+                                        <p className="text-sm">편성표 데이터를 불러오는 중...</p>
+                                    ) :
+                                        <StaModalTable data={curriCulumData ?? []} />
+                                    }
                                 </div>
                             </div>
                         ) : (

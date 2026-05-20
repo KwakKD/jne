@@ -88,6 +88,16 @@ export type STA_SUBJECTS = {
     location: string
 }
 
+export interface SchoolClassDataProps {
+    schoolname: string
+    location: string
+    grade_1: number
+    grade_2: number
+    grade_3: number
+    allClass: number
+    selectedYear?: string
+}
+
 export type TeachProps = {
     subject: string
     credit: number
@@ -114,4 +124,22 @@ export type UnionSubjects = {
     user_id?: string // userid
     min: number
     max: number
+}
+
+export interface SchoolStaAreaTableProps {
+    location: string;
+    schoolname: string;
+    year: string;
+    sub_type: string;
+    sub_name: string;
+    sub_grade: number;
+    sub_sem: number;
+    sub_credit: number;
+    sub_isgroup: string;
+    sub_class: number | null;
+    sub_subgroup: string
+    allClass: number
+    grade_1: number
+    grade_2: number
+    grade_3: number
 }
