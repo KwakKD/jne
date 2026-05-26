@@ -236,11 +236,11 @@ const StaUnion = () => {
                                 </Badge>
                             )}
                         </div>
-
                     </div>
                     <div className="flex-1 relative bg-slate-50">
                         <UnionMapContainer unionData={filteredMapSubjects} />
                     </div>
+                    <p>확대비율이 2이상이면 학교가 나옵니다.</p>
                 </Card>
 
                 {/* [우측: 통계 및 데이터 리스트 영역] */}

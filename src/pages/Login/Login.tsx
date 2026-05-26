@@ -50,11 +50,11 @@ function LoginPage() {
                 >
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">이메일</Label>
+                            <Label htmlFor="email">아이디</Label>
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="example@jne.go.kr"
+                                placeholder="학교 아이디 입력"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
@@ -64,9 +64,9 @@ function LoginPage() {
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
                                 <Label htmlFor="password">비밀번호</Label>
-                                <button type="button" className="text-xs text-blue-600 hover:underline">
+                                {/* <button type="button" className="text-xs text-blue-600 hover:underline">
                                     비밀번호 찾기
-                                </button>
+                                </button> */}
                             </div>
                             <Input
                                 id="password"
@@ -86,9 +86,9 @@ function LoginPage() {
                         >
                             {isLoading ? '로그인 중...' : '로그인'}
                         </Button>
-                        <p className="text-center text-sm text-slate-500">
+                        {/* <p className="text-center text-sm text-slate-500">
                             계정이 없으신가요? <button type="button" className="text-blue-600 hover:underline font-medium">회원가입</button>
-                        </p>
+                        </p> */}
                     </CardFooter>
                 </form>
             </Card>

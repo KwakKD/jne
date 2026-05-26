@@ -356,7 +356,7 @@ function CurriHome() {
                             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center mb-4">
                                 <Info size={20} />
                             </div>
-                            <h4 className="font-bold mb-2">도움이 필요하신가요?(만들지 말지 고민중)</h4>
+                            <h4 className="font-bold mb-2">도움이 필요하신가요?</h4>
                             <p className="text-indigo-100 text-xs leading-relaxed mb-4">
                                 교육과정 편성 지침이나 시스템 사용법에 대한 가이드북을 내려받으실 수 있습니다.
                             </p>
