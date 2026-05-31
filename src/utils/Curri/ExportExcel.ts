@@ -1,6 +1,6 @@
 import { SUBJECT } from '@/data/Curri/subject'
 import { useCurriTableStore } from '@/store/CurriSubjectStore'
-import ExcelJs from 'exceljs'
+import ExcelJs, { type CellFormulaValue } from 'exceljs'
 import { toast } from 'sonner'
 
 const year = useCurriTableStore.getState().year
@@ -282,7 +282,7 @@ export async function exprotToExcel(schoolname: string) {
                     if (inGroupGrade === 1) {
                         sheet.mergeCells(row, 7, row + 1, 7);
                         const cell7 = sheet.getCell(row, 7);
-                        cell7.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` };
+                        cell7.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
                         cell7.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
                         sheet.mergeCells(row, 8, row + 1, 8);
@@ -298,7 +298,7 @@ export async function exprotToExcel(schoolname: string) {
                     } else if (inGroupGrade === 2) {
                         sheet.mergeCells(row, 9, row + 1, 9);
                         const cell9 = sheet.getCell(row, 9);
-                        cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` };
+                        cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
                         cell9.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
                         sheet.mergeCells(row, 10, row + 1, 10);
@@ -313,7 +313,7 @@ export async function exprotToExcel(schoolname: string) {
                     } else {
                         sheet.mergeCells(row, 11, row + 1, 11);
                         const cell11 = sheet.getCell(row, 11);
-                        cell11.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` };
+                        cell11.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
                         cell11.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
                         sheet.mergeCells(row, 12, row + 1, 12);
