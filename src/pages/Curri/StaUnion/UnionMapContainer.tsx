@@ -7,6 +7,7 @@ import { Minus, Navigation, Plus, RefreshCcw } from "lucide-react";
 import { regions, SCHOOL_LOCATION_DATA } from "@/data/Curri/mapConfig";
 import { cn } from "@/lib/utils";
 import UnionMap from "./UnionMap";
+import { SchoolMarker } from "./SchoolMarker";
 
 interface UnionMapContainerProps {
     unionData: UnionInfoProps[]
@@ -62,6 +63,8 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
 
     const handleMarkerClick = (schoolName: string) => {
         setUnionSelectSchool(unionSelectSchool === schoolName ? '' : schoolName)
+        const region = SCHOOL_LOCATION_DATA.find(item => item.name === schoolName)?.regionId ?? ''
+        setUnionSelectLocation(unionSelectSchool === schoolName ? '' : region)
     }
 
     // 💡 개별 버튼 제어를 위한 핸들러
@@ -217,7 +220,7 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                         {/* 학교 마커 레이어 */}
                         <g
                             className={cn(
-                                "transition-opacity duration-500",
+                                "transition-opacity duration-400",
                                 currentScale >= 2 ? "opacity-100" : "opacity-0 pointer-events-none"
                             )}
                             // 💡 하드웨어 가속유도 및 화면 밖 엘리먼트 렌더링 최적화 스타일 주입
@@ -238,57 +241,15 @@ const UnionMapContainer = ({ unionData }: UnionMapContainerProps) => {
                                     // 현재 배율(currentScale)을 나누어 폰트 크기를 황금 비율로 역산 조절합니다.
                                     const dynamicFontSize = Math.max(1.2, config.fontSize / (currentScale * 0.25));
 
-                                    const wrapperWidth = dynamicFontSize * 20;
-                                    const wrapperHeight = dynamicFontSize * 5;
-
                                     return (
-                                        <foreignObject
+                                        <SchoolMarker
                                             key={school.id}
-                                            x={school.x - (wrapperWidth / 2)}
-                                            y={school.y - wrapperHeight}
-                                            width={wrapperWidth}
-                                            height={wrapperHeight}
-                                            className="overflow-visible"
-                                        >
-                                            <div
-                                                onClick={() => handleMarkerClick(school.name)}
-                                                className="w-full h-full flex flex-col items-center justify-end cursor-pointer group select-none"
-                                                // 💡 실시간 배율이 반영된 유연한 폰트 사이즈 대입
-                                                style={{ fontSize: `${dynamicFontSize}px` }}
-                                            >
-                                                {/* 1. 메인 핀 바디 */}
-                                                <div
-                                                    className={cn(
-                                                        "flex items-center gap-[0.4em] px-[0.8em] py-[0.4em] rounded-full shadow-md border transition-all duration-200 whitespace-nowrap",
-                                                        isSelected
-                                                            ? "bg-indigo-600 border-indigo-700 text-white scale-105 z-10"
-                                                            : "bg-white/95 border-slate-200 text-slate-800 hover:border-indigo-400 hover:text-indigo-600"
-                                                    )}
-                                                >
-                                                    <span className="font-bold tracking-tight truncate max-w-[9em]">
-                                                        {school.name}
-                                                    </span>
-                                                    <span
-                                                        className={cn(
-                                                            "flex items-center justify-center font-black rounded-full min-w-[1.6em] h-[1.6em] px-[0.3em] text-[0.85em]",
-                                                            isSelected
-                                                                ? "bg-white text-indigo-600"
-                                                                : "bg-orange-500 text-white"
-                                                        )}
-                                                    >
-                                                        {schoolCount}
-                                                    </span>
-                                                </div>
-
-                                                {/* 2. 하단 말꼬리 화살표 */}
-                                                <div
-                                                    className={cn(
-                                                        "w-0 h-0 border-l-[0.4em] border-l-transparent border-r-[0.4em] border-r-transparent border-t-[0.5em] -mt-[1px] transition-colors duration-200",
-                                                        isSelected ? "border-t-indigo-600" : "border-t-white/95"
-                                                    )}
-                                                />
-                                            </div>
-                                        </foreignObject>
+                                            school={school}
+                                            schoolCount={schoolCount}
+                                            isSelected={isSelected}
+                                            dynamicFontSize={dynamicFontSize}
+                                            onClick={() => handleMarkerClick(school.name)} // 💡 handleMarkerClick은 컴포넌트 상단에서 useCallback 처리 권장
+                                        />
                                     );
                                 })}
                         </g>

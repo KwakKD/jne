@@ -3,13 +3,13 @@ import { Badge, Card, Pagination, PaginationContent, PaginationEllipsis, Paginat
 import { YEARS } from "@/data/data"
 import { useUnionStaStore } from "@/store/UnionStaStore"
 import { useQuery } from "@tanstack/react-query"
-import { BookOpen, Info, Loader2, MapPin, PieChartIcon, School, Sun, Users } from "lucide-react"
+import { BookOpen, Info, Loader2, PieChartIcon, School, Sun, Users } from "lucide-react"
 import React, { useEffect, useMemo, useState } from "react"
-import { UnionMapContainer } from "./UnionMapContainer"
 import { cn } from "@/lib/utils"
 import { UnionSubGroupChart } from "./UnionSubGroupChart"
 import { UnionSemChart } from "./UnionSemChart"
 import { UnionTable } from "./UnionTable"
+import KaKaoMap from "./KaKaoMap"
 
 const FilterGroup = ({ label, value, onChange, options }: any) => (
     // flex-col 대신 items-center를 추가하여 가로 정렬을 강제합니다.
@@ -221,8 +221,8 @@ const StaUnion = () => {
             <main className="p-2 grid grid-cols-1 lg:grid-cols-2 gap-3 h-[calc(100vh-100px)] overflow-hidden">
 
                 {/* [좌측: 지도 영역] */}
-                <Card className="shadow-sm border-slate-200 overflow-hidden relative flex flex-col">
-                    <div className="px-4 py-3 border-b border-slate-100 bg-white flex justify-between items-center">
+                <Card className="shadow-sm border-slate-200 overflow-hidden relative flex flex-col pt-0">
+                    {/* <div className="px-4 py-3 border-b border-slate-100 bg-white flex justify-between items-center">
                         <h2 className="font-bold text-slate-700 flex items-center gap-2">
                             <div className="w-1 h-4 bg-indigo-500 rounded-full" />
                             지역별 개설 현황 지도
@@ -236,11 +236,11 @@ const StaUnion = () => {
                                 </Badge>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                     <div className="flex-1 relative bg-slate-50">
-                        <UnionMapContainer unionData={filteredMapSubjects} />
+                        <KaKaoMap unionData={filteredMapSubjects} />
+                        {/* <UnionMapContainer unionData={filteredMapSubjects} /> */}
                     </div>
-                    <p>확대비율이 2이상이면 학교가 나옵니다.</p>
                 </Card>
 
                 {/* [우측: 통계 및 데이터 리스트 영역] */}
