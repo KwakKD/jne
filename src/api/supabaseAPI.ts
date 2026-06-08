@@ -227,6 +227,31 @@ const fetchSubjectGroupStats = async (subjectGroup: string, year: string): Promi
     return data
 }
 
+const downloadAttachment = async (filePath: string, fileName: string): Promise<void> => {
+    try {
+        const { data, error } = await supabase
+            .storage
+            .from('jne-menual')
+            .download(filePath)
+
+        if (error) throw error
+
+        const blobUrl = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+
+        document.body.appendChild(link);
+        link.click();
+
+        link.remove();
+        window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+        console.error("Storage 서비스 에러:", error);
+        throw error; // 컴포넌트에서 에러 UI를 띄울 수 있도록 에러를 위로 던짐
+    }
+}
+
 export {
     fetchUser,
     fetchSchoolInfo,
@@ -238,5 +263,6 @@ export {
     fetchSubjectStats,
     fetchSchoolCurriculum,
     fetchAllSchoolInfo,
-    fetchSubjectGroupStats
+    fetchSubjectGroupStats,
+    downloadAttachment
 }

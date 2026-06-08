@@ -1,7 +1,7 @@
 import { YEARS } from "@/data/data";
 import { useAuth } from "@/hooks/useAuth";
 import { useUnionCurriStore } from "@/store/UnionCurriStore";
-import { AlertCircle, ChevronDown, Clock, Loader2, MapPin, MessageCircleMore, Plus, Save, Trash2 } from "lucide-react";
+import { AlertCircle, ChevronDown, Clock, Loader2, MapPin, MessageCircleMore, Network, Plus, Save, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { SubjectRow } from "./SubjectRow";
 import { saveUnionData } from "@/api/saveAPI";
@@ -247,8 +247,16 @@ const UnionCurriculum = () => {
                         </div>
                         <span className="bg-indigo-100 text-indigo-700 text-sm font-bold px-2 py-1 rounded">오프라인 공동교육과정 편성</span>
                     </div>
-                    <h1 className="text-2xl font-extrabold text-slate-600 tracking-tight">
-                        <span className="text-green-700">{userInfo?.schoolname}</span> 공동교육과정 과목 편성 현황
+                    <h1 className="text-2xl font-extrabold text-slate-600 tracking-tight flex items-center gap-3">
+                        {/* 💡 아이콘 배경 박스: 진한 그린색 */}
+                        <div className="p-2.5 bg-green-600 rounded-2xl text-white shadow-sm flex items-center justify-center shrink-0">
+                            {/* 아이콘 색상을 흰색으로 바꾸고 크기를 살짝 조절했습니다. */}
+                            <Network className="w-6 h-6" strokeWidth={2.5} />
+                        </div>
+
+                        <span>
+                            <span className="text-green-700">{userInfo?.schoolname}</span> 공동교육과정 과목 편성 현황
+                        </span>
                     </h1>
                 </div>
 

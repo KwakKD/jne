@@ -3,7 +3,7 @@ import { Badge, Card, Pagination, PaginationContent, PaginationEllipsis, Paginat
 import { YEARS } from "@/data/data"
 import { useUnionStaStore } from "@/store/UnionStaStore"
 import { useQuery } from "@tanstack/react-query"
-import { BookOpen, Info, Loader2, PieChartIcon, School, Sun, Users } from "lucide-react"
+import { BookOpen, Compass, Info, Loader2, PieChartIcon, School, Sun, Users } from "lucide-react"
 import React, { useEffect, useMemo, useState } from "react"
 import { cn } from "@/lib/utils"
 import { UnionSubGroupChart } from "./UnionSubGroupChart"
@@ -149,10 +149,24 @@ const StaUnion = () => {
                 <div className="container mx-auto px-2 py-0">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="pb-0">
-                            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">전라남도 공동교육과정 현황 탐색</h1>
-                            <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
-                                <Info size={14} /> 전라남도 내 개설된 모든 오프라인 공동교육과정을 한눈에 확인하세요.
-                            </p>
+                            <div className="flex items-center gap-3">
+                                {/* 💡 아이콘 배경 박스: p-2로 여백을 주고 인디고 배경에 라운딩 처리 */}
+                                <div className="p-2 bg-indigo-600 rounded-xl text-white shadow-sm flex items-center justify-center shrink-0">
+                                    {/* 박스 크기에 맞춰 아이콘 크기를 w-6 h-6(또는 size={24})으로 조절하고 text-white를 적용합니다. */}
+                                    <Compass className="w-6 h-6" strokeWidth={2.2} />
+                                </div>
+
+                                {/* 타이틀 및 설명 영역 */}
+                                <div>
+                                    <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                                        전라남도 공동교육과정 현황 탐색
+                                    </h1>
+                                    <p className="text-sm text-slate-500 mt-0.5 flex items-center gap-1">
+                                        <Info size={14} className="shrink-0" />
+                                        <span>전라남도 내 개설된 모든 오프라인 공동교육과정을 한눈에 확인하세요.</span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         {/* 퀵 통계 요약 */}
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-1">

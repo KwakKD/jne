@@ -1,7 +1,7 @@
 import { SUBJECT_LABEL, GET_SUBJECT_GROUP } from "@/data/Curri/teacher"
 import { type SubjectCode } from "@/data/Curri/teacher"
 import { Input, Card, Button, CardHeader, CardTitle, CardContent, Separator } from "@/components/ui"
-import { Save, School, Users, Info, Loader2 } from "lucide-react"
+import { Save, School, Users, Info, Loader2, Settings2 } from "lucide-react"
 import { useTeacherStore } from "@/store/TeacherStore"
 import { useSchoolInfoStore } from "@/store/SchoolInfo"
 import { useAuth } from "@/hooks/useAuth"
@@ -101,11 +101,23 @@ function TeacherCount() {
             {/* 1. 상단 헤더 & 저장 버튼 */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                        교사 정원 및 학급수 입력
+                    {/* 💡 flex items-center gap-4를 유지하여 아이콘 박스와 제목을 정렬합니다. */}
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-4">
+
+                        {/* 💡 아이콘 배경 박스 추가 */}
+                        <div className="p-2.5 bg-green-700 rounded-2xl text-white shadow-sm flex items-center justify-center shrink-0">
+                            {/* 박스가 진한 초록색이므로 아이콘 선은 흰색(text-white는 부모에게 상속됨)으로 표현됩니다. */}
+                            <Settings2 className="w-6 h-6" strokeWidth={2.5} />
+                        </div>
+
+                        <span>교사 정원 및 학급수 입력</span>
                     </h2>
-                    <p className="text-slate-500 text-sm font-medium mt-1">교육과정 편성의 근거가 되는 학교 기본 정보를 입력합니다.</p>
-                    <div className="p-4 bg-amber-50 rounded-2xl flex gap-3 border border-amber-100 mt-2">
+
+                    <p className="text-slate-500 text-sm font-medium mt-1.5 pl-1">
+                        교육과정 편성의 근거가 되는 학교 기본 정보를 입력합니다.
+                    </p>
+
+                    <div className="p-4 bg-amber-50 rounded-2xl flex gap-3 border border-amber-100 mt-3">
                         <Info size={18} className="text-amber-600 shrink-0 mt-0.5" />
                         <p className="text-[12px] text-amber-800 leading-relaxed font-medium">
                             학급 수와 과목별 정원은 교과별 수업 시수 계산의 기준이 되므로 정확하게 입력해 주세요.

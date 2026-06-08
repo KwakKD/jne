@@ -1,4 +1,4 @@
-const MiniStatCard = ({ label, value, color }: { label: string, value: string, color: string }) => {
+const MiniStatCard = ({ label, value, color }: { label: string, value: string | number, color: string }) => {
     // 테마별 색상 조합 (그라데이션 및 강조색)
     const colorConfigs: any = {
         emerald: {

@@ -12,7 +12,7 @@ import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { CurriculumPreview } from "./CurriCulumPreview";
 import { toast } from "sonner";
 import { duplicateSuject_1, duplicateSuject_2, inJsonData1, inJsonData3 } from "@/utils/Curri/AfterDrop";
-import { FileSpreadsheet, FolderOpen, Loader2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Save } from "lucide-react";
+import { FileSpreadsheet, FolderOpen, Loader2, MousePointerClick, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Save } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui";
 import { CurriAllProgress } from "./CurriAllProgress";
 import { KEMcheck } from "./Sta/KEMcheck";
@@ -103,7 +103,7 @@ const Curriculum = () => {
             </div>
         )
     }
-    
+
     const handleDragEnd = (event: DragEndEvent) => {
         const { over, active } = event;
 
@@ -358,11 +358,26 @@ const Curriculum = () => {
                             </div>
                         </TooltipProvider>
                         <div className="flex items-center justify-between gap-4 mb-2">
-                            <div className="flex flex-col gap-1">
-                                <h2 className="text-2xl font-black text-slate-800 tracking-tight">
-                                    <span className="text-indigo-700">{year}학년도</span> 신입생 교육과정 편성표
-                                </h2>
-                                <p className="text-slate-500 text-sm">좌측 과목리스트에서 과목을 클릭 후 <br /> <span className="font-bold text-indigo-500">드래그</span>하여 아래 영역에 배치하세요.</p>
+                            <div className="flex items-start gap-4">
+
+                                {/* 💡 아이콘 배경 박스 추가 (Indigo 테마) */}
+                                <div className="p-2 bg-indigo-600 rounded-2xl text-white shadow-sm flex items-center justify-center shrink-0 mt-0.5">
+                                    {/* 박스 크기에 맞춰 아이콘 크기를 w-6 h-6으로 살짝 조절했습니다. */}
+                                    <MousePointerClick className="w-6 h-6" strokeWidth={2.5} />
+                                </div>
+
+                                {/* 타이틀 및 설명 글 영역 */}
+                                <div className="flex flex-col gap-1">
+                                    <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center">
+                                        <span>
+                                            <span className="text-indigo-700">{year}학년도</span> 신입생 교육과정 편성
+                                        </span>
+                                    </h2>
+                                    <p className="text-slate-500 text-sm leading-relaxed">
+                                        좌측 과목리스트에서 과목을 클릭 후 <br />
+                                        <span className="font-bold text-indigo-500">드래그</span>하여 아래 영역에 배치하세요.
+                                    </p>
+                                </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <button

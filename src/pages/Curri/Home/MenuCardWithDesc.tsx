@@ -54,10 +54,10 @@ const MenuCardWithDesc = ({ title, desc, icon, color, path }: MenuCardProps) => 
     return (
         <div
             className={`
-                group relative flex items-center gap-6 p-5 
+                group relative flex items-center gap-6 p-3 
                 rounded-[2rem] transition-all bg-transparent 
-                hover:bg-white border border-transparent 
-                cursor-pointer hover:shadow-2xl ${theme.card}
+                hover:bg-white border-3 border-transparent 
+                cursor-pointer hover:shadow-4xl ${theme.card}
             `}
             onClick={() => navigate(path)}
         >

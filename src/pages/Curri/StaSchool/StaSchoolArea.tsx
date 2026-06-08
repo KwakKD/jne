@@ -138,23 +138,6 @@ export default function SchoolStaArea({ schoolLists, schoolInfo }: SchoolStaArea
                                 </SelectContent>
                             </Select>
                         </div>
-                        {/* 세부 교과목 선택 (조회 이후 선택 유도) */}
-                        <div className="flex flex-col gap-1.5">
-                            <label className="text-[11px] font-bold text-slate-500 flex items-center gap-1">
-                                <BookOpen size={12} className="text-slate-400" />
-                                세부 교과목
-                            </label>
-                            <Select value={selectSubject} onValueChange={setSelectSubject}>
-                                <SelectTrigger className="h-9 text-xs w-48 bg-white border-slate-200 rounded-lg shadow-2xs font-black text-indigo-600 border-indigo-100">
-                                    <SelectValue placeholder="과목 선택" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-xl max-h-56">
-                                    {subjectList.map((subject) => (
-                                        <SelectItem key={subject} value={subject} className="text-xs rounded-lg">{subject}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
                         {/* 데이터 패치용 대형 조회 버튼 */}
                         <Button
                             size="sm"
@@ -169,10 +152,28 @@ export default function SchoolStaArea({ schoolLists, schoolInfo }: SchoolStaArea
                             )}
                             <span>{isFetching ? '조회 중...' : '통계 조회'}</span>
                         </Button>
+                        {/* 세부 교과목 선택 (조회 이후 선택 유도) */}
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-[11px] font-bold text-slate-500 flex items-center gap-1">
+                                <BookOpen size={12} className="text-slate-400" />
+                                세부 교과목
+                            </label>
+                            <Select value={selectSubject} onValueChange={setSelectSubject}>
+                                <SelectTrigger className="h-9 text-xs w-44 bg-white border-slate-200 rounded-lg shadow-2xs font-black text-indigo-600 border-indigo-100">
+                                    <SelectValue placeholder="과목 선택" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl max-h-56">
+                                    {subjectList.map((subject) => (
+                                        <SelectItem key={subject} value={subject} className="text-xs rounded-lg">{subject}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
                         {/* 도움말 배치 밴드 */}
                         <div className="flex items-center gap-1 text-[11px] font-medium text-slate-400 bg-white border px-3 py-1 rounded-xl border-slate-200/60 shadow-2xs my-0">
                             <HelpCircle size={13} className="text-amber-500" />
-                            <span>통계 조회 후 세부 과목을 정교화하세요.</span>
+                            <span>통계 조회 후 세부 과목 검색.</span>
                         </div>
 
                     </div>
@@ -182,7 +183,7 @@ export default function SchoolStaArea({ schoolLists, schoolInfo }: SchoolStaArea
             </Card>
 
             {/* [2] 하단 결과 리포트 섹션 그리드 배치 (고정 높이 및 overflow 가드 적용) */}
-            <div className="flex-1 grid grid-cols-12 gap-0 overflow-hidden min-h-0 h-[680px]">
+            <div className="flex-1 grid grid-cols-12 gap-0 overflow-hidden min-h-0 h-170">
 
                 {/* 2-A: 왼쪽 레이어 (시각화 차트 패널 + 미개설 학교 분석 리스트) */}
                 {/* 변경 포인트: h-full과 overflow-y-auto를 통해 내부 요소가 넘칠 때만 깔끔하게 독립 스크롤 생성 */}
@@ -202,7 +203,7 @@ export default function SchoolStaArea({ schoolLists, schoolInfo }: SchoolStaArea
                     </Card>
 
                     {/* 미개설 분석 보드 (남은 스페이스를 유연하게 채우되 shrink를 막아 최소 스크롤 영역 보장) */}
-                    <Card className="border-slate-200/70 shadow-2xs rounded-xl overflow-hidden flex-1 min-h-[340px] flex flex-col">
+                    <Card className="border-slate-200/70 shadow-2xs rounded-xl overflow-hidden flex-1 min-h-85 flex flex-col">
                         <CardHeader className="py-0 px-4 bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between shrink-0">
                             <CardTitle className="text-xs font-black text-slate-600">미개설 학교</CardTitle>
                             <Badge variant="destructive" className="bg-rose-50 border-rose-100 hover:bg-rose-50 text-rose-600 font-bold text-[10px] rounded-md">

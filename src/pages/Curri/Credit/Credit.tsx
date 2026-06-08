@@ -17,6 +17,7 @@ import { CreditChart } from "./CreditChart";
 import { creditExcel } from "@/utils/Curri/CreditExcel";
 import { saveCreditData } from "@/api/saveAPI";
 import { toast } from "sonner";
+import { YEARS } from "@/data/data";
 
 const Credit = () => {
     const setSchoolInfo = useSchoolInfoStore((state) => state.setSchoolInfo)
@@ -126,9 +127,9 @@ const Credit = () => {
                             <LayoutDashboard size={24} />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold text-slate-900 tracking-tight">2027년 과목별 시수 현황</h1>
+                            <h1 className="text-xl font-bold text-slate-900 tracking-tight">{YEARS[2]} 년 과목별 시수 현황</h1>
                             <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                                <Info size={12} /> 저장을 반드시 해주세요.
+                                <Info size={12} /> 내년에 개설되는 수업 총 시수 및 편성을 할 수 있습니다.
                             </p>
                         </div>
                     </div>

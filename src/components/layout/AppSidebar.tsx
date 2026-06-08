@@ -20,13 +20,14 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "../ui"
 import { useQueryClient } from "@tanstack/react-query"
 import { supabase } from "@/lib/supabase"
+import symbolImg from './symbol.png'
 
 export function AppSidebar() {
     const { data: user } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
     const queryClient = useQueryClient()
-    
+
     const handleLogout = async () => {
         await supabase.auth.signOut()
         queryClient.invalidateQueries({ queryKey: ['auth-user'] })
@@ -36,27 +37,29 @@ export function AppSidebar() {
 
 
     return (
-        <Sidebar variant="sidebar" collapsible="icon" className="border-r border-slate-200 bg-white">
+        <Sidebar
+         variant="sidebar" 
+         collapsible="icon" 
+         className="border-r border-slate-300 bg-[#255b8e]"
+         
+         >
             {/* [상단] 시스템 정체성 및 학년도 설정 */}
-            <SidebarHeader className="p-4 gap-4">
+            <SidebarHeader className="py-4 gap-4">
                 <div className="flex items-center gap-3 px-1 cursor-pointer" onClick={() => navigate('/')}>
-                    <div className="h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-[#005eb8] p-1.5 flex items-center justify-center shadow-sm">
-                        {/* <img src="/logo.png" alt="전남교육청" className="brightness-0 invert object-contain" /> */}
+                    {/* 부모 박스: p-1과 flex layout으로 이미지를 중앙에 배치 */}
+                    <div className="h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-[#aecbe4] p-1 flex items-center justify-center shadow-sm">
+                        {/* 투명 배경 PNG 이미지를 사용하고, 색상 왜곡 필터를 완전히 제거 */}
+                        <img
+                            src={symbolImg}
+                            alt="전남교육청"
+                            className="w-full h-full object-contain"
+                        />
                     </div>
                     <div className="flex flex-col group-data-[collapsible=icon]:hidden">
                         <span className="text-sm font-bold text-slate-900 leading-tight">전라남도교육청</span>
                         <span className="text-[10px] text-slate-500 font-medium">교육과정 통합시스템</span>
                     </div>
                 </div>
-
-                {/* 학년도 선택: 업무의 기준점 */}
-                {/* <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-xl border border-slate-100 group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:justify-center">
-                    <CalendarDays size={16} className="text-[#005eb8] shrink-0" />
-                    <select className="bg-transparent text-xs font-bold text-slate-700 focus:outline-none cursor-pointer w-full group-data-[collapsible=icon]:hidden">
-                        <option>2026학년도</option>
-                        <option>2025학년도</option>
-                    </select>
-                </div> */}
             </SidebarHeader>
 
             {/* [중앙] 핵심 메뉴 구성 */}

@@ -41,8 +41,8 @@ export function CurriDataManageModal({ isOpen, onClose }: CurriDataManageModalPr
         const fixedData = userData[year]?.학교지정 || [];
         let fixCredit = 0;
 
-        Object.values(group).forEach((g: any) => {
-            if (g.Zone === '학교지정') fixCredit += (g.Credit ?? 0) * 2;
+        Object.values(group).forEach((g) => {
+            if (g.Zone === '지정') fixCredit += (g.Credit ?? 0) * 2;
         });
 
         const noGroupCredit = fixedData
@@ -55,8 +55,8 @@ export function CurriDataManageModal({ isOpen, onClose }: CurriDataManageModalPr
     const getStatsChoice = (year: string) => {
         const group = userData[year]?.Group || {};
         let choiceCredit = 0;
-        Object.values(group).forEach((g: any) => {
-            if (g.Zone === '선택과목') {
+        Object.values(group).forEach((g) => {
+            if (g.Zone === '선택') {
                 choiceCredit += (g.Credit ?? 0) * (g.Choice ?? 0);
             }
         });

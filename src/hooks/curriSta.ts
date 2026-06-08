@@ -3,8 +3,8 @@ import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { useMemo } from "react";
 
 export function useStatistics(selectedYear?: string) {
-    const { year: stroeYear, userData } = useCurriTableStore()
-    const targetYear = selectedYear || stroeYear
+    const { year: storeYear, userData } = useCurriTableStore()
+    const targetYear = selectedYear || storeYear
     const groupInfo = userData[targetYear].Group
     const table1Data = userData[targetYear].학교지정
     const table2Data = userData[targetYear].선택과목

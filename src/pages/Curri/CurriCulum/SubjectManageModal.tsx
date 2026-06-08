@@ -134,7 +134,7 @@ export const SubjectManagerModal = ({ isOpen, onClose }: SubjectManagerModalProp
                                     <Select value={newSubject.과목종류} onValueChange={(v) => setNewSubject({ ...newSubject, 과목종류: v })}>
                                         <SelectTrigger className="bg-white"><SelectValue /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="특목고">특목고 과목</SelectItem>
+                                            {/* <SelectItem value="특목고">특목고 과목</SelectItem> */}
                                             <SelectItem value="전문교과">전문교과</SelectItem>
                                             <SelectItem value="고시외">고시외 과목</SelectItem>
                                         </SelectContent>

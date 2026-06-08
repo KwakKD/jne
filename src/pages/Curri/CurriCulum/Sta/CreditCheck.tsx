@@ -4,7 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 export function CreditCheck() {
     const { statistics_subjectCreditCheck } = useStatistics();
     const subjectGroupList = ["국어", "수학", "영어", "사회", "과학", "체육", "예술", "생활교양"];
-    const leastCredit = [8, 8, 8, 8, 10, 10, 10, 10];
+    const leastCredit = [8, 8, 8, 8, 10, 10, 10, 16];
 
     return (
         <div className="space-y-3 p-2">

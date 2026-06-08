@@ -141,6 +141,7 @@ function excelETCCredit() {
 }
 
 export async function exprotToExcel(schoolname: string) {
+    const year = useCurriTableStore.getState().year
     const workbook = new ExcelJs.Workbook()
     const sheet = workbook.addWorksheet('worksheet');
     const user = useCurriTableStore.getState().userData[year];
@@ -626,7 +627,7 @@ export async function exprotToExcel(schoolname: string) {
             etcCell.font = { size: 10 }
             etcCell.border = baseBorder
             const etcCredit = sheet.getCell(creditRow, 14)
-            etcCredit.value = 10
+            etcCredit.value = 16
             etcCredit.alignment = alignCenter
             etcCredit.font = { size: 10 }
             etcCredit.border = baseBorder
@@ -639,7 +640,7 @@ export async function exprotToExcel(schoolname: string) {
             etcCell.border = baseBorder
             sheet.mergeCells(creditRow, 14, creditRow + table1_etc.length - 1, 14)
             const etcCredit = sheet.getCell(creditRow, 14)
-            etcCredit.value = 10
+            etcCredit.value = 16
             etcCredit.alignment = alignCenter
             etcCredit.font = { size: 10 }
             etcCredit.border = baseBorder
@@ -1008,7 +1009,7 @@ export async function exprotToExcel(schoolname: string) {
     sheet.getCell(startStaticsRow + 1, 10).value = statistics_1['2-2'] + statistics_3['2-2']
     sheet.getCell(startStaticsRow + 1, 11).value = statistics_1['3-1'] + statistics_3['3-1']
     sheet.getCell(startStaticsRow + 1, 12).value = statistics_1['3-2'] + statistics_3['3-2']
-    sheet.getCell(startStaticsRow + 1, 13).value = excelAllCredit_3() + excelAllCredit_3()
+    sheet.getCell(startStaticsRow + 1, 13).value = excelAllCredit_1() + excelAllCredit_3()
     const CEAStatics = sheet.getCell(startStaticsRow + 2, 1)
     CEAStatics.value = '창의적 체험활동'
     CEAStatics.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
@@ -1043,7 +1044,7 @@ export async function exprotToExcel(schoolname: string) {
     sheet.getCell(startStaticsRow + 3, 10).value = statistics_1['2-2'] + statistics_3['2-2'] + CEA['2-2']
     sheet.getCell(startStaticsRow + 3, 11).value = statistics_1['3-1'] + statistics_3['3-1'] + CEA['3-1']
     sheet.getCell(startStaticsRow + 3, 12).value = statistics_1['3-2'] + statistics_3['3-2'] + CEA['3-2']
-    sheet.getCell(startStaticsRow + 3, 13).value = excelAllCredit_3() + excelAllCredit_3() + CEA['1-1'] + CEA['1-2'] + CEA['2-1'] + CEA['2-2'] + CEA['3-1'] + CEA['3-2']
+    sheet.getCell(startStaticsRow + 3, 13).value = excelAllCredit_1() + excelAllCredit_3() + CEA['1-1'] + CEA['1-2'] + CEA['2-1'] + CEA['2-2'] + CEA['3-1'] + CEA['3-2']
     const subjectNumberstatics = sheet.getCell(startStaticsRow + 4, 1)
     subjectNumberstatics.value = '학기당 과목수'
     subjectNumberstatics.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
@@ -1076,7 +1077,7 @@ export async function exprotToExcel(schoolname: string) {
     sheet.getCell(startStaticsRow + 5, 7).value = statistics_1['1-1'] + statistics_1['1-2'] + statistics_3['1-1'] + statistics_3['1-2'] + CEA['1-1'] + CEA['1-2']
     sheet.getCell(startStaticsRow + 5, 9).value = statistics_1['2-1'] + statistics_1['2-2'] + statistics_3['2-1'] + statistics_3['2-2'] + CEA['2-1'] + CEA['2-2']
     sheet.getCell(startStaticsRow + 5, 11).value = statistics_1['3-1'] + statistics_1['3-2'] + statistics_3['3-1'] + statistics_3['3-2'] + CEA['3-1'] + CEA['3-2']
-    sheet.getCell(startStaticsRow + 5, 13).value = excelAllCredit_3() + excelAllCredit_3() + CEA['1-1'] + CEA['1-2'] + CEA['2-1'] + CEA['2-2'] + CEA['3-1'] + CEA['3-2']
+    sheet.getCell(startStaticsRow + 5, 13).value = excelAllCredit_1() + excelAllCredit_3() + CEA['1-1'] + CEA['1-2'] + CEA['2-1'] + CEA['2-2'] + CEA['3-1'] + CEA['3-2']
 
     for (let r = 5; r <= startStaticsRow + 5; r++) {
         for (let j = 1; j <= 14; j++) {

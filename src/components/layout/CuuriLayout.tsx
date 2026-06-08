@@ -11,7 +11,7 @@ export function CurriLayout() {
         <TooltipProvider delayDuration={0}>
             <SidebarProvider
                 style={{
-                    "--sidebar-width": "220px",
+                    "--sidebar-width": "215px",
                     "--sidebar-width-icon": "64px"
                 } as React.CSSProperties}
             >

@@ -24,11 +24,24 @@ export default function SubTable({ data, onOpenDetail }: SubTableProps) {
         }),
         columnHelper.accessor('sub_type', {
             header: '유형',
-            cell: ({ getValue }) => (
-                <Badge variant="outline" className="text-[11px] border-slate-200 bg-slate-50/50 text-slate-600 font-normal">
-                    {getValue()}
-                </Badge>
-            )
+            cell: ({ getValue }) => {
+                const type = getValue(); // "지정" 또는 "선택"
+
+                // 💡 값에 따른 스타일 매핑
+                const badgeStyles = {
+                    지정: "bg-violet-50 border-violet-200 text-violet-700 font-bold",
+                    선택: "bg-rose-50 border-rose-200 text-rose-700 font-bold",
+                }[type] || "bg-slate-50/50 border-slate-200 text-slate-600 font-normal";
+
+                return (
+                    <Badge
+                        variant="outline"
+                        className={`text-[11px] px-2 py-0.5 rounded-lg transition-colors ${badgeStyles}`}
+                    >
+                        {type}
+                    </Badge>
+                );
+            }
         }),
         columnHelper.accessor('sub_grade', {
             header: '학년',
@@ -66,7 +79,7 @@ export default function SubTable({ data, onOpenDetail }: SubTableProps) {
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         initialState: {
-            pagination: { pageSize: 8 } // 대시보드 우측 컴팩트한 배치를 위해 8개 행 권장
+            pagination: { pageSize: 10 } // 대시보드 우측 컴팩트한 배치를 위해 8개 행 권장
         }
     })
 

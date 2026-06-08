@@ -5,35 +5,38 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Paperclip, Megaphone } from "lucide-react"
+// import { Button } from "@/components/ui/button"
+import {
+    // Paperclip,
+    Megaphone
+} from "lucide-react"
 
 // 샘플 데이터 (나중에 Supabase 등에서 불러오시면 됩니다)
 const notices = [
     {
         id: "notice-1",
-        type: "지침",
-        title: "2026학년도 고등학교 교육과정 편성 및 운영 지침(예시)",
-        date: "2026-03-30",
-        content: "2022 개정 교육과정에 따른 고등학교 교과 편성 및 운영 지침 확정안입니다. 각 학교에서는 해당 지침을 준수하여 4월 내로 기초 편성을 완료해 주시기 바랍니다.",
+        type: "안내",
+        title: "2027학년도 고등학교 교육과정 편성, 운영 연수 참석 안내",
+        date: "2026-06-08",
+        content: "2027학년도 고등학교 교육과정 편성 운영 연수를 다음과 같이 실시합니다.\n1. 일시: 2026. 6. 12.(금) 14:00 ~ 16:40\n2. 장소: 동신대학교 대정3관 투게더홀(나주시 동신대길 103 대정 3관 218호)\n 3. 대상: 일반고(자유고, 특수목적소 포함) 97교 교감 및 업무담당자(학교별 2명)",
         important: true,
     },
     {
         id: "notice-2",
-        type: "안내",
-        title: "나이스(NEIS) 연동 데이터 동기화 작업 안내(예시)",
-        date: "2026-03-28",
-        content: "안정적인 서비스 제공을 위해 이번 주 금요일(04/03) 19:00부터 시스템 점검이 예정되어 있습니다. 작업 시간 동안은 저장이 제한될 수 있으니 참고 바랍니다.",
-        important: false,
-    },
-    {
-        id: "notice-3",
         type: "업데이트",
-        title: "과목 선택 통계 대시보드 기능 추가 안내(예시)",
-        date: "2026-03-25",
-        content: "선생님들의 피드백을 반영하여 '학년별 선택과목 수요 조사' 결과를 한눈에 볼 수 있는 그래프 기능이 추가되었습니다. 통계 메뉴에서 확인 가능합니다.",
-        important: false,
+        title: "전라남도 교육과정 통합정보 시스템",
+        date: "2026-06-12",
+        content: "전라남도 교육과정 통합정보 시스템이 운영됩니다. 추후 지속적인 업데이트가 있을 예정입니다.",
+        important: true,
     },
+    // {
+    //     id: "notice-3",
+    //     type: "업데이트",
+    //     title: "과목 선택 통계 대시보드 기능 추가 안내(예시)",
+    //     date: "2026-03-25",
+    //     content: "선생님들의 피드백을 반영하여 '학년별 선택과목 수요 조사' 결과를 한눈에 볼 수 있는 그래프 기능이 추가되었습니다. 통계 메뉴에서 확인 가능합니다.",
+    //     important: false,
+    // },
 ];
 
 function NoticeItem() {
@@ -47,9 +50,9 @@ function NoticeItem() {
                     </div>
                     <h3 className="font-bold text-slate-800 tracking-tight">공지사항</h3>
                 </div>
-                <Button variant="ghost" size="sm" className="text-xs text-slate-400 hover:text-indigo-600 font-medium">
+                {/* <Button variant="ghost" size="sm" className="text-xs text-slate-400 hover:text-indigo-600 font-medium">
                     전체보기
-                </Button>
+                </Button> */}
             </div>
 
             {/* 아코디언 리스트 */}
@@ -85,7 +88,7 @@ function NoticeItem() {
 
                         <AccordionContent className="pb-6 pt-1">
                             <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 space-y-4">
-                                <p className="text-sm text-slate-600 leading-relaxed break-keep">
+                                <p className="text-sm text-slate-600 leading-relaxed break-keep whitespace-pre-line">
                                     {notice.content}
                                 </p>
 
@@ -93,10 +96,10 @@ function NoticeItem() {
                                     <div className="flex items-center gap-2">
                                         <span className="text-[10px] text-slate-400">담당: 교육과정과</span>
                                     </div>
-                                    <Button size="sm" variant="outline" className="h-8 text-xs gap-1.5 rounded-xl bg-white border-slate-200 hover:bg-slate-50">
+                                    {/* <Button size="sm" variant="outline" className="h-8 text-xs gap-1.5 rounded-xl bg-white border-slate-200 hover:bg-slate-50">
                                         <Paperclip size={13} className="text-slate-400" />
                                         지침_전문_다운로드.pdf
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </div>
                         </AccordionContent>
