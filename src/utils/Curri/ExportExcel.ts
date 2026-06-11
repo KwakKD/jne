@@ -79,66 +79,66 @@ export function excelAllCredit_3(): number {
     return Object.values(excelStatistics_3()).reduce((sum, val) => sum + val, 0)
 }
 
-function excelSubjectNumber(): Record<string, string | number> {
-    const cache: Record<string, string | number> = {};
-    const { 학교지정: data, Group: group } = useCurriTableStore.getState().userData[year];
+// function excelSubjectNumber(): Record<string, string | number> {
+//     const cache: Record<string, string | number> = {};
+//     const { 학교지정: data, Group: group } = useCurriTableStore.getState().userData[year];
 
-    for (let grade = 1; grade <= 3; grade++) {
-        for (let sem = 1; sem <= 3; sem++) {
-            let subjectnumber: string | number = 0
-            let subjectIn = 0;
-            let subjectOut = 0
-            subjectIn = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && !noGradeSubject.includes(item.Tag)).length;
-            subjectOut = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && noGradeSubject.includes(item.Tag)).length;
+//     for (let grade = 1; grade <= 3; grade++) {
+//         for (let sem = 1; sem <= 3; sem++) {
+//             let subjectnumber: string | number = 0
+//             let subjectIn = 0;
+//             let subjectOut = 0
+//             subjectIn = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && !noGradeSubject.includes(item.Tag)).length;
+//             subjectOut = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && noGradeSubject.includes(item.Tag)).length;
 
-            Object.keys(group).forEach(key => {
-                if (group[key].Zone === '지정' && group[key].Grade === grade) {
-                    const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
-                    if (queryData === 0) {
-                        subjectOut = subjectOut + 1
-                    } else {
-                        subjectIn = subjectIn + 1
-                    }
-                } else if (group[key].Zone === '선택' && group[key].Grade === grade && group[key].Semester === sem) {
-                    const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
-                    if (queryData === 0) {
-                        subjectOut = subjectOut + Number(group[key].Choice)
-                    } else if (queryData >= Number(group[key].Choice)) {
-                        subjectIn = subjectIn + Number(group[key].Choice)
-                    } else if (queryData < Number(group[key].Choice)) {
-                        subjectIn = subjectIn + queryData
-                        subjectOut = Number(group[key].Choice) - queryData
-                    }
-                }
-            })
-            if (subjectOut === 0) {
-                subjectnumber = subjectIn
-            } else {
-                subjectnumber = subjectIn + ' (' + subjectOut + ')'
-            }
-            cache[`${grade}-${sem}`] = subjectnumber
-        }
-    }
-    return cache
-}
+//             Object.keys(group).forEach(key => {
+//                 if (group[key].Zone === '지정' && group[key].Grade === grade) {
+//                     const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
+//                     if (queryData === 0) {
+//                         subjectOut = subjectOut + 1
+//                     } else {
+//                         subjectIn = subjectIn + 1
+//                     }
+//                 } else if (group[key].Zone === '선택' && group[key].Grade === grade && group[key].Semester === sem) {
+//                     const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
+//                     if (queryData === 0) {
+//                         subjectOut = subjectOut + Number(group[key].Choice)
+//                     } else if (queryData >= Number(group[key].Choice)) {
+//                         subjectIn = subjectIn + Number(group[key].Choice)
+//                     } else if (queryData < Number(group[key].Choice)) {
+//                         subjectIn = subjectIn + queryData
+//                         subjectOut = Number(group[key].Choice) - queryData
+//                     }
+//                 }
+//             })
+//             if (subjectOut === 0) {
+//                 subjectnumber = subjectIn
+//             } else {
+//                 subjectnumber = subjectIn + ' (' + subjectOut + ')'
+//             }
+//             cache[`${grade}-${sem}`] = subjectnumber
+//         }
+//     }
+//     return cache
+// }
 
-function excelSubjectCredit(): Record<string, number> {
-    const cache: Record<string, number> = {}
-    const { 학교지정: data } = useCurriTableStore.getState().userData[year];
-    subjectGroupList.forEach(sub => {
-        const subItem = data.filter(item => item.SubjectGroup === sub)
-        const subcredit = subItem.reduce((sum, item) => sum + Number(item.Credit), 0)
-        cache[`${sub}`] = subcredit
-    })
-    return cache
-}
+// function excelSubjectCredit(): Record<string, number> {
+//     const cache: Record<string, number> = {}
+//     const { 학교지정: data } = useCurriTableStore.getState().userData[year];
+//     subjectGroupList.forEach(sub => {
+//         const subItem = data.filter(item => item.SubjectGroup === sub)
+//         const subcredit = subItem.reduce((sum, item) => sum + Number(item.Credit), 0)
+//         cache[`${sub}`] = subcredit
+//     })
+//     return cache
+// }
 
-function excelETCCredit() {
-    const { 학교지정: data } = useCurriTableStore.getState().userData[year];
-    const subItme = data.filter(item => etc.includes(item.SubjectGroup))
-    const subcredit = subItme.reduce((sum, item) => sum + Number(item.Credit), 0)
-    return subcredit
-}
+// function excelETCCredit() {
+//     const { 학교지정: data } = useCurriTableStore.getState().userData[year];
+//     const subItme = data.filter(item => etc.includes(item.SubjectGroup))
+//     const subcredit = subItme.reduce((sum, item) => sum + Number(item.Credit), 0)
+//     return subcredit
+// }
 
 export async function exprotToExcel(schoolname: string) {
     const year = useCurriTableStore.getState().year
@@ -147,15 +147,16 @@ export async function exprotToExcel(schoolname: string) {
     const user = useCurriTableStore.getState().userData[year];
     const groupinfo = useCurriTableStore.getState().userData[year].Group
 
-    const statistics_1 = excelStatistics_1();
-    const statistics_3 = excelStatistics_3();
-    const statistics_subjectNumber = excelSubjectNumber()
-    const table1_credit = excelSubjectCredit()
-    const table1_ETC_credit = excelETCCredit()
+
     const alignCenter: Partial<ExcelJs.Alignment> = {
         horizontal: 'center',
         vertical: 'middle',
     };
+
+    const alignRight : Partial<ExcelJs.Alignment> = {
+        horizontal : 'right',
+        vertical: 'middle'
+    }
 
     const baseBorder: Partial<ExcelJs.Borders> = {
         top: { style: 'thin' },
@@ -163,6 +164,134 @@ export async function exprotToExcel(schoolname: string) {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
     };
+
+    function excelSubjectCredit(): Record<string, number> {
+        const cache: Record<string, number> = {}
+        const data = useCurriTableStore.getState().userData[year].학교지정;
+        subjectGroupList.forEach(sub => {
+            const subItem = data.filter(item => item.SubjectGroup === sub)
+            const subcredit = subItem.reduce((sum, item) => sum + Number(item.Credit), 0)
+            cache[`${sub}`] = subcredit
+        })
+        return cache
+    }
+
+    function excelStatistics_1(): Record<string, number> {
+        const cache: Record<string, number> = {};
+        const { 학교지정: data, Group: group } = useCurriTableStore.getState().userData[year];
+        if (!data || !group) return cache
+
+        for (let grade = 1; grade <= 3; grade++) {
+            for (let sem = 1; sem <= 2; sem++) {
+                let fixNoGroup = 0;
+                let fixIsGroup = 0;
+
+                Object.keys(group).forEach((key) => {
+                    const g = group[key];
+                    if (g.Zone === '지정' && g.Grade === grade) {
+                        fixIsGroup += g.Credit ?? 0;
+                    }
+                });
+
+                fixNoGroup = data
+                    .filter(
+                        (item) =>
+                            item.Grade === grade &&
+                            item.Semester === sem &&
+                            item.IsGroup === ''
+                    )
+                    .reduce((sum, item) => sum + Number(item.Credit), 0)
+
+                cache[`${grade}-${sem}`] = fixIsGroup + fixNoGroup;
+            }
+
+        }
+        return cache
+    }
+
+    function excelAllCredit_1(): number {
+        return Object.values(excelStatistics_1()).reduce((sum, val) => sum + val, 0)
+    }
+
+    function excelStatistics_3(): Record<string, number> {
+        const cache: Record<string, number> = {};
+        const { 선택과목: data, Group: group } = useCurriTableStore.getState().userData[year];
+        if (!data || !group) return cache
+        for (let grade = 1; grade <= 3; grade++) {
+            for (let sem = 1; sem <= 2; sem++) {
+                let choiceCredit = 0;
+                Object.keys(group).forEach((key) => {
+                    const g = group[key]
+                    if (g.Zone === '선택' && g.Grade === grade && g.Semester === sem) {
+                        const sumCredit = (g.Credit ?? 0) * (g.Choice ?? 0)
+                        choiceCredit += sumCredit;
+                    }
+                });
+                cache[`${grade}-${sem}`] = choiceCredit;
+            }
+        }
+        return cache
+    }
+
+    function excelAllCredit_3(): number {
+        return Object.values(excelStatistics_3()).reduce((sum, val) => sum + val, 0)
+    }
+
+    function excelSubjectNumber(): Record<string, string | number> {
+        const cache: Record<string, string | number> = {};
+        const { 학교지정: data, Group: group } = useCurriTableStore.getState().userData[year];
+
+        for (let grade = 1; grade <= 3; grade++) {
+            for (let sem = 1; sem <= 3; sem++) {
+                let subjectnumber: string | number = 0
+                let subjectIn = 0;
+                let subjectOut = 0
+                subjectIn = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && !noGradeSubject.includes(item.Tag)).length;
+                subjectOut = data.filter(item => item.Grade === grade && item.Semester === sem && item.IsGroup === '' && noGradeSubject.includes(item.Tag)).length;
+
+                Object.keys(group).forEach(key => {
+                    if (group[key].Zone === '지정' && group[key].Grade === grade) {
+                        const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
+                        if (queryData === 0) {
+                            subjectOut = subjectOut + 1
+                        } else {
+                            subjectIn = subjectIn + 1
+                        }
+                    } else if (group[key].Zone === '선택' && group[key].Grade === grade && group[key].Semester === sem) {
+                        const queryData = group[key].Subject.filter(tag => !noGradeSubject.includes(tag)).length
+                        if (queryData === 0) {
+                            subjectOut = subjectOut + Number(group[key].Choice)
+                        } else if (queryData >= Number(group[key].Choice)) {
+                            subjectIn = subjectIn + Number(group[key].Choice)
+                        } else if (queryData < Number(group[key].Choice)) {
+                            subjectIn = subjectIn + queryData
+                            subjectOut = Number(group[key].Choice) - queryData
+                        }
+                    }
+                })
+                if (subjectOut === 0) {
+                    subjectnumber = subjectIn
+                } else {
+                    subjectnumber = subjectIn + ' (' + subjectOut + ')'
+                }
+                cache[`${grade}-${sem}`] = subjectnumber
+            }
+        }
+        return cache
+    }
+
+    function excelETCCredit() {
+        const { 학교지정: data } = useCurriTableStore.getState().userData[year];
+        const subItme = data.filter(item => etc.includes(item.SubjectGroup))
+        const subcredit = subItme.reduce((sum, item) => sum + Number(item.Credit), 0)
+        return subcredit
+    }
+
+    const statistics_1 = excelStatistics_1();
+    const statistics_3 = excelStatistics_3();
+    const statistics_subjectNumber = excelSubjectNumber()
+    const table1_credit = excelSubjectCredit()
+    const table1_ETC_credit = excelETCCredit()
     //헤더 작성
     sheet.mergeCells('A1:N1');
     const excelTitle = sheet.getCell('A1')
@@ -170,8 +299,7 @@ export async function exprotToExcel(schoolname: string) {
     excelTitle.alignment = alignCenter
     excelTitle.font = { bold: true, size: 16 }
 
-    const excelSchoolName = sheet.getCell('N2');
-    excelSchoolName.value = schoolname
+    
 
     // 🟨 헤더 (3~4행)
     // 1단 헤더
@@ -211,9 +339,13 @@ export async function exprotToExcel(schoolname: string) {
     const merges = [
         'A3:A4', 'B3:B4', 'C3:C4', 'D3:D4', 'E3:E4', 'F3:F4',
         'M3:M4', 'N3:N4',
-        'G3:H3', 'I3:J3', 'K3:L3',
+        'G3:H3', 'I3:J3', 'K3:L3', 'M2:N2'
     ];
     merges.forEach(range => sheet.mergeCells(range));
+
+    const excelSchoolName = sheet.getCell('M2');
+    excelSchoolName.value = schoolname
+    excelSchoolName.alignment = alignRight
 
     // 🧱 헤더 스타일 통일
     for (let r = 3; r <= 4; r++) {

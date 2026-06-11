@@ -426,7 +426,7 @@ export const Table2 = () => {
                     Choice: null
                 };
                 groupUpdate(year, group, resetGroupCell);
-                addTable2(year, set_sort3(table2Data.filter(sub => sub.Tag !== deleteTag)))
+                addTable2(year, set_sort3(table2Data.filter(sub => sub.IsTable !== deleteindex)))
             } else {
                 const newSubject = handleGroupInfo.Subject.filter(sub => sub !== deleteTag).sort((a, b) => a - b)
                 const newGroupCell: GroupCell = {
@@ -435,7 +435,7 @@ export const Table2 = () => {
                     Grouptag: newSubject[0]
                 }
                 groupUpdate(year, group, newGroupCell);
-                addTable2(year, set_sort3(table2Data.filter(sub => sub.Tag !== deleteTag)))
+                addTable2(year, set_sort3(table2Data.filter(sub => sub.IsTable !== deleteindex)))
             }
         })
         toast.success(`"${item.SubjectName}"과목이 삭제되었습니다.`)

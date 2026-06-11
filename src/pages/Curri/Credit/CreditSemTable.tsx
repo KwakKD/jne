@@ -164,7 +164,7 @@ export function CreditSemTable() {
                             {rowData.map((item, index) => (
                                 <TableRow key={index} className="hover:bg-slate-50/50 transition-colors">
                                     <TableCell className="border-r border-slate-200 font-semibold text-slate-700 text-center">{item?.subjectName}</TableCell>
-                                    <TableCell className="border-r-2 border-slate-300 text-center font-medium">{schoolteacher[item?.subjectName ?? ''].sum}</TableCell>
+                                    <TableCell className="border-r-2 border-slate-300 text-center font-medium">{schoolteacher[item?.subjectName ?? '']?.sum ?? '-'}</TableCell>
 
                                     {/* 1학기 데이터 */}
                                     <TableCell className="border-r border-slate-200 text-center">{item['1-1'] || '-'}</TableCell>

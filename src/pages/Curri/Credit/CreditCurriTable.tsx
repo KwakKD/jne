@@ -38,6 +38,7 @@ function CreditCurriTable() {
     const grade_1 = schoolinfo.grade_1
     const grade_2 = schoolinfo.grade_2
     const grade_3 = schoolinfo.grade_3
+    console.log(schoolinfo)
 
     const schoolteacher = (Object.keys(teacher) as Array<keyof typeof teacher>)
         .filter(key => teacher[key].all !== 0 || teacher[key].outQuota !== 0)
