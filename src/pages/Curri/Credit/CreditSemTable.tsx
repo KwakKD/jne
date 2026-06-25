@@ -1,5 +1,5 @@
 import { Separator, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui";
-import { TEACHER_SUBJECT_GROUP } from "@/data/Curri/teacher";
+import { GET_SUBJECT_GROUP, TEACHER_SUBJECT_GROUP, type SubjectCode } from "@/data/Curri/teacher";
 import { YEARS } from "@/data/data";
 import { useStaSubjectStore } from "@/store/StaSubjectStore";
 import { useTeacherStore } from "@/store/TeacherStore";
@@ -25,19 +25,26 @@ export function CreditSemTable() {
     const userSubjects = useStaSubjectStore((state) => state.userSubjects)
     const teacher = useTeacherStore((state) => state.teacher)
     // 교사 인원수를 나타냄 (교과 : {all: 숫자, outQuota: 숫자, sum : 합})
-    const schoolteacher = Object.values(teacher).reduce<Record<string, { all: number; outQuota: number, sum: number }>>(
-        (acc, cur) => {
-            const group = cur.Group;
+    const teacherEntries = Object.entries(teacher) as [SubjectCode, typeof teacher[SubjectCode]][];
+
+    const schoolteacher = teacherEntries.reduce<Record<string, { all: number; outQuota: number; sum: number }>>(
+        (acc, [subjectName, values]) => {
+            // 💡 이제 subjectName이 자동으로 SubjectCode 타입으로 추론되므로 빨간 줄이 사라집니다!
+            const group = GET_SUBJECT_GROUP(subjectName);
+
+            const allCount = values.all ?? 0;
+            const outQuotaCount = values.outQuota ?? 0;
 
             acc[group] ??= { all: 0, outQuota: 0, sum: 0 };
-            acc[group].all += cur.all ?? 0;
-            acc[group].outQuota += cur.outQuota ?? 0;
-            acc[group].sum += cur.all + cur.outQuota
+            acc[group].all += allCount;
+            acc[group].outQuota += outQuotaCount;
+            acc[group].sum += (allCount + outQuotaCount);
 
-            return acc
+            return acc;
         },
         {}
-    )
+    );
+    console.log(schoolteacher)
 
     const rowData = useMemo<SemesterRow[]>(() => {
         // 해당 년도에 해당되는 과목들만 가져옴.

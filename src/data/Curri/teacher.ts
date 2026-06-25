@@ -70,7 +70,7 @@ const SUBJECT_GROUP_OVERRIDES: Partial<Record<SubjectCode, string>> = {
     earthScience: "과학",
 };
 
-const GET_SUBJECT_GROUP = (code: SubjectCode): string => {
+const GET_SUBJECT_GROUP = (code: SubjectCode ): string => {
     if (SUBJECT_GROUP_OVERRIDES[code]) return SUBJECT_GROUP_OVERRIDES[code]!;
     return SUBJECT_LABEL[code]
 

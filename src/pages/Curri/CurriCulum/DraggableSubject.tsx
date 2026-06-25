@@ -21,6 +21,7 @@ export const DraggableSubject = ({ subject }: Props) => {
         zIndex: 100,
     } : undefined;
 
+
     return (
         <div
             ref={setNodeRef}

@@ -82,7 +82,7 @@ const Curriculum = () => {
     // 드래그 시작 시 호출
     const handleDragStart = (event: DragStartEvent) => {
         const { active } = event;
-        const dragged = SUBJECT.find(s => s.Tag === active.id);
+        const dragged = totalSubjects.find(s => s.Tag === active.id);
         if (dragged) setActiveSubject(dragged);
     };
 
@@ -438,7 +438,7 @@ const Curriculum = () => {
                                         </span>
                                         <div className="flex gap-2">
                                             {selectedTags.map(tag => {
-                                                const subject = SUBJECT.find(s => s.Tag === tag);
+                                                const subject = totalSubjects.find(s => s.Tag === tag);
                                                 return (
                                                     <div key={tag} className="flex-shrink-0 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-[11px] font-bold text-white border border-white/10 flex items-center gap-1.5">
                                                         {subject?.과목명}

@@ -153,8 +153,8 @@ export async function exprotToExcel(schoolname: string) {
         vertical: 'middle',
     };
 
-    const alignRight : Partial<ExcelJs.Alignment> = {
-        horizontal : 'right',
+    const alignRight: Partial<ExcelJs.Alignment> = {
+        horizontal: 'right',
         vertical: 'middle'
     }
 
@@ -299,7 +299,7 @@ export async function exprotToExcel(schoolname: string) {
     excelTitle.alignment = alignCenter
     excelTitle.font = { bold: true, size: 16 }
 
-    
+
 
     // 🟨 헤더 (3~4행)
     // 1단 헤더
@@ -783,9 +783,9 @@ export async function exprotToExcel(schoolname: string) {
     let choiceColumn1 = table1.length + 6
 
     const table2 = user.선택과목
-    const table2_Grade1 = [...new Set(table2.filter(item => item.Grade === 1))]
-    const table2_Grade2 = [...new Set(table2.filter(item => item.Grade === 2))]
-    const table2_Grade3 = [...new Set(table2.filter(item => item.Grade === 3))]
+    const table2_Grade1 = [...new Set(table2.filter(item => item.Grade === 1).map(sub => sub.SubjectName))]
+    const table2_Grade2 = [...new Set(table2.filter(item => item.Grade === 2).map(sub => sub.SubjectName))]
+    const table2_Grade3 = [...new Set(table2.filter(item => item.Grade === 3).map(sub => sub.SubjectName))]
 
     if (table2_Grade1.length !== 0) {
         if (table2_Grade1.length === 1) {

@@ -1,4 +1,8 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import {
+    ChartContainer,
+    // ChartTooltip, ChartTooltipContent,
+    type ChartConfig
+} from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
 
 const chartConfig = {
@@ -12,13 +16,14 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export function KEMcheck({min, max, total }: {min:number, max: number, total: number }) {
+export function KEMcheck({ min, max, total }: { min: number, max: number, total: number }) {
     const others = Math.max(0, total - max);
     const minPercent = total > 0 ? Math.round((min / total) * 100) : 0;
     const maxPercent = total > 0 ? Math.round((max / total) * 100) : 0;
 
     // 검사 기준은 항상 '최대치'가 50%를 넘는지 확인
-    const isOver = maxPercent > 50;
+    const isOver = max > 81;
+    const minOver = min > 81;
     const isRange = min !== max;
 
     // 차트 데이터 구성
@@ -32,7 +37,7 @@ export function KEMcheck({min, max, total }: {min:number, max: number, total: nu
 
             <ChartContainer config={chartConfig} className="mx-auto aspect-square min-h-50">
                 <PieChart>
-                    <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                    {/* <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} /> */}
                     <Pie
                         data={chartData}
                         dataKey="visitors"
@@ -70,20 +75,28 @@ export function KEMcheck({min, max, total }: {min:number, max: number, total: nu
             </ChartContainer>
 
             <div className="mt-4 flex flex-col items-center gap-1">
-                <div className="flex flex-col items-center text-xs font-medium text-slate-400">
+                <div className="flex flex-col items-center text-xs font-medium text-slate-400 gap-2">
                     {/* 상세 학점 범위 표시 */}
                     <div className="flex items-center gap-2">
                         <span className="text-slate-200 font-bold">
                             {isRange ? `${min} ~ ${max}학점` : `${max}학점`}
                         </span>
                         <span className="text-slate-600">/</span>
-                        <span>권장 {Math.floor(total * 0.5)}학점</span>
+                        <span>권장 81학점</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span>교과 이수 학점이 174를 넘는 경우,<br /> 초과 학점의 50%를 편성함.</span>
                     </div>
                 </div>
-                
+
+                {minOver && (
+                    <p className="text-[11px] text-rose-400 mt-2 font-medium animate-bounce text-center">
+                        ⚠️ 최소 학점이 81을 초과합니다!<br /> 시수 조정이 필요합니다.
+                    </p>
+                )}
                 {isOver && (
                     <p className="text-[11px] text-rose-400 mt-2 font-medium animate-bounce text-center">
-                        ⚠️ 최대 비중이 50%를 초과합니다!<br/>시수를 조정하세요.
+                        ⚠️ 최대 학점이 81을 초과합니다!<br /> 선택시 지도가 필요합니다.
                     </p>
                 )}
             </div>

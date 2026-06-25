@@ -25,7 +25,7 @@ const SubjectLibrary = () => {
             const matchesType = selectedType === "all" || subject.유형 === selectedType;
             return matchesSearch && matchesGroup && matchesType;
         });
-    }, [searchTerm, selectedGroup, selectedType]);
+    }, [searchTerm, selectedGroup, selectedType, addSubjects]);
 
     return (
         // <aside className="w-66 bg-white border-r border-slate-200 flex flex-col h-full overflow-hidden">

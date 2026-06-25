@@ -7,6 +7,7 @@ export interface UserInfoProps {
     role: string
     schoolname: string
     location: string
+    name: string
 }
 
 export interface SchoolInfoProps {
@@ -90,7 +91,7 @@ const NEXT_YEAR = [
 const fetchUser = async (userId: string): Promise<UserInfoProps | null> => {
     const { data: userinfo, error: userinfoError } = await supabase
         .from('userinfo')
-        .select('role, schoolname, location')
+        .select('role, schoolname, location, name')
         .eq('id', userId)
         .single()
 
@@ -252,6 +253,17 @@ const downloadAttachment = async (filePath: string, fileName: string): Promise<v
     }
 }
 
+const fetchAllUser = async () => {
+    const { data, error } = await supabase
+        .from('userinfo')
+        .select('id, schoolname, location, role, isapproved')
+        .order('schoolname', { ascending: true })
+
+
+    if (error) throw new Error(error.message)
+    return data
+}
+
 export {
     fetchUser,
     fetchSchoolInfo,
@@ -264,5 +276,6 @@ export {
     fetchSchoolCurriculum,
     fetchAllSchoolInfo,
     fetchSubjectGroupStats,
-    downloadAttachment
+    downloadAttachment,
+    fetchAllUser
 }

@@ -69,8 +69,8 @@ export default function SchoolStaArea({ schoolLists, schoolInfo }: SchoolStaArea
 
     // 이 과목을 개설한 학교명 유니크 배열 생성
     const inDataSchool = useMemo(() => {
-        return [...new Set(tableData.map(item => item.schoolname))]
-    }, [tableData])
+        return [...new Set(filteredData.map(item => item.schoolname))]
+    }, [filteredData])
 
     // [로직 백업] 미개설 학교 차집합 정밀 연산
     const unOpenedData = useMemo(() => {
