@@ -138,7 +138,7 @@ export default function SubGradeChart({ data, onBarClick }: SubGradeChartProps) 
                                 position="top"
                                 offset={8}
                                 className="fill-slate-700 text-[11px] font-black"
-                                formatter={(value: any) => value > 0 ? `${value}개교` : ''}
+                                formatter={(value: any) => value > 0 ? `${value}건` : ''}
                             />
                         </Bar>
                     </BarChart>

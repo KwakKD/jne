@@ -114,7 +114,7 @@ export default function SubCreditChart({ data, onSliceClick }: SubCreditChartPro
                                     className="font-black tracking-tight"
                                     fill={hoveredData ? hoveredData.fill : "#1e293b"}
                                 >
-                                    {hoveredData ? hoveredData.value : totalCount}
+                                    {hoveredData ? hoveredData.value : `${totalCount}`}
                                 </tspan>
                                 <tspan
                                     x="50%"
@@ -123,7 +123,7 @@ export default function SubCreditChart({ data, onSliceClick }: SubCreditChartPro
                                     className="font-bold uppercase tracking-wider"
                                     fill={hoveredData ? hoveredData.fill : "#64748b"}
                                 >
-                                    {hoveredData ? hoveredData.name : "총 개교"}
+                                    {hoveredData ? hoveredData.name : "총 개수"}
                                 </tspan>
                             </text>
                         </Pie>

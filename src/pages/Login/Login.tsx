@@ -227,6 +227,16 @@ function LoginPage() {
                                 </div>
                             </div>
                         </div>
+                        <div className="flex items-center justify-center gap-1.5 pt-1 text-xs text-slate-400">
+                            <span>시스템 총괄 관리자이신가요?</span>
+                            <button
+                                type="button"
+                                onClick={() => navigate('/admin-login')}
+                                className="text-slate-600 font-medium hover:text-blue-600 hover:underline transition-colors"
+                            >
+                                관리자 로그인 ↗
+                            </button>
+                        </div>
                     </CardFooter>
                 </form>
             </Card>

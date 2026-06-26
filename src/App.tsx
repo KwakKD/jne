@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
 import { Home } from './pages/Home'
-import { ChangePasswordPage, Credit, CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
+import { AdminLoginPage, ChangePasswordPage, Credit, CurriHome, LoginPage, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 import { CurriLayout } from './components/layout/CuuriLayout'
@@ -20,6 +20,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/change-password' element={<ChangePasswordPage />} />
+          <Route path='/admin-login' element={<AdminLoginPage />} />
         </Route>
 
         {/* 1. 과목선택 내비게이션 라인 (메인헤더 + 과목 서브헤더) */}

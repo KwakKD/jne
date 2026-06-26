@@ -10,7 +10,7 @@ interface SubMoalTableProps {
 
 export function StaModalTable({ data }: SubMoalTableProps) {
     // 기존 가공 로직 엄격하게 유지
-    const fixData = data[0].fix ?? []
+    const fixData = data[0].fix
     const choiceData = data[0].choice
     const CEAData = data[0].CEA
     const groupData = data[0].groupdata
@@ -18,9 +18,9 @@ export function StaModalTable({ data }: SubMoalTableProps) {
     const choiceData_2 = choiceData.filter(item => item.Grade === 2) ?? []
     const choiceData_3 = choiceData.filter(item => item.Grade === 3) ?? []
 
-    const choiceSpan_1 = [...new Set(choiceData_1.map(item=>item.SubjectName))]
-    const choiceSpan_2 = [...new Set(choiceData_2.map(item=>item.SubjectName))]
-    const choiceSpan_3 = [...new Set(choiceData_3.map(item=>item.SubjectName))]
+    const choiceSpan_1 = [...new Set(choiceData_1.map(item => item.SubjectName))]
+    const choiceSpan_2 = [...new Set(choiceData_2.map(item => item.SubjectName))]
+    const choiceSpan_3 = [...new Set(choiceData_3.map(item => item.SubjectName))]
 
     // td 스타일 통일을 위한 스타일 클래스 묶음
     const cellClass = "border border-slate-200 px-3 py-2 text-center align-middle text-slate-700 font-medium tracking-tight whitespace-nowrap";
@@ -28,7 +28,7 @@ export function StaModalTable({ data }: SubMoalTableProps) {
     const choiceCellClass = "border border-slate-200 px-2 py-2 text-center align-middle bg-amber-50/60 font-black text-amber-700 leading-tight text-[11px]";
 
     const renderFixCredit = (item: JsonData) => {
-        const credits = Array(6).fill(""); 
+        const credits = Array(6).fill("");
         const index = (Number(item.Grade) - 1) * 2 + (Number(item.Semester) - 1);
         credits[index] = item.Credit;
 
@@ -55,8 +55,8 @@ export function StaModalTable({ data }: SubMoalTableProps) {
 
         const credits = Array(6).fill("");
         const gradeIdx = (Number(item.Grade) - 1) * 2;
-        credits[gradeIdx] = insertText;     
-        credits[gradeIdx + 1] = insertText; 
+        credits[gradeIdx] = insertText;
+        credits[gradeIdx + 1] = insertText;
 
         return (
             <>
@@ -358,7 +358,7 @@ export function StaModalTable({ data }: SubMoalTableProps) {
                     <col className="w-[5%]" />
                     <col className="w-[5%]" />
                 </colgroup>
-                
+
                 {/* 헤더 디자인 고도화 (Sticky 및 배색 처리) */}
                 <thead>
                     <tr className="bg-slate-900 text-white font-bold text-center">
@@ -376,7 +376,7 @@ export function StaModalTable({ data }: SubMoalTableProps) {
                         <th className="p-2.5 border border-slate-800 bg-amber-900/50">3-2</th>
                     </tr>
                 </thead>
-                
+
                 <tbody className="divide-y divide-slate-200">
                     {/* 1. 학교 지정 데이터 행 */}
                     {fixData.map((item, index) => (
@@ -394,7 +394,7 @@ export function StaModalTable({ data }: SubMoalTableProps) {
                             {item.IsGroup === '' ? renderFixCredit(item) : renderFixChoiceCredit(item)}
                         </tr>
                     ))}
-                    
+
                     {/* 학교지정 소계 */}
                     <tr className="bg-indigo-50/40 text-slate-800 font-extrabold text-center">
                         <td colSpan={6} className="border border-slate-200 px-4 py-2.5 text-left text-indigo-900 font-black">
@@ -411,43 +411,43 @@ export function StaModalTable({ data }: SubMoalTableProps) {
                     {/* 2. 선택과목 데이터 행들 (1학년) */}
                     {choiceData_1.map((item, idx, data) => (
                         (item.IsTable !== data[idx + 1]?.IsTable && idx > 0 && item.IsTable === data[idx - 1].IsTable) ? null :
-                        <tr key={`choice1-${idx}`} className="hover:bg-slate-50/50 transition-colors">
-                            {idx === 0 && <td rowSpan={choiceSpan_1.length} className="border border-slate-200 text-center font-black bg-amber-50/40 text-amber-900 px-2 py-3 leading-tight">선택과목<br/><span className="text-[10px] font-bold text-amber-600">(1학년)</span></td>}
-                            <td className={cellClass}>{item.SubjectGroup}</td>
-                            <td className={cellClass}>{item.SubjectProperty}</td>
-                            <td className={textLeftClass}>{item.SubjectName}</td>
-                            <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
-                            <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
-                            {renderChoiceCredit(item, idx, data)}
-                        </tr>
+                            <tr key={`choice1-${idx}`} className="hover:bg-slate-50/50 transition-colors">
+                                {idx === 0 && <td rowSpan={choiceSpan_1.length} className="border border-slate-200 text-center font-black bg-amber-50/40 text-amber-900 px-2 py-3 leading-tight">선택과목<br /><span className="text-[10px] font-bold text-amber-600">(1학년)</span></td>}
+                                <td className={cellClass}>{item.SubjectGroup}</td>
+                                <td className={cellClass}>{item.SubjectProperty}</td>
+                                <td className={textLeftClass}>{item.SubjectName}</td>
+                                <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
+                                <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
+                                {renderChoiceCredit(item, idx, data)}
+                            </tr>
                     ))}
 
                     {/* 3. 선택과목 데이터 행들 (2학년) */}
                     {choiceData_2.map((item, idx, data) => (
                         (item.IsTable !== data[idx + 1]?.IsTable && idx > 0 && item.IsTable === data[idx - 1].IsTable) ? null :
-                        <tr key={`choice2-${idx}`} className="hover:bg-slate-50/50 transition-colors">
-                            {idx === 0 && <td rowSpan={choiceSpan_2.length} className="border border-slate-200 text-center font-black bg-emerald-50/30 text-emerald-900 px-2 py-3 leading-tight">선택과목<br/><span className="text-[10px] font-bold text-emerald-600">(2학년)</span></td>}
-                            <td className={cellClass}>{item.SubjectGroup}</td>
-                            <td className={cellClass}>{item.SubjectProperty}</td>
-                            <td className={textLeftClass}>{item.SubjectName}</td>
-                            <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
-                            <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
-                            {renderChoiceCredit(item, idx, data)}
-                        </tr>
+                            <tr key={`choice2-${idx}`} className="hover:bg-slate-50/50 transition-colors">
+                                {idx === 0 && <td rowSpan={choiceSpan_2.length} className="border border-slate-200 text-center font-black bg-emerald-50/30 text-emerald-900 px-2 py-3 leading-tight">선택과목<br /><span className="text-[10px] font-bold text-emerald-600">(2학년)</span></td>}
+                                <td className={cellClass}>{item.SubjectGroup}</td>
+                                <td className={cellClass}>{item.SubjectProperty}</td>
+                                <td className={textLeftClass}>{item.SubjectName}</td>
+                                <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
+                                <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
+                                {renderChoiceCredit(item, idx, data)}
+                            </tr>
                     ))}
 
                     {/* 4. 선택과목 데이터 행들 (3학년) */}
                     {choiceData_3.map((item, idx, data) => (
                         (item.IsTable !== data[idx + 1]?.IsTable && idx > 0 && item.IsTable === data[idx - 1].IsTable) ? null :
-                        <tr key={`choice3-${idx}`} className="hover:bg-slate-50/50 transition-colors">
-                            {idx === 0 && <td rowSpan={choiceSpan_3.length} className="border border-slate-200 text-center font-black bg-sky-50/40 text-sky-900 px-2 py-3 leading-tight">선택과목<br/><span className="text-[10px] font-bold text-sky-600">(3학년)</span></td>}
-                            <td className={cellClass}>{item.SubjectGroup}</td>
-                            <td className={cellClass}>{item.SubjectProperty}</td>
-                            <td className={textLeftClass}>{item.SubjectName}</td>
-                            <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
-                            <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
-                            {renderChoiceCredit(item, idx, data)}
-                        </tr>
+                            <tr key={`choice3-${idx}`} className="hover:bg-slate-50/50 transition-colors">
+                                {idx === 0 && <td rowSpan={choiceSpan_3.length} className="border border-slate-200 text-center font-black bg-sky-50/40 text-sky-900 px-2 py-3 leading-tight">선택과목<br /><span className="text-[10px] font-bold text-sky-600">(3학년)</span></td>}
+                                <td className={cellClass}>{item.SubjectGroup}</td>
+                                <td className={cellClass}>{item.SubjectProperty}</td>
+                                <td className={textLeftClass}>{item.SubjectName}</td>
+                                <td className={cn(cellClass, "text-slate-400")}>{item.BasicCredit}</td>
+                                <td className={cn(cellClass, "text-slate-900 font-bold")}>{item.Credit}</td>
+                                {renderChoiceCredit(item, idx, data)}
+                            </tr>
                     ))}
 
                     {/* 선택과목 소계 */}
@@ -461,6 +461,18 @@ export function StaModalTable({ data }: SubMoalTableProps) {
                         <td className="border border-slate-200 p-2 text-emerald-700">{choiceSta['2-2']}</td>
                         <td className="border border-slate-200 p-2 text-emerald-700">{choiceSta['3-1']}</td>
                         <td className="border border-slate-200 p-2 text-emerald-700">{choiceSta['3-2']}</td>
+                    </tr>
+                    {/* 선택과목 소계 */}
+                    <tr className="bg-emerald-50/30 text-slate-800 font-extrabold text-center">
+                        <td colSpan={6} className="border border-slate-200 px-4 py-2.5 text-left text-emerald-900 font-black">
+                            교과학점 소계 <span className="text-xs font-normal text-slate-500 ml-1">(합계: {allCredit_1 + allCreidt_2}학점)</span>
+                        </td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['1-1'] + fixSta_1['1-1']}</td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['1-2'] + fixSta_1['1-2']}</td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['2-1'] + fixSta_1['2-1']}</td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['2-2'] + fixSta_1['2-2']}</td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['3-1'] + fixSta_1['3-1']}</td>
+                        <td className="border border-slate-200 p-2 text-red-700">{choiceSta['3-2'] + fixSta_1['3-2']}</td>
                     </tr>
 
                     {/* 창체 활동 행 */}

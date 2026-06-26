@@ -105,7 +105,7 @@ export default function SubTypeChart({ data, onSliceClick }: SubTypeChartProps) 
                                     className="font-bold uppercase tracking-wider"
                                     fill={hoveredData ? hoveredData.fill : "#64748b"}
                                 >
-                                    {hoveredData ? hoveredData.name : "총 강좌"}
+                                    {hoveredData ? hoveredData.name : "총 개수"}
                                 </tspan>
                             </text>
                         </Pie>
