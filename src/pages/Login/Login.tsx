@@ -121,7 +121,7 @@ function LoginPage() {
         <div className="flex min-h-[calc(100vh-theme(spacing.14)-theme(spacing.16))] items-center justify-center bg-slate-50/60 px-4 py-12">
             <Card className="w-full max-w-110 border-slate-200/80 bg-white/90 shadow-2xl shadow-slate-100 backdrop-blur-sm rounded-xl">
                 <CardHeader className="space-y-2.5 pb-6 pt-8 text-center">
-                    <div className="mx-auto flex h-15 w-15 items-center justify-center rounded-full bg-blue-50 text-xl">
+                    <div className="mx-auto flex h-15 w-15 items-center justify-center rounded-full bg-blue-100 text-3xl">
                         🏫
                     </div>
                     <CardTitle className="text-3xl font-bold tracking-tight text-slate-700">
@@ -133,7 +133,7 @@ function LoginPage() {
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleLogin}>
-                    <CardContent className="space-y-5 px-6">
+                    <CardContent className="space-y-5 px-8">
 
                         {/* 📍 1단계: 시/군 선택 (Shadcn UI 스타일 고도화) */}
                         <div className="space-y-1.5">
@@ -203,7 +203,7 @@ function LoginPage() {
                         </div>
                     </CardContent>
 
-                    <CardFooter className="flex flex-col gap-5 px-6 pb-8 pt-4">
+                    <CardFooter className="flex flex-col gap-5 px-6 pb-8 pt-4 bg-white/90">
                         {/* 로그인 버튼 */}
                         <Button
                             type="submit"
@@ -216,18 +216,18 @@ function LoginPage() {
                         {/* 💡 [신설] 첫 로그인 / 비밀번호 초기화 안내 문구 팁 박스 */}
                         <div className="w-full rounded-lg bg-slate-50 border border-slate-100 p-3.5 text-left transition-all">
                             <div className="flex items-start gap-2">
-                                <span className="text-sm mt-0.5">💡</span>
+                                <span className="text-xl mt-0.5">💡</span>
                                 <div className="space-y-1">
                                     <p className="text-sm font-semibold text-slate-800">
                                         처음 로그인하거나 비밀번호를 초기화하셨나요?
                                     </p>
-                                    <p className="text-[12px] text-slate-500 leading-relaxed tracking-tight">
+                                    <p className="text-[13px] text-slate-500 leading-relaxed tracking-tight">
                                         관리자가 지정한 임시 비밀번호로 로그인하시면, 안전한 서비스 이용을 위해 <strong className="text-blue-600 font-medium">비밀번호 변경 페이지로 자동 이동</strong>됩니다.
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center justify-center gap-1.5 pt-1 text-xs text-slate-400">
+                        <div className="flex items-center justify-center gap-1.5 pt-1 text-sm text-slate-400">
                             <span>시스템 총괄 관리자이신가요?</span>
                             <button
                                 type="button"
