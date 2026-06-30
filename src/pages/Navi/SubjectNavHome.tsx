@@ -25,7 +25,7 @@ function SubjectNavHome() {
                                 <span>2022 개정 교육과정 가이드</span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-[1.2] mb-6">
-                                나의 꿈을 잇는 <span className="text-blue-600">전라남도 교육과정</span>,<br />
+                                나의 꿈을 잇는 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-600">전남 교육과정</span>,<br />
                                 당신의 선택을 돕습니다.
                             </h1>
                             <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
