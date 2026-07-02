@@ -107,14 +107,14 @@ function CurriHome() {
         {
             name: "전라남도교육청/학교교육과정",
             desc: "도내 학생 맞춤형 선택 과목 안내 및 계열별 탐색 플랫폼",
-            url: "https://www.jne.go.kr/sse/na/ntt/selectNttList.do?mi=785&bbsId=378&searchCate3=4",
+            url: "https://www.jge.go.kr/sse/na/ntt/selectNttList.do?mi=785&bbsId=378&searchCate3=4",
             color: "text-emerald-600 bg-emerald-50 border-emerald-100",
             icon: <Network size={18} />
         },
         {
             name: "고교학점제 종합포털",
             desc: "2022 개정 교육과정 총론 가이드 및 학점제 매뉴얼 제공",
-            url: "https://www.hscredit.net",
+            url: "https://hscredit.jge.go.kr",
             color: "text-cyan-600 bg-cyan-50 border-cyan-100",
             icon: <Milestone size={18} />
         },
@@ -133,9 +133,9 @@ function CurriHome() {
             icon: <School size={18} />
         },
         {
-            name: "지능형 나이스 (NEIS)",
+            name: "대입정보포털 (adiga)",
             desc: "최종 확정된 3개년 학교 교육과정 편제 코드 이관 및 입력",
-            url: "https://neis.go.kr", // 권역별 주소 혹은 대표 주소
+            url: "https://www.adiga.kr", // 권역별 주소 혹은 대표 주소
             color: "text-purple-600 bg-purple-50 border-purple-100",
             icon: <Clock size={18} />
         },

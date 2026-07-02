@@ -56,7 +56,7 @@ export function AppSidebar() {
                         />
                     </div>
                     <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                        <span className="text-sm font-bold text-slate-900 leading-tight">전라남도교육청</span>
+                        <span className="text-xs font-bold text-slate-900 leading-tight">전남광주통합특별시교육청</span>
                         <span className="text-[10px] text-slate-500 font-medium">교육과정 통합시스템</span>
                     </div>
                 </div>

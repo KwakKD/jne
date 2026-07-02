@@ -13,20 +13,20 @@ import {
 
 // 샘플 데이터 (나중에 Supabase 등에서 불러오시면 됩니다)
 const notices = [
+    // {
+    //     id: "notice-1",
+    //     type: "안내",
+    //     title: "2027학년도 고등학교 교육과정 편성, 운영 연수 참석 안내",
+    //     date: "2026-06-08",
+    //     content: "2027학년도 고등학교 교육과정 편성 운영 연수를 다음과 같이 실시합니다.\n1. 일시: 2026. 6. 12.(금) 14:00 ~ 16:40\n2. 장소: 동신대학교 대정3관 투게더홀(나주시 동신대길 103 대정 3관 218호)\n 3. 대상: 일반고(자유고, 특수목적소 포함) 97교 교감 및 업무담당자(학교별 2명)",
+    //     important: true,
+    // },
     {
         id: "notice-1",
-        type: "안내",
-        title: "2027학년도 고등학교 교육과정 편성, 운영 연수 참석 안내",
-        date: "2026-06-08",
-        content: "2027학년도 고등학교 교육과정 편성 운영 연수를 다음과 같이 실시합니다.\n1. 일시: 2026. 6. 12.(금) 14:00 ~ 16:40\n2. 장소: 동신대학교 대정3관 투게더홀(나주시 동신대길 103 대정 3관 218호)\n 3. 대상: 일반고(자유고, 특수목적소 포함) 97교 교감 및 업무담당자(학교별 2명)",
-        important: true,
-    },
-    {
-        id: "notice-2",
         type: "업데이트",
-        title: "전라남도 교육과정 통합정보 시스템",
-        date: "2026-06-12",
-        content: "전라남도 교육과정 통합정보 시스템이 운영됩니다. 추후 지속적인 업데이트가 있을 예정입니다.",
+        title: "로그인 시스템 안내",
+        date: "2026-07-01",
+        content: "로그인 화면에서 지역 및 학교를 클릭하신 후, 초기 비밀번호를 입력하시기 바랍니다.\n처음 로그인 하거나 초기비밀번호로 설정된 경우 비밀번호 변경 페이지가 나옵니다.\n비밀번호를 잃어버렸을 때, 관리자에게 문의하시면 비밀번호를 초기화 시켜드립니다.",
         important: true,
     },
     // {
@@ -94,7 +94,7 @@ function NoticeItem() {
 
                                 <div className="flex items-center justify-between pt-3 border-t border-slate-200/60">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-[10px] text-slate-400">담당: 교육과정과</span>
+                                        <span className="text-[10px] text-slate-400">담당: 관리자</span>
                                     </div>
                                     {/* <Button size="sm" variant="outline" className="h-8 text-xs gap-1.5 rounded-xl bg-white border-slate-200 hover:bg-slate-50">
                                         <Paperclip size={13} className="text-slate-400" />
