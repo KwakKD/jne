@@ -19,7 +19,6 @@ function CurriSubjectGroup() {
         const choice = choiceFilteredData.filter(item => item.Grade === grade && item.Semester === sem)
         return { fix, choice }
     }
-    const allSubjects = [...fixFilteredData, ...choiceFilteredData]
     // const groupInfo = curri[0].groupdata
 
     // const filteredSubjectName = (grade: number, sem: number) => {
@@ -239,7 +238,7 @@ function CurriSubjectGroup() {
                                                             return (
                                                                 <TableCell
                                                                     key={semIdx}
-                                                                    className="text-center p-3 border-r align-middle last:border-r-0 min-w-[100px]"
+                                                                    className="text-center p-3 border-r align-middle last:border-r-0 min-w-25"
                                                                 >
                                                                     {content || <span className="text-slate-300">-</span>}
                                                                 </TableCell>
