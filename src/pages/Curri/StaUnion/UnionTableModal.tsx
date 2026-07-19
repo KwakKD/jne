@@ -12,6 +12,7 @@ const UnionTableModal = (sub: UnionInfoProps) => {
             </DialogTrigger>
             <DialogContent className="max-w-md">
                 <DialogHeader className="space-y-3">
+                    
                     <div className="flex flex-wrap items-center gap-2">
                         <Badge variant="secondary" className="bg-slate-100 text-slate-600 border-none font-medium">
                             {sub.subject_group}

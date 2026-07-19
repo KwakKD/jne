@@ -26,6 +26,12 @@ function NaviHeader () {
                 {/* 중앙: 정적 메뉴 (정보 카테고리) */}
                 <nav className="hidden md:flex items-center gap-8">
                     <button 
+                        onClick={() => navigate('/subject-navigation/curri')} // <-- 경로 연결
+                        className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
+                    >
+                        교육과정 편성표 검색
+                    </button>
+                    <button 
                         onClick={() => navigate('/subject-navigation/guide')} // <-- 경로 연결
                         className="text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
                     >

@@ -1,10 +1,11 @@
-import { Badge, Card, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
-import { BookOpen, Filter, MapPin } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Badge, Card, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
+import { ArrowRight, BookOpen, CalendarDays, Clock, Filter, MapPin } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { NaviUnionMap } from "./NaviUnionMap";
-import { NAV_UNUON_SUBJECTS } from "@/data/navUnion";
 import { YEARS } from "@/data/data";
-import type { SubjectNavUnion } from "@/type/nav";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStaUnionInfo, type UnionInfoProps } from "@/api/supabaseAPI";
+import { useNaviUnionStore } from "@/store/NaviUnionStore";
 
 // --- 필터 그룹 컴포넌트 ---
 const FilterGroup = ({ label, value, onChange, options }: any) => (
@@ -24,63 +25,71 @@ const FilterGroup = ({ label, value, onChange, options }: any) => (
     </div>
 );
 
-const SubjectCard = ({ data }: { data: SubjectNavUnion }) => (
-    <Card className="p-5 border-none shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group bg-white rounded-[2rem] border border-transparent hover:border-orange-100 relative overflow-hidden">
-        <div className="relative z-10">
-            <div className="flex justify-between items-start mb-2">
-                <Badge className="bg-indigo-50 text-[12px] text-indigo-600 border-none px-3 py-1 font-semibold">
-                    {data.sub_subgroup}
-                </Badge>
-                <span className="text-[12px] font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded-lg">
-                    {data.year} · {data.sub_sem}학기
-                </span>
+const SubjectCard = ({ data, onDetail }: { data: UnionInfoProps; onDetail: () => void }) => (
+    <Card
+        onClick={onDetail}
+        // 🎯 카드 전체를 클릭해도 상세보기가 작동하도록 세팅 (UX 향상)
+        className="p-5 border-none shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all group bg-white rounded-[2rem] border border-transparent hover:border-orange-100 relative overflow-hidden cursor-pointer select-none"
+    >
+        <div className="relative z-10 flex flex-col h-full justify-between">
+            {/* 상단: 태그 및 연도/학기 */}
+            <div>
+                <div className="flex justify-between items-start mb-2">
+                    <div className="flex gap-1">
+                        <Badge className="bg-indigo-50 text-[12px] text-indigo-600 border-none px-3 py-1 font-semibold">
+                            {data.subject_group}
+                        </Badge>
+                        <Badge className="bg-green-100 text-[12px] text-slate-700 border-none px-3 py-1 font-semibold">
+                            {data.subject_type}
+                        </Badge>
+                    </div>
+
+                    <span className="text-[12px] font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded-lg">
+                        {data.year} · {data.semester}
+                    </span>
+                </div>
+
+                {/* 과목명 */}
+                <h4 className="text-lg font-black text-slate-900 mb-1 group-hover:text-orange-600 transition-colors">
+                    {data.subject_name}
+                </h4>
             </div>
 
-            <h4 className="text-lg font-black text-slate-900 mb-1 group-hover:text-orange-600 transition-colors">
-                {data.sub_name}
-            </h4>
-            <p className="text- text-slate-500 mb-4 line-clamp-1">
-                {data.sub_prop} | {data.sub_type}교육과정
-            </p>
-
-            <div className="space-y-2 flex justify-between">
+            {/* 하단: 학교 정보 및 학점 + 상세보기 화살표 */}
+            <div className="space-y-2 flex justify-between items-end pt-2 border-t border-slate-50/80">
+                {/* 학교 위치 정보 */}
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
-                        <MapPin size={20} />
+                    <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 shrink-0">
+                        <MapPin size={18} />
                     </div>
                     <div>
-                        <p className="text-xs font-bold text-slate-900 leading-none">{data.schoolName}</p>
+                        <p className="text-xs font-bold text-slate-900 leading-none">{data.school_name}</p>
                         <p className="text-[11px] text-slate-500 mt-1">{data.location} · 거점학교</p>
                     </div>
                 </div>
-                <div className="flex gap-3">
-                    <div className="text-center">
-                        <p className="text-[12px] text-slate-500 leading-none mb-1">학년</p>
-                        <p className="text-xs font-bold text-slate-700">{data.sub_grade}</p>
+
+                {/* 학년/학점 데이터 + 상세보기 트리거 버튼 인터랙션 */}
+                <div className="flex items-center gap-4">
+                    <div className="flex gap-3 text-right">
+                        <div className="text-center">
+                            <p className="text-[11px] text-slate-400 leading-none mb-1">학년</p>
+                            <p className="text-xs font-bold text-slate-700">{data.grade}</p>
+                        </div>
+                        <div className="text-center border-l border-slate-100 pl-3">
+                            <p className="text-[11px] text-slate-400 leading-none mb-1">학점</p>
+                            <p className="text-xs font-bold text-slate-700">{data.credit}</p>
+                        </div>
                     </div>
-                    <div className="text-center border-x border-slate-100 px-3">
-                        <p className="text-[12px] text-slate-500 leading-none mb-1">학점</p>
-                        <p className="text-xs font-bold text-slate-700">{data.sub_credit}</p>
+
+                    {/* 🎯 [신설] 트렌디한 화살표 상세보기 액션 아이콘 */}
+                    <div className="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center transition-all group-hover:bg-orange-600 group-hover:text-white group-hover:translate-x-0.5 shadow-sm">
+                        <ArrowRight size={16} />
                     </div>
                 </div>
             </div>
-
-            {/* <div className="mt-5 pt-0 border-t border-slate-50 flex justify-between items-center">
-                <div className="flex gap-3">
-                    <div className="text-center">
-                        <p className="text-[10px] text-slate-400 leading-none mb-1">학년</p>
-                        <p className="text-xs font-bold text-slate-700">{data.sub_grade}</p>
-                    </div>
-                    <div className="text-center border-x border-slate-100 px-3">
-                        <p className="text-[10px] text-slate-400 leading-none mb-1">학점</p>
-                        <p className="text-xs font-bold text-slate-700">{data.sub_credit}</p>
-                    </div>
-                </div>
-                <button className="flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-50 px-4 py-2 rounded-xl hover:bg-orange-600 hover:text-white transition-all shadow-sm">
-                    상세보기
-                </button>
-            </div> */}
         </div>
+
+        {/* 우측 하단 큰 배경 아이콘 */}
         <BookOpen className="absolute -right-4 -bottom-4 text-slate-100 opacity-50 group-hover:text-orange-50 transition-colors" size={100} />
     </Card>
 );
@@ -92,8 +101,19 @@ function NaviUnion() {
     const [selectedSubject, setSelectedSubject] = useState("전체");
     const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
     const [selectedSchool, setSelectedSchool] = useState("전체");
+    const [selectedSubData, setSelectedSubData] = useState<UnionInfoProps | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const setUnionSubjects = useNaviUnionStore((state) => state.setUnionSubjects)
+    const unionSubjects = useNaviUnionStore((state) => state.unionSubjects)
 
     const jnLocations = ["목포시", "여수시", "순천시", "나주시", "광양시", "담양군", "곡성군", "구례군", "고흥군", "보성군", "화순군", "장흥군", "강진군", "해남군", "영암군", "무안군", "함평군", "영광군", "장성군", "완도군", "진도군", "신안군"];
+
+    const { data: dbStaUnionData } = useQuery({
+        queryKey: ['unionSubjects'],
+        queryFn: fetchStaUnionInfo,
+        staleTime: 1000 * 60 * 30
+    })
 
     const toggleLocation = (loc: string) => {
         setSelectedLocations(prev =>
@@ -108,19 +128,25 @@ function NaviUnion() {
         }
     };
 
-    const filteredSubjects = NAV_UNUON_SUBJECTS.filter((sub) => {
+    useEffect(() => {
+        if (dbStaUnionData) {
+            setUnionSubjects(dbStaUnionData)
+        }
+    }, [dbStaUnionData, setUnionSubjects])
+
+    const filteredSubjects = unionSubjects.filter((sub) => {
         const matchYear = selectedYear === '전체' || sub.year === selectedYear
-        const matchGrade = selectedGrade === '전체' || `${sub.sub_grade}학년` === selectedGrade
-        const matchSem = selectedSem === "전체" || `${sub.sub_sem}학기` === selectedSem;
-        const matchName = selectedSubject === "전체" || sub.sub_name === selectedSubject;
+        const matchGrade = selectedGrade === '전체' || `${sub.grade}학년` === selectedGrade
+        const matchSem = selectedSem === "전체" || sub.semester === selectedSem;
+        const matchName = selectedSubject === "전체" || sub.subject_name === selectedSubject;
         const matchLocation = selectedLocations.length === 0 || selectedLocations.includes(sub.location);
-        const matchSchool = selectedSchool === "전체" || sub.schoolName === selectedSchool;
+        const matchSchool = selectedSchool === "전체" || sub.school_name === selectedSchool;
 
         return matchYear && matchGrade && matchSem && matchName && matchLocation && matchSchool;
     })
 
-    const subjectOptions = Array.from(new Set(filteredSubjects.map(s => s.sub_name)));
-    const schoolOptions = Array.from(new Set(filteredSubjects.map(s => s.schoolName)));
+    const subjectOptions = Array.from(new Set(filteredSubjects.map(s => s.subject_name)));
+    const schoolOptions = Array.from(new Set(filteredSubjects.map(s => s.school_name)));
 
     const locationCounts = useMemo(() => {
         const counts: Record<string, number> = {};
@@ -218,26 +244,6 @@ function NaviUnion() {
                                 locationCounts={locationCounts}
                             />
                         </div>
-
-                        {/* 지도 버튼 영역 (이전 코드에서 누락된 부분 추가) */}
-                        {/* <div className="aspect-[4/5] bg-slate-50 rounded-[2.5rem] relative p-6 border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden mb-6">
-                            <div className="grid grid-cols-3 gap-2 w-full">
-                                {jnLocations.map(loc => (
-                                    <button
-                                        key={loc}
-                                        onClick={() => toggleLocation(loc)}
-                                        className={`py-2 px-1 rounded-xl text-[11px] font-bold transition-all border ${selectedLocations.includes(loc)
-                                            ? "bg-orange-500 text-white border-orange-600 shadow-lg scale-105 z-10"
-                                            : "bg-white text-slate-500 border-slate-100 hover:border-orange-200 hover:text-orange-500"
-                                            }`}
-                                    >
-                                        {loc}
-                                    </button>
-                                ))}
-                            </div>
-                        </div> */}
-
-
                     </div>
                 </aside>
 
@@ -270,7 +276,15 @@ function NaviUnion() {
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                             {filteredSubjects.length > 0 ? (
                                 filteredSubjects.map((subject, idx) => (
-                                    <SubjectCard key={idx} data={subject} />
+                                    <SubjectCard
+                                        key={idx}
+                                        data={subject}
+                                        onDetail={() => {
+                                            // 🎯 카드가 클릭되면 이 과목 데이터를 상태에 채우고 모달을 트리거합니다.
+                                            setSelectedSubData(subject);
+                                            setIsModalOpen(true);
+                                        }}
+                                    />
                                 ))
                             ) : (
                                 <div className="col-span-full py-20 text-center text-slate-400 font-medium">
@@ -281,89 +295,95 @@ function NaviUnion() {
                     </div>
                 </section>
             </main>
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
 
-            {/* <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-160px)] md:h-[calc(100vh-105px)] overflow-hidden">
+                <DialogContent className="max-w-md rounded-[2rem] border-none shadow-2xl p-6 bg-white">
+                    {selectedSubData && (
+                        <div className="space-y-4">
+                            <DialogHeader className="space-y-3 border-b border-slate-100 pb-3 text-left">
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Badge variant="secondary" className="bg-slate-100 text-slate-600 border-none font-medium text-xs px-2.5 py-0.5 rounded-md">
+                                        {selectedSubData.subject_group}
+                                    </Badge>
+                                    <Badge variant="outline" className="text-indigo-600 border-indigo-100 bg-indigo-50/50 text-xs px-2.5 py-0.5 rounded-md">
+                                        {selectedSubData.subject_type}
+                                    </Badge>
+                                    <Badge className="bg-orange-500 hover:bg-orange-600 shadow-none text-xs px-2.5 py-0.5 rounded-md text-white border-none">
+                                        {selectedSubData.credit}학점
+                                    </Badge>
+                                </div>
+                                {/* 🎯 font-extrabold와 tracking-tight로 시각적 무게감을 더 줍니다. */}
+                                <DialogTitle className="text-xl font-extrabold text-slate-900 tracking-tight pt-1">
+                                    {selectedSubData.subject_name}
+                                </DialogTitle>
+                                <DialogDescription className="text-xs text-slate-500">
+                                    선택하신 공동교육과정 과목의 상세 운영 정보입니다.
+                                </DialogDescription>
+                            </DialogHeader>
+                            {/* 헤더 파트 */}
+                            {/* <div className="space-y-2 border-b border-slate-100 pb-3">
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Badge variant="secondary" className="bg-slate-100 text-slate-600 border-none font-medium text-xs px-2.5 py-0.5 rounded-md">
+                                        {selectedSubData.subject_group}
+                                    </Badge>
+                                    <Badge variant="outline" className="text-indigo-600 border-indigo-100 bg-indigo-50/50 text-xs px-2.5 py-0.5 rounded-md">
+                                        {selectedSubData.subject_type}
+                                    </Badge>
+                                    <Badge className="bg-orange-500 hover:bg-orange-600 shadow-none text-xs px-2.5 py-0.5 rounded-md text-white border-none">
+                                        {selectedSubData.credit}학점
+                                    </Badge>
+                                </div>
+                                <h2 className="text-xl font-extrabold text-slate-900 tracking-tight pt-1">
+                                    {selectedSubData.subject_name}
+                                </h2>
+                            </div> */}
 
-                <aside className="
-    w-full md:w-100 lg:w-112 
-    bg-white border-r border-slate-200 
-    flex flex-col shrink-0 
-    md:h-[calc(100vh-160px)] 
-    md:sticky md:top-10
-    z-10
-  ">
-                    <div className="p-6 overflow-y-auto custom-scrollbar h-full">
-                        <div className="mb-6">
-                            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                <MapPin className="text-orange-500" size={20} /> 전남 지역 선택
-                            </h2>
-                            <p className="text-xs text-slate-500 mt-1 italic">
-                                동네를 클릭하면 해당 지역 과목을 모아볼 수 있습니다.
-                            </p>
-                        </div>
+                            {/* 바디 내역 그리드 파트 */}
+                            <div className="space-y-2.5 py-1 text-[13px] text-slate-700">
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 flex items-center gap-1.5 font-medium"><CalendarDays size={14} /> 운영정보</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.year}년 / {selectedSubData.semester}</span>
+                                </div>
 
-                        <div className="flex flex-wrap gap-2 mb-6 min-h-[32px]">
-                            {selectedLocations.length === 0 && (
-                                <p className="text-xs text-slate-300 italic">선택된 지역이 없습니다.</p>
-                            )}
-                            {selectedLocations.map(loc => (
-                                <Badge key={loc} variant="secondary" className="bg-orange-50 text-orange-600 border-orange-100 gap-1.5 px-3 py-1.5 rounded-full font-bold animate-in fade-in zoom-in duration-200">
-                                    {loc} <button onClick={() => toggleLocation(loc)} className="hover:text-orange-800 ml-1">×</button>
-                                </Badge>
-                            ))}
-                        </div>
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 flex items-center gap-1.5 font-medium"><MapPin size={14} /> 거점학교</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.school_name} <span className="text-slate-400 font-normal ml-1">({selectedSubData.location})</span></span>
+                                </div>
 
-                        <div className="aspect-[4/5] bg-slate-50 rounded-[2.5rem] relative p-6 border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden">
-                            <div className="grid grid-cols-3 gap-2 w-full">
-                                {jnLocations.map(loc => (
-                                    <button
-                                        key={loc}
-                                        onClick={() => toggleLocation(loc)}
-                                        className={`py-2 px-1 rounded-xl text-[11px] font-bold transition-all border ${selectedLocations.includes(loc)
-                                            ? "bg-orange-500 text-white border-orange-600 shadow-lg scale-105 z-10"
-                                            : "bg-white text-slate-500 border-slate-100 hover:border-orange-200 hover:text-orange-500"
-                                            }`}
-                                    >
-                                        {loc}
-                                    </button>
-                                ))}
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 flex items-center gap-1.5 font-medium"><Clock size={14} /> 운영시간</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.operating_time}</span>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 font-medium pl-5">수업장소</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.classroom}</span>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 font-medium pl-5">운영학년</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.grade}학년</span>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 font-medium pl-5">시작날짜</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.start_date}</span>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 border-b border-slate-100/70 pb-2 items-center">
+                                    <span className="text-slate-400 font-medium pl-5">종료날짜</span>
+                                    <span className="col-span-2 font-semibold text-slate-800">{selectedSubData.end_date}</span>
+                                </div>
+
+                                {/* 비고 상자 */}
+                                <div className="bg-slate-50 p-3 rounded-2xl mt-3 border border-slate-100">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase mb-1 block tracking-wider">비고 사항</span>
+                                    <p className="text-slate-600 leading-relaxed text-xs">
+                                        {selectedSubData.memo || '등록된 비고 사항이 없습니다.'}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </aside>
-
-                <section className="flex-1 flex flex-col min-w-0 bg-slate-50/30">
-                    <div className="p-6 bg-white/40 backdrop-blur-md border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20">
-                        <div className="flex items-center gap-4">
-                            <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                                <Filter size={16} className="text-slate-400" /> 개설 과목 현황
-                            </h3>
-                            <Badge className="bg-slate-900 text-white border-none rounded-lg px-2">128개 강좌</Badge>
-                        </div>
-                        <div className="w-full md:w-64">
-                            <Select value={selectedSchool} onValueChange={setSelectedSchool}>
-                                <SelectTrigger className="rounded-xl border-slate-200 h-10 bg-white">
-                                    <SelectValue placeholder="거점 학교 선택" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-xl border-slate-100">
-                                    <SelectItem value="전체">학교 전체</SelectItem>
-                                    <SelectItem value="목포고">목포고등학교</SelectItem>
-                                    <SelectItem value="여수고">여수고등학교</SelectItem>
-                                    <SelectItem value="순천고">순천고등학교</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
-                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-                            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                                <SubjectCard key={i} />
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            </div> */}
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

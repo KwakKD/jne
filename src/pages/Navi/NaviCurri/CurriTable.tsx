@@ -1,5 +1,3 @@
-"use client"
-
 import type { SchoolCurriculumProps } from "@/api/supabaseAPI";
 import type { JsonData } from "@/type/curri";
 import { useMemo } from "react";
@@ -8,12 +6,11 @@ interface SubMoalTableProps {
     data: SchoolCurriculumProps[]
 }
 
-export function StaModalTable({ data }: SubMoalTableProps) {
-    // 기존 가공 로직 엄격하게 유지
-    const fixData = data[0] ? data[0].fix : []
-    const choiceData = data[0] ? data[0].choice : []
-    const CEAData = data[0] ? data[0].CEA : {}
-    const groupData = data[0] ? data[0].groupdata : {}
+function CurriTable({ data }: SubMoalTableProps) {
+    const fixData = data[0].fix
+    const choiceData = data[0].choice
+    const CEAData = data[0].CEA
+    const groupData = data[0].groupdata
     const choiceData_1 = choiceData.filter(item => item.Grade === 1) ?? []
     const choiceData_2 = choiceData.filter(item => item.Grade === 2) ?? []
     const choiceData_3 = choiceData.filter(item => item.Grade === 3) ?? []
@@ -345,18 +342,18 @@ export function StaModalTable({ data }: SubMoalTableProps) {
         <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-xs">
             <table className="w-full border-collapse text-xs text-left">
                 <colgroup>
-                    <col className="w-[8%]" />
-                    <col className="w-[14%]" />
-                    <col className="w-[8%]" />
-                    <col className="w-[24%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[10%]" />
+                    <col className="w-[5%]" />
+                    <col className="w-[25%]" />
                     <col className="w-[6%]" />
                     <col className="w-[6%]" />
-                    <col className="w-[5%]" />
-                    <col className="w-[5%]" />
-                    <col className="w-[5%]" />
-                    <col className="w-[5%]" />
-                    <col className="w-[5%]" />
-                    <col className="w-[5%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[6%]" />
+                    <col className="w-[6%]" />
                 </colgroup>
 
                 {/* 헤더 디자인 고도화 (Sticky 및 배색 처리) */}
@@ -505,3 +502,5 @@ export function StaModalTable({ data }: SubMoalTableProps) {
         </div>
     )
 }
+
+export { CurriTable }

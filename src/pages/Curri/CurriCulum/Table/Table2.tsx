@@ -10,17 +10,20 @@ import { toast } from "sonner";
 const ERROR_BG = "rgba(255, 165, 165, 1)";
 
 export const Table2 = () => {
-    const { year, userData, groupUpdate, addTable2, inputTable2 } = useCurriTableStore()
+    const userData = useCurriTableStore((state) => state.userData)
+    const { year, groupUpdate, addTable2, inputTable2 } = useCurriTableStore()
     const table2Data = userData[year].선택과목
     const groupInfo = userData[year].Group
     const { statistics_2, allCredit_2 } = useStatistics()
 
-    table2Data.sort(
-        (a, b) =>
-            (a.IsTable !== b.IsTable && a.IsTable && b.IsTable) ? a.IsTable - b.IsTable :
-                (a.Grade !== b.Grade) ? Number(a.Grade) - Number(b.Grade) :
-                    Number(a.Semester) - Number(b.Semester)
-    )
+    set_sort3(table2Data)
+
+    // table2Data.sort(
+    //     (a, b) =>
+    //         (a.IsTable !== b.IsTable && a.IsTable && b.IsTable) ? a.IsTable - b.IsTable :
+    //             (a.Grade !== b.Grade) ? Number(a.Grade) - Number(b.Grade) :
+    //                 Number(a.Semester) - Number(b.Semester)
+    // )
 
     const rows = (item: JsonData, idx: number, data: JsonData[]) => {
         const spanNumber = groupInfo[item.IsGroup].Subject.length;
@@ -411,6 +414,8 @@ export const Table2 = () => {
         const deleteTag = item.Tag;
         const deleteItem = table2Data.filter(sub => sub.IsTable === deleteindex)
         const deleteGroup = deleteItem.map(sub => sub.IsGroup);
+        console.log(deleteItem)
+        console.log(deleteGroup)
 
         deleteGroup.forEach(group => {
             const handleGroupInfo = groupInfo[group];
@@ -426,7 +431,6 @@ export const Table2 = () => {
                     Choice: null
                 };
                 groupUpdate(year, group, resetGroupCell);
-                addTable2(year, set_sort3(table2Data.filter(sub => sub.IsTable !== deleteindex)))
             } else {
                 const newSubject = handleGroupInfo.Subject.filter(sub => sub !== deleteTag).sort((a, b) => a - b)
                 const newGroupCell: GroupCell = {
@@ -435,9 +439,10 @@ export const Table2 = () => {
                     Grouptag: newSubject[0]
                 }
                 groupUpdate(year, group, newGroupCell);
-                addTable2(year, set_sort3(table2Data.filter(sub => sub.IsTable !== deleteindex)))
+
             }
         })
+        addTable2(year, set_sort3(table2Data.filter(sub => sub.Tag !== deleteTag)))
         toast.success(`"${item.SubjectName}"과목이 삭제되었습니다.`)
     }
 

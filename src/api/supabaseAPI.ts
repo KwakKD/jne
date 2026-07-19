@@ -72,6 +72,12 @@ export interface SubJectGroupProps {
     sub_subgroup: string
 }
 
+const NOT_IN_DATA_CURRI: SchoolCurriculumProps = {
+    fix: [],
+    choice: [],
+    CEA: {},
+    groupdata: {}
+}
 const NOW_YEAR = [
     { grade: 1, sem: 1, year: YEARS[1] },
     { grade: 1, sem: 2, year: YEARS[1] },
@@ -193,7 +199,7 @@ const fetchSchoolCurriculum = async (schoolName: string, year: string): Promise<
         .eq('year', year);
 
     if (error) throw error
-    return data || [];
+    return data || NOT_IN_DATA_CURRI;
 }
 
 const fetchAllSchoolInfo = async (): Promise<SchoolClassDataProps[]> => {

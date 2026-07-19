@@ -13,9 +13,9 @@ import { useQuery } from "@tanstack/react-query"
 import { downloadAttachment, fetchSchoolData, fetchStaUnionInfo } from "@/api/supabaseAPI"
 import { useEffect, useMemo, useState } from "react"
 import { useCurriTableStore } from "@/store/CurriSubjectStore"
-import type { SchoolJsonDataType } from "@/type/curri"
 import { YEARS } from "@/data/data"
 import { useStatistics } from "@/hooks/curriSta"
+import type { SchoolJsonDataType } from "@/type/curri"
 
 function CurriHome() {
     const setYearData = useCurriTableStore((state) => state.setYearData)
@@ -93,7 +93,7 @@ function CurriHome() {
 
     }, [userData, stats1_1, stats1_2, stats2_1, stats2_2, stats3_1, stats3_2]);
 
-    if (authLoading || dbschoolsdataLoading || dbStaUnionLoading) {
+    if (authLoading || dbStaUnionLoading || dbschoolsdataLoading) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
                 <Loader2 className="animate-spin text-blue-600" size={40} />

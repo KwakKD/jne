@@ -2,7 +2,7 @@
 import { SubjectLibrary } from "./SubjectList";
 import { useCurriDragStore } from "@/store/CurriDragStroe";
 import { useEffect, useState } from "react";
-import type { GroupCell, SubjectType } from "@/type/curri";
+import type { GroupCell, SchoolJsonDataType, SubjectType } from "@/type/curri";
 import { DndContext, DragOverlay, PointerSensor, pointerWithin, useSensor, useSensors, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
 import { SUBJECT } from "@/data/Curri/subject";
 import { DroppableZone } from "./DroppalbeZone";
@@ -22,7 +22,7 @@ import { exprotToExcel } from "@/utils/Curri/ExportExcel";
 import { useAuth } from "@/hooks/useAuth";
 import { CurriDataManageModal } from "./CurriDataManageModal";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSchoolInfo } from "@/api/supabaseAPI";
+import { fetchSchoolData, fetchSchoolInfo } from "@/api/supabaseAPI";
 import { useSchoolInfoStore } from "@/store/SchoolInfo";
 import { saveCurriData } from "@/api/saveAPI";
 
@@ -42,6 +42,7 @@ const Curriculum = () => {
 
     const year = useCurriTableStore((state) => state.year)
     const userData = useCurriTableStore((state) => state.userData)
+    const setYearData = useCurriTableStore((state) => state.setYearData)
     const groupUpdate = useCurriTableStore((state) => state.groupUpdate)
     const addTable1 = useCurriTableStore((state) => state.addTable1)
     const addTable2 = useCurriTableStore((state) => state.addTable2)
@@ -50,6 +51,17 @@ const Curriculum = () => {
     const { data: loginUser } = useAuth()
 
     const { statistics_KEM } = useStatistics()
+
+    const { data: dbschoolsData, isLoading: dbschoolsdataLoading } = useQuery({
+        queryKey: ['schoolsdata', user?.id],
+        queryFn: async () => {
+            if (!user?.id) throw new Error('사용자 ID가 없습니다.')
+            return fetchSchoolData(user.id)
+        },
+        enabled: !!user?.id,
+        staleTime: 1000 * 60 * 30,
+        gcTime: 1000 * 60 * 30,
+    })
 
     const { data: dbSchoolData, isLoading: dbschoolLoading } = useQuery({
         queryKey: ['schoolInfo', user?.id],
@@ -61,6 +73,21 @@ const Curriculum = () => {
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 30,
     })
+
+    useEffect(() => {
+        if (dbschoolsData) {
+            dbschoolsData.forEach(item => {
+                const inData: SchoolJsonDataType = {
+                    "학교지정": item.fix,
+                    "선택과목": item.choice,
+                    "Group": item.groupdata,
+                    "AddSubject": item.addsubjects,
+                    "CEA": item.CEA
+                }
+                setYearData(String(item.year), inData)
+            })
+        }
+    }, [setYearData, dbschoolsData?.length])
 
 
     const sensors = useSensors(
@@ -95,7 +122,7 @@ const Curriculum = () => {
 
     }, [dbSchoolData, setSchoolInfo])
 
-    if (authLoading || dbschoolLoading) {
+    if (authLoading || dbschoolLoading || dbschoolsdataLoading) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
                 <Loader2 className="animate-spin text-blue-600" size={40} />
