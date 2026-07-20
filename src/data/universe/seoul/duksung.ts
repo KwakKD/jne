@@ -357,8 +357,8 @@ const DUKSUNG: UniverseType[] = [
         univName: '덕성여대',
         category: '공학계열',
         standardCategory: 'engineering',
-        majorName: '바비오공학과',
-        standardMajor: '바비오공학',
+        majorName: '바이오공학과',
+        standardMajor: '바이오공학',
         subjects: [
             { group: '수학', name: '수학', type: 'all', isGeneral: false },
             { group: '과학', name: '과학', type: 'all', isGeneral: false },

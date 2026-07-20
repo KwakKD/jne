@@ -268,8 +268,8 @@ const YOUNSAE: UniverseType[] = [
         univName: '연세대',
         category: '공학계열',
         standardCategory: 'engineering',
-        majorName: '건측공학과',
-        standardMajor: '건측공학',
+        majorName: '건축공학과',
+        standardMajor: '건축공학',
         subjects: sub_1,
         note: note_1
     },
