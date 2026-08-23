@@ -2,9 +2,7 @@ import { Button } from "@/components/ui"
 import { useAuth } from "@/hooks/useAuth"
 import {
     Users, BarChart3, Activity, Info, LayoutGrid, Share2, Clock, MapPin, School,
-    Loader2, Sparkles,  Milestone, Bookmark,
-    Network,
-    Globe
+    Loader2, Sparkles,  Bookmark,
 } from "lucide-react"
 import { MenuCardWithDesc } from "./MenuCardWithDesc"
 import { Notice } from "./Notice"
