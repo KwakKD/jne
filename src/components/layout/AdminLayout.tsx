@@ -1,0 +1,41 @@
+import { AppSidebar } from "@/components/layout/AppSidebar"
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { Outlet } from "react-router-dom"
+import { Separator } from "../ui"
+import type React from "react"
+import { AdminSidebar } from "./AdminSidebar"
+
+export function AdminLayout() {
+    
+    return (
+        <TooltipProvider delayDuration={0}>
+            <SidebarProvider
+                style={{
+                    "--sidebar-width": "215px",
+                    "--sidebar-width-icon": "64px"
+                } as React.CSSProperties}
+            >
+                <div className="flex h-screen w-full overflow-hidden bg-white">
+                    {/* 사이드바가 화면 왼쪽 전체(Top to Bottom)를 차지합니다 */}
+                    <AdminSidebar />
+
+                    <SidebarInset className="flex flex-col flex-1 overflow-hidden bg-slate-50/50">
+                        <header className="flex h-12 items-center px-4 border-b bg-white">
+                            <SidebarTrigger className="-ml-1" /> {/* 이 버튼 하나로 작업 효율이 달라집니다 */}
+                            <p className="text-xs">사이드바 접기/펼치기</p>
+                            <Separator orientation="vertical" className="mr-2 ml-4" />
+                            {/* 현재 메뉴 경로 표시 (Breadcrumb) 등을 옆에 두면 좋습니다 */}
+                        </header>
+                        {/* 상단 파란 바가 없어졌으므로, 메인 영역에 필요한 경우 트리거(접기 버튼)만 배치 */}
+                        <main className="flex-1 overflow-y-auto p-2 md:p-2 ">
+                            <div className="mx-auto w-full">
+                                <Outlet />
+                            </div>
+                        </main>
+                    </SidebarInset>
+                </div>
+            </SidebarProvider>
+        </TooltipProvider>
+    )
+}

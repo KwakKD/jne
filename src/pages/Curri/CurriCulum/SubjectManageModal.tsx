@@ -164,8 +164,16 @@ export const SubjectManagerModal = ({ isOpen, onClose }: SubjectManagerModalProp
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-slate-700">유형 (고정)</label>
-                                    <Input value="진로" disabled className="bg-slate-50 border-dashed" />
+                                    <label className="text-sm font-semibold text-slate-700">유형</label>
+                                    {/* <Input value="진로" disabled className="bg-slate-50 border-dashed" /> */}
+                                    <Select onValueChange={(v) => setNewSubject({ ...newSubject, 유형: v })}>
+                                        <SelectTrigger className="bg-white"><SelectValue placeholder="선택" /></SelectTrigger>
+                                        <SelectContent>
+                                            {["공통", "일반", "진로", "융합"].map(g => (
+                                                <SelectItem key={g} value={g}>{g}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             </div>
 

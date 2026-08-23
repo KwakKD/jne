@@ -1,6 +1,8 @@
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from "@/components/ui"
 import { SUBJECT } from "@/data/Curri/subject"
+import { SPECIAL_HIGHSHCOOL } from "@/data/data"
 import { useStatistics } from "@/hooks/curriSta"
+import { useAuth } from "@/hooks/useAuth"
 import { useCurriTableStore } from "@/store/CurriSubjectStore"
 import type { GroupCell, JsonData } from "@/type/curri"
 import { set_sort1 } from "@/utils/Curri/AfterDrop"
@@ -22,6 +24,7 @@ const SUCCESS_BG = "#ffffff";
 const ERROR_BG = "rgba(255, 165, 165, 1)";
 
 export const Table1 = () => {
+    const { data: user } = useAuth()
     const { year, userData, addTable1, inputTable1, groupUpdate } = useCurriTableStore()
     const Data = userData[year]
     const AddSubject = Data.AddSubject
@@ -42,9 +45,20 @@ export const Table1 = () => {
             setInputValue(0)
             const inputSubject = totalSubjects.find((s) => s.Tag === sub.Tag);
             if (!inputSubject) return;
+            const isSpecialSchoolAndTagRange =
+                user?.schoolname &&
+                SPECIAL_HIGHSHCOOL.includes(user.schoolname) &&
+                Number(sub.Tag) >= 171 &&
+                Number(sub.Tag) <= 231;
+            const min = isSpecialSchoolAndTagRange
+                ? 1
+                : (inputSubject.최소학점 ?? 2);
+            const max = isSpecialSchoolAndTagRange
+                ? 20
+                : (inputSubject.최대학점 ?? 10);
 
-            const min = inputSubject.최소학점 ?? 1;
-            const max = inputSubject.최대학점 ?? 20;
+            // const min = inputSubject.최소학점 ?? 1;
+            // const max = inputSubject.최대학점 ?? 20;
             const basic = inputSubject.기준학점 ?? 1;
             const num = Number(e.target.value);
 
@@ -70,7 +84,48 @@ export const Table1 = () => {
                 }
             }
         },
-        [totalSubjects, inputTable1, inputValue]
+        [totalSubjects, inputTable1, inputValue, user]
+    );
+
+    const handleInputBlur = useCallback(
+        (val: string, sub: JsonData, grade: number, sem: number) => {
+            const inputSubject = totalSubjects.find((s) => s.Tag === sub.Tag);
+            if (!inputSubject) return;
+
+            const isSpecialSchoolAndTagRange =
+                user?.schoolname &&
+                SPECIAL_HIGHSHCOOL.includes(user.schoolname) &&
+                Number(sub.Tag) >= 171 &&
+                Number(sub.Tag) <= 231;
+
+            const min = isSpecialSchoolAndTagRange
+                ? 1
+                : (inputSubject.최소학점 ?? 2);
+
+            const max = isSpecialSchoolAndTagRange
+                ? 20
+                : (inputSubject.최대학점 ?? 10);
+
+            const num = Number(val);
+
+            // 빈 값이거나 숫자가 아닌 경우
+            if (val === "" || Number.isNaN(num)) {
+                setTempValue(false);
+                return;
+            }
+
+            // 범위 검증
+            if (num < min || num > max) {
+                toast.error(`학점은 최소 ${min}에서 ${max} 사이여야 합니다.`);
+                setTempValue(false);
+                return;
+            }
+
+            // 통과 시 최종 스토어/테이블 저장
+            inputTable1(year, inputSubject.Tag, { Credit: num, Grade: grade, Semester: sem });
+            setTempValue(true);
+        },
+        [totalSubjects, inputTable1, year, user]
     );
 
     const handleContext = useCallback(
@@ -101,8 +156,19 @@ export const Table1 = () => {
     const getBackgroundColor = useCallback((item: JsonData, col: (typeof COLUMN)[number]) => {
         const inputSubject = totalSubjects.find((s) => s.Tag === item.Tag);
         if (!inputSubject) return;
-        const min = inputSubject.최소학점 ?? 1;
-        const max = inputSubject.최대학점 ?? 20;
+        const isSpecialSchoolAndTagRange =
+            user?.schoolname &&
+            SPECIAL_HIGHSHCOOL.includes(user.schoolname) &&
+            Number(item.Tag) >= 171 &&
+            Number(item.Tag) <= 231;
+        const min = isSpecialSchoolAndTagRange
+            ? 1
+            : (inputSubject.최소학점 ?? 2);
+        const max = isSpecialSchoolAndTagRange
+            ? 20
+            : (inputSubject.최대학점 ?? 10);
+        // const min = inputSubject.최소학점 ?? 1;
+        // const max = inputSubject.최대학점 ?? 20;
         const basic = inputSubject.기준학점 ?? 1;
         if (col.grade === item.Grade && col.semester === item.Semester) {
             return SUCCESS_BG
@@ -193,8 +259,17 @@ export const Table1 = () => {
         const inputSubject = totalSubjects.find((s) => s.Tag === item.Tag);
         if (!inputSubject) return;
 
-        const min = inputSubject.최소학점 ?? 1;
-        const max = inputSubject.최대학점 ?? 20;
+        const isSpecialSchoolAndTagRange =
+            user?.schoolname &&
+            SPECIAL_HIGHSHCOOL.includes(user.schoolname) &&
+            Number(item.Tag) >= 171 &&
+            Number(item.Tag) <= 231;
+        const min = isSpecialSchoolAndTagRange
+            ? 1
+            : (inputSubject.최소학점 ?? 2);
+        const max = isSpecialSchoolAndTagRange
+            ? 20
+            : (inputSubject.최대학점 ?? 10);
         const basic = inputSubject.기준학점 ?? 1;
 
         if (min >= 10 || max >= 10 || basic >= 10) {
@@ -291,6 +366,7 @@ export const Table1 = () => {
                                             value={handleValue(item, col)}
                                             onFocus={(e) => e.target.select()}
                                             onChange={(e) => handleInputChange(e, item, col.grade, col.semester)}
+                                            onBlur={(e) => handleInputBlur(e.target.value, item, col.grade, col.semester)}
                                         />
                                     </td>
                                 ))

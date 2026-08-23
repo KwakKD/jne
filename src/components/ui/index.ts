@@ -157,3 +157,6 @@ export {
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
 } from './context-menu'
+
+export { Textarea } from './textarea'
+export { Switch } from './switch'

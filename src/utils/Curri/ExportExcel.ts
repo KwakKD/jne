@@ -413,51 +413,100 @@ export async function exprotToExcel(schoolname: string) {
                 const inGroupCredit = groupinfo[groupname].Credit;
                 if (table1[i].Tag === inGroupSubject[0]) {
                     if (inGroupGrade === 1) {
-                        sheet.mergeCells(row, 7, row + 1, 7);
-                        const cell7 = sheet.getCell(row, 7);
-                        cell7.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
-                        cell7.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                        if (inGroupSubject.length > 1) {
+                            sheet.mergeCells(row, 7, row + 1, 7);
+                            const cell7 = sheet.getCell(row, 7);
+                            cell7.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell7.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
-                        sheet.mergeCells(row, 8, row + 1, 8);
-                        const cell8 = sheet.getCell(row, 8);
-                        cell8.value = {
-                            richText: [
-                                { text: `[택${inGroupChoice}]` },
-                                { text: '\n' },
-                                { text: `${inGroupCredit}` },
-                            ],
-                        };
-                        cell8.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                            sheet.mergeCells(row, 8, row + 1, 8);
+                            const cell8 = sheet.getCell(row, 8);
+                            cell8.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                            cell8.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                        } else { //과목이 1개만 있는 경우는 병합을 하지 않음.
+                            const cell7 = sheet.getCell(row, 7);
+                            cell7.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell7.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+
+                            const cell8 = sheet.getCell(row, 8);
+                            cell8.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                            cell8.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                        }
+
                     } else if (inGroupGrade === 2) {
-                        sheet.mergeCells(row, 9, row + 1, 9);
-                        const cell9 = sheet.getCell(row, 9);
-                        cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
-                        cell9.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                        if (inGroupSubject.length > 1) {
+                            sheet.mergeCells(row, 9, row + 1, 9);
+                            const cell9 = sheet.getCell(row, 9);
+                            cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell9.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
-                        sheet.mergeCells(row, 10, row + 1, 10);
-                        const cell10 = sheet.getCell(row, 10);
-                        cell10.value = {
-                            richText: [
-                                { text: `[택${inGroupChoice}]` },
-                                { text: '\n' },
-                                { text: `${inGroupCredit}` },
-                            ],
-                        };
+                            sheet.mergeCells(row, 10, row + 1, 10);
+                            const cell10 = sheet.getCell(row, 10);
+                            cell10.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                        } else {
+                            const cell9 = sheet.getCell(row, 9);
+                            cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell9.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+
+                            const cell10 = sheet.getCell(row, 10);
+                            cell10.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                        }
+
                     } else {
-                        sheet.mergeCells(row, 11, row + 1, 11);
-                        const cell11 = sheet.getCell(row, 11);
-                        cell11.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
-                        cell11.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                        if (inGroupSubject.length > 1) {
+                            sheet.mergeCells(row, 11, row + 1, 11);
+                            const cell11 = sheet.getCell(row, 11);
+                            cell11.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell11.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
 
-                        sheet.mergeCells(row, 12, row + 1, 12);
-                        const cell12 = sheet.getCell(row, 12);
-                        cell12.value = {
-                            richText: [
-                                { text: `[택${inGroupChoice}]` },
-                                { text: '\n' },
-                                { text: `${inGroupCredit}` },
-                            ],
-                        };
+                            sheet.mergeCells(row, 12, row + 1, 12);
+                            const cell12 = sheet.getCell(row, 12);
+                            cell12.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                        } else {
+                            const cell11 = sheet.getCell(row, 11);
+                            cell11.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;
+                            cell11.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+
+                            const cell12 = sheet.getCell(row, 12);
+                            cell12.value = {
+                                richText: [
+                                    { text: `[택${inGroupChoice}]` },
+                                    { text: '\n' },
+                                    { text: `${inGroupCredit}` },
+                                ],
+                            };
+                        }
+
                     }
                 }
             }

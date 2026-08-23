@@ -1,8 +1,9 @@
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator } from "@/components/ui";
+import {  Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator } from "@/components/ui";
 import { YEARS } from "@/data/data";
 import { useCurriTableStore } from "@/store/CurriSubjectStore";
 import { BookOpen, CalendarDays, GraduationCap, Layers } from "lucide-react";
 import { useEffect } from "react";
+import { GroupManageDialog } from "./GroupManageDialog";
 //그룹명
 const SUBJECT_GROUPS = [...Array.from({ length: 50 }, (_, i) => `그룹 ${i + 1}`)];
 // 학년학기
@@ -212,6 +213,8 @@ export const CurriculumControlBar = ({ config, onConfigChange }: ControlBarProps
                     <span className="text-[11px] font-bold text-slate-700">학점</span>
                 </div>
             </div>
+            <Separator orientation="vertical" className="h-6" />
+            <GroupManageDialog year={year} />
         </div>
     );
 };

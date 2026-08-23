@@ -25,6 +25,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchSchoolData, fetchSchoolInfo } from "@/api/supabaseAPI";
 import { useSchoolInfoStore } from "@/store/SchoolInfo";
 import { saveCurriData } from "@/api/saveAPI";
+import { SPECIAL_HIGHSHCOOL } from "@/data/data";
 
 // 드롭존이 아닌 부분에 드롭이 된 경우 생각함.
 
@@ -160,8 +161,17 @@ const Curriculum = () => {
                 for (const sub of selectedTags) {
                     const subjectCreditInfo = totalSubjects.find(s => s.Tag === sub)
                     const subjectName = subjectCreditInfo?.과목명 ?? ''
-                    const min = subjectCreditInfo?.최소학점 ?? 1
-                    const max = subjectCreditInfo?.최대학점 ?? 20
+                    const isSpecialSchoolAndTagRange =
+                        user?.schoolname &&
+                        SPECIAL_HIGHSHCOOL.includes(user.schoolname) &&
+                        Number(sub) >= 171 &&
+                        Number(sub) <= 231;
+                    const min = isSpecialSchoolAndTagRange
+                        ? 1
+                        : (subjectCreditInfo?.최소학점 ?? 2);
+                    const max = isSpecialSchoolAndTagRange
+                        ? 20
+                        : (subjectCreditInfo?.최대학점 ?? 10);
                     if (config.credit < min || config.credit > max) {
                         toast.error(`${subjectName} 과목의 유효한 학점은 ${min}에서 ${max}사이입니다.`);
                         return;

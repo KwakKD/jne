@@ -10,4 +10,6 @@ const JNE_REGIONS = [
     "영광군", "장성군", "완도군", "진도군", "신안군"
 ];
 
-export { YEARS, JN_HIGHSCHOOL_NUMBER, JNE_REGIONS }
+const SPECIAL_HIGHSHCOOL = ['한국바둑고등학교', '함평골프고등학교', '전남체육고등학교', '진도국악고등학교', '한국창의예술고등학교', '전남예술고등학교']
+
+export { YEARS, JN_HIGHSCHOOL_NUMBER, JNE_REGIONS, SPECIAL_HIGHSHCOOL }

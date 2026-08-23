@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
 import { Home } from './pages/Home'
-import { AdminLoginPage, ChangePasswordPage, Credit, CurriHome, LoginPage, NaviCurri, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
+import { AdminLoginPage, ChangePasswordPage, Credit, CurriHome, LoginPage, NavHome, NaviCurri, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 import { CurriLayout } from './components/layout/CuuriLayout'
 import { Curriculum } from './pages/Curri/CurriCulum/CurriCulum'
 import { AdminRoute } from './components/layout/AdminRouter'
-import { AdminPage } from './pages/Admin/AdminPage'
+import { AdminLayout } from './components/layout/AdminLayout'
+import { AdminHome, AdminNotice, AdminPage } from './pages/Admin'
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
 
         {/* 1. 과목선택 내비게이션 라인 (메인헤더 + 과목 서브헤더) */}
         <Route path='/subject-navigation' element={<SubjectNavLayout />}>
-          <Route index element={<SubjectNavHome />} />
+          {/* <Route index element={<SubjectNavHome />} /> */}
+          <Route index element={<NavHome />} />
           <Route path='curri' element={<NaviCurri />} />
           <Route path='guide' element={<NaviGuide />} />
           <Route path='uni' element={<NaviUniver />} />
@@ -50,8 +52,13 @@ function App() {
         </Route>
 
         <Route element={<AdminRoute />}>
-          <Route path='/admin' element={<CurriLayout />}>
-            <Route index element={<AdminPage />} />
+          <Route path='/admin' element={<AdminLayout />}>
+            <Route index element={<AdminHome />} />
+            <Route path='auth' element={<AdminPage />} />
+            <Route path='notice' element={<AdminNotice />} />
+            <Route path='union' element={<StaUnion />} />
+            <Route path='subject' element={<StaSubject />} />
+            <Route path='schools' element={<StaSchool />} />
           </Route>
         </Route>
       </Routes >

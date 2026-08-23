@@ -6,7 +6,7 @@ function AppFooter() {
                 <div className="flex gap-4">
                     {/* <button className="hover:underline">개인정보처리방침</button>
                     <button className="hover:underline">이용약관</button> */}
-                    <span>전라남도 무안군 삼향읍 어진누리길 10</span>
+                    <span>전남광주통합특별시 무안군 삼향읍 어진누리길 10</span>
                 </div>
             </div>
         </footer>

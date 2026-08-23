@@ -118,7 +118,9 @@ function LoginPage() {
     }
 
     return (
-        <div className="flex min-h-[calc(100vh-theme(spacing.14)-theme(spacing.16))] items-center justify-center bg-slate-50/60 px-4 py-12">
+        <div className="flex min-h-[calc(100vh-theme(spacing.14)-theme(spacing.16))] items-center justify-center 
+        bg-gradient-to-br from-amber-100/80 via-sky-200/50 to-indigo-200/80 
+        px-4 py-8">
             <Card className="w-full max-w-110 border-slate-200/80 bg-white/90 shadow-2xl shadow-slate-100 backdrop-blur-sm rounded-xl">
                 <CardHeader className="space-y-2.5 pb-6 pt-8 text-center">
                     <div className="mx-auto flex h-15 w-15 items-center justify-center rounded-full bg-blue-100 text-3xl">
@@ -207,7 +209,7 @@ function LoginPage() {
                         {/* 로그인 버튼 */}
                         <Button
                             type="submit"
-                            className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md shadow-blue-100 transition-all active:scale-[0.99] disabled:opacity-50"
+                            className="w-full h-11 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 hover:from-blue-700 hover:via-sky-600 hover:to-cyan-500 text-white font-bold  rounded-lg shadow-md shadow-blue-100 transition-all active:scale-[0.99] disabled:opacity-50"
                             disabled={isLoading}
                         >
                             {isLoading ? '안전하게 로그인 중...' : '로그인'}

@@ -72,6 +72,18 @@ export interface SubJectGroupProps {
     sub_subgroup: string
 }
 
+export interface NoticeProps {
+    id?: number
+    created_at?: string
+    path: string
+    type: string
+    title: string
+    content: string
+    important: boolean
+    user_id?: string
+    disable?: boolean
+}
+
 const NOT_IN_DATA_CURRI: SchoolCurriculumProps = {
     fix: [],
     choice: [],
@@ -134,7 +146,6 @@ const fetchTeacherInfo = async (userId: string): Promise<Record<SubjectCode, sub
     // data는 { teacher_info: { ... } } 형태이므로 알맹이만 반환
     return data.teacher_info as Record<SubjectCode, subT>
 }
-
 
 const fetchUnionSubInfo = async (userId: string): Promise<UnionInfoProps[]> => {
     const { data: unionData, error } = await supabase
@@ -259,6 +270,16 @@ const downloadAttachment = async (filePath: string, fileName: string): Promise<v
     }
 }
 
+const fetchNavStaSchool = async () => {
+    const { data, error } = await supabase
+        .from('schoolsdata')
+        .select('schoolname')
+
+    if (error) throw new Error(error.message);
+    return data || [];
+}
+
+// 관라지용 API
 const fetchAllUser = async () => {
     const { data, error } = await supabase
         .from('userinfo')
@@ -269,6 +290,95 @@ const fetchAllUser = async () => {
     if (error) throw new Error(error.message)
     return data
 }
+
+const fetchAdminNotice = async (): Promise<NoticeProps[]> => {
+    const { data, error } = await supabase
+        .from('notice')
+        .select('id, created_at, path, type, title, content, important, user_id, disable')
+
+    if (error) throw new Error(error.message);
+    return data
+}
+
+// const fetchNavNotice = async (): Promise<NoticeProps[]> => {
+//     const { data, error } = await supabase
+//         .from('notice')
+//         .select('id, created_at, path, type, title, content, important, user_id')
+//         .eq('path', 'nav')
+//         .order('created_at', { ascending: false })
+
+//     if (error) throw new Error(error.message);
+//     return data
+// }
+
+// const fetchCurriNotice = async (): Promise<NoticeProps[]> => {
+//     const { data, error } = await supabase
+//         .from('notice')
+//         .select('id, created_at, path, type, title, content, important, user_id')
+//         .eq('path', 'curri')
+//         .order('created_at', { ascending: false })
+
+//     if (error) throw new Error(error.message);
+//     return data
+// }
+
+const fetchNoticeByPath = async (path: 'nav' | 'curri'): Promise<NoticeProps[]> => {
+    const { data, error } = await supabase
+        .from('notice')
+        .select('id, created_at, path, type, title, content, important, user_id, disable')
+        .eq('path', path)
+        .eq('disable', true)
+        .order('created_at', { ascending: false })
+
+    if (error) throw new Error(error.message);
+    return data
+}
+
+const deleteAdminNotice = async (id: number): Promise<void> => {
+    const { error } = await supabase
+        .from('notice')
+        .delete()
+        .eq('id', id); // 'id' 컬럼의 값이 전달받은 id와 일치하는 행 삭제
+
+    if (error) {
+        throw new Error(error.message);
+    }
+};
+
+const upsertAdminNotice = async (notice: NoticeProps, userId: string): Promise<void> => {
+    // 1. 수정 (notice.id가 있는 경우)
+    if (notice.id) {
+        const { error } = await supabase
+            .from("notice")
+            .update({
+                path: notice.path,
+                type: notice.type,
+                title: notice.title,
+                content: notice.content,
+                important: notice.important,
+                disable: notice.disable,
+            })
+            .eq("id", notice.id);
+
+        if (error) throw new Error(error.message);
+        return;
+    }
+
+    // 2. 신규 등록 (notice.id가 없는 경우)
+    const { error } = await supabase.from("notice").insert([
+        {
+            path: notice.path,
+            type: notice.type,
+            title: notice.title,
+            content: notice.content,
+            important: notice.important,
+            user_id: userId, // 전달받은 user_id 저장
+            disable: notice.disable ?? true,
+        },
+    ]);
+
+    if (error) throw new Error(error.message);
+};
 
 export {
     fetchUser,
@@ -283,5 +393,12 @@ export {
     fetchAllSchoolInfo,
     fetchSubjectGroupStats,
     downloadAttachment,
-    fetchAllUser
+    fetchNavStaSchool,
+    fetchAllUser,
+    fetchNoticeByPath,
+    fetchAdminNotice,
+    // fetchNavNotice,
+    // fetchCurriNotice,
+    deleteAdminNotice,
+    upsertAdminNotice
 }

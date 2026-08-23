@@ -401,10 +401,12 @@ export const Table2 = () => {
 
             // 2. 상태 업데이트 함수 호출 (기존 inputTable1 구조에 맞게 인자 전달)
             // 세 번째 인자로 변경할 새로운 과목명 객체를 넘겨줍니다.
+
             inputTable2(year, sub.Tag, {
-                ...sub, // 기존 데이터 유지보수를 위해 스프레드 연산자 권장
                 SubjectName: nextSubjectName
             });
+
+
         },
         [year, inputTable2] // 의존성 배열에 내부에서 사용하는 상태/함수 추가
     );

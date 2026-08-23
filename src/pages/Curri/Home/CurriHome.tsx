@@ -7,7 +7,7 @@ import {
     Globe
 } from "lucide-react"
 import { MenuCardWithDesc } from "./MenuCardWithDesc"
-import { NoticeItem } from "./NoticeItem"
+import { Notice } from "./Notice"
 import { MiniStatCard } from "./MiniStatCard"
 import { useQuery } from "@tanstack/react-query"
 import { downloadAttachment, fetchSchoolData, fetchStaUnionInfo } from "@/api/supabaseAPI"
@@ -16,6 +16,7 @@ import { useCurriTableStore } from "@/store/CurriSubjectStore"
 import { YEARS } from "@/data/data"
 import { useStatistics } from "@/hooks/curriSta"
 import type { SchoolJsonDataType } from "@/type/curri"
+import { CurriRelatedSites } from "./CurriRelatedSites"
 
 function CurriHome() {
     const setYearData = useCurriTableStore((state) => state.setYearData)
@@ -306,7 +307,7 @@ function CurriHome() {
                             </div>
 
                             {/* 3열 카드 링크 레이아웃 */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                            {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                                 {usefulLinks.map((link, idx) => (
                                     <a
                                         key={idx}
@@ -327,13 +328,11 @@ function CurriHome() {
                                                 </div>
                                                 <ExternalLink size={14} className="text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                             </div>
-                                            {/* <p className="text-slate-500 text-[11px] leading-normal font-normal">
-                                                {link.desc}
-                                            </p> */}
                                         </div>
                                     </a>
                                 ))}
-                            </div>
+                            </div> */}
+                            <CurriRelatedSites />
                         </section>
 
                     </div>
@@ -341,7 +340,7 @@ function CurriHome() {
                     {/* [우측 영역: 4개 컬럼] - 공지사항 & 가이드 */}
                     <div className="lg:col-span-4 space-y-6">
                         {/* 공지사항 */}
-                        <NoticeItem />
+                        <Notice />
 
                         <div className="bg-gradient-to-br from-slate-600 to-indigo-600 rounded-[2rem] p-6 text-white shadow-md relative overflow-hidden group">
                             <div className="absolute -right-4 -bottom-4 text-white/5 pointer-events-none group-hover:scale-110 transition-transform duration-300">

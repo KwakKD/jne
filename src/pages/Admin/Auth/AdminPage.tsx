@@ -10,7 +10,7 @@ interface TeacherUser {
     isapproved: boolean
 }
 
-export function AdminPage() {
+function AdminPage() {
     const queryClient = useQueryClient()
 
     // 🎯 1. 교사 목록 조회 (기존 뼈대 유지 + 타입 명시)
@@ -92,3 +92,5 @@ export function AdminPage() {
         </div>
     )
 }
+
+export { AdminPage }
