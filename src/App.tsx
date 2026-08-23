@@ -1,7 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
 import { Home } from './pages/Home'
-import { AdminLoginPage, ChangePasswordPage, Credit, CurriHome, LoginPage, NavHome, NaviCurri, NaviGroup, NaviGuide, NaviQnA, NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion, SubjectNavHome, TeacherCount, UnionCurriculum } from './pages'
+import {
+  AdminLoginPage, ChangePasswordPage, Credit,
+  CurriHome, LoginPage, NavHome, NaviCurri, NaviGroup, NaviGuide, NaviQnA,
+  NaviUnion, NaviUniver, StaSchool, StaSubject, StaUnion,
+  //  SubjectNavHome,
+  TeacherCount, UnionCurriculum
+} from './pages'
 import { Toaster } from './components/ui'
 import { SubjectNavLayout } from './components/layout/SubjectNavLayout'
 import { CurriLayout } from './components/layout/CuuriLayout'

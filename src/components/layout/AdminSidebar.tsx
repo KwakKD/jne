@@ -2,8 +2,6 @@ import {
     LayoutDashboard,
     UserPlus,      // 과목별 교사 수 입력
     FileEdit,      // 학교 교육과정 편성
-    Library,       // 공동(추가)교육과정 편성
-    Clock,         // 학교별 시수 관리
     Map,           // 오프라인 현황
     PieChart,      // 과목별 통계
     School,        // 학교별 통계
