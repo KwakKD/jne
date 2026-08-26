@@ -21,7 +21,7 @@ import { useStatistics } from "@/hooks/curriSta";
 import { exprotToExcel } from "@/utils/Curri/ExportExcel";
 import { useAuth } from "@/hooks/useAuth";
 import { CurriDataManageModal } from "./CurriDataManageModal";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchSchoolData, fetchSchoolInfo } from "@/api/supabaseAPI";
 import { useSchoolInfoStore } from "@/store/SchoolInfo";
 import { saveCurriData } from "@/api/saveAPI";
@@ -43,13 +43,17 @@ const Curriculum = () => {
 
     const year = useCurriTableStore((state) => state.year)
     const userData = useCurriTableStore((state) => state.userData)
-    const setYearData = useCurriTableStore((state) => state.setYearData)
+    // const setYearData = useCurriTableStore((state) => state.setYearData)
     const groupUpdate = useCurriTableStore((state) => state.groupUpdate)
     const addTable1 = useCurriTableStore((state) => state.addTable1)
     const addTable2 = useCurriTableStore((state) => state.addTable2)
+    const setAllUserData = useCurriTableStore((state) => state.setAllUserData);
+    
     const Data = userData[year]
     const totalSubjects = [...SUBJECT, ...Data.AddSubject]
     const { data: loginUser } = useAuth()
+
+    const queryClient = useQueryClient();
 
     const { statistics_KEM } = useStatistics()
 
@@ -75,21 +79,40 @@ const Curriculum = () => {
         gcTime: 1000 * 60 * 30,
     })
 
-    useEffect(() => {
-        if (dbschoolsData) {
-            dbschoolsData.forEach(item => {
-                const inData: SchoolJsonDataType = {
-                    "학교지정": item.fix,
-                    "선택과목": item.choice,
-                    "Group": item.groupdata,
-                    "AddSubject": item.addsubjects,
-                    "CEA": item.CEA
-                }
-                setYearData(String(item.year), inData)
-            })
-        }
-    }, [setYearData, dbschoolsData?.length])
+    // useEffect(() => {
+    //     if (dbschoolsData) {
+    //         dbschoolsData.forEach(item => {
+    //             const inData: SchoolJsonDataType = {
+    //                 "학교지정": item.fix,
+    //                 "선택과목": item.choice,
+    //                 "Group": item.groupdata,
+    //                 "AddSubject": item.addsubjects,
+    //                 "CEA": item.CEA
+    //             }
+    //             setYearData(String(item.year), inData)
+    //         })
+    //     }
+    // }, [setYearData, dbschoolsData?.length])
 
+    useEffect(() => {
+    if (dbschoolsData && Array.isArray(dbschoolsData)) {
+        // DB 배열 데이터를 Record<year, SchoolJsonDataType> 형태 객체로 변환
+        const formattedData: Record<string, SchoolJsonDataType> = {};
+
+        dbschoolsData.forEach((item) => {
+            formattedData[String(item.year)] = {
+                "학교지정": item.fix,
+                "선택과목": item.choice,
+                "Group": item.groupdata,
+                "AddSubject": item.addsubjects,
+                "CEA": item.CEA,
+            };
+        });
+
+        // Zustand 전체 상태 변경
+        setAllUserData(formattedData);
+    }
+}, [dbschoolsData, setAllUserData]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -305,6 +328,8 @@ const Curriculum = () => {
 
             // 2. 데이터 저장 실행 (await 필수)
             await saveCurriData(user, userData, schoolinfo);
+
+            queryClient.setQueryData(['schoolsdata', user.id], userData);
 
             // 3. 성공 알림
             toast.success("성공적으로 저장되었습니다.");

@@ -9,6 +9,7 @@ export interface SchoolDataSlice {
     setYearData: (year: string, data: SchoolJsonDataType) => void
     staUserData: Record<string, SchoolJsonDataType>
     setStaUserData: (year: string, data: SchoolJsonDataType) => void
+    setAllUserData: (data: Record<string, SchoolJsonDataType>) => void;
 }
 
 export const createDefaultYear = (): SchoolJsonDataType => ({
@@ -53,4 +54,5 @@ export const createUserSlice: StateCreator<SchoolDataSlice> = (set) => ({
                 [targetYear]: data,
             },
         })),
+    setAllUserData: (newUserData) => set({ userData: newUserData }),
 })

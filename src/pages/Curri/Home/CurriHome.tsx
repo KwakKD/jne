@@ -17,7 +17,7 @@ import type { SchoolJsonDataType } from "@/type/curri"
 import { CurriRelatedSites } from "./CurriRelatedSites"
 
 function CurriHome() {
-    const setYearData = useCurriTableStore((state) => state.setYearData)
+    // const setYearData = useCurriTableStore((state) => state.setYearData)
     const { data: user, isLoading: authLoading } = useAuth()
     const [downloadingId, setDownloadingId] = useState(false);
     const { allCredit_1: stats1_1, allCredit_2: stats1_2 } = useStatistics(YEARS[0])
@@ -25,6 +25,7 @@ function CurriHome() {
     const { allCredit_1: stats3_1, allCredit_2: stats3_2 } = useStatistics(YEARS[2])
 
     const userData = useCurriTableStore((state) => state.userData)
+    const setAllUserData = useCurriTableStore((state) => state.setAllUserData);
 
     const { data: dbschoolsData, isLoading: dbschoolsdataLoading } = useQuery({
         queryKey: ['schoolsdata', user?.id],
@@ -47,22 +48,40 @@ function CurriHome() {
     const schoolCountInfo = `${schoolCount} 개교`
     const UnionSubjectNumber = `${dbStaUnionData?.length} 과목`
 
+    // useEffect(() => {
+    //     if (dbschoolsData) {
+    //         dbschoolsData.forEach(item => {
+    //             const inData: SchoolJsonDataType = {
+    //                 "학교지정": item.fix,
+    //                 "선택과목": item.choice,
+    //                 "Group": item.groupdata,
+    //                 "AddSubject": item.addsubjects,
+    //                 "CEA": item.CEA
+    //             }
+    //             setYearData(String(item.year), inData)
+    //         })
+    //     }
+    // }, [setYearData, dbschoolsData])
+
     useEffect(() => {
-        if (dbschoolsData) {
-            dbschoolsData.forEach(item => {
-                const inData: SchoolJsonDataType = {
-                    "학교지정": item.fix,
-                    "선택과목": item.choice,
-                    "Group": item.groupdata,
-                    "AddSubject": item.addsubjects,
-                    "CEA": item.CEA
-                }
-                setYearData(String(item.year), inData)
-            })
-        }
-    }, [setYearData, dbschoolsData])
+    if (dbschoolsData && Array.isArray(dbschoolsData)) {
+        // DB 배열 데이터를 Record<year, SchoolJsonDataType> 형태 객체로 변환
+        const formattedData: Record<string, SchoolJsonDataType> = {};
 
+        dbschoolsData.forEach((item) => {
+            formattedData[String(item.year)] = {
+                "학교지정": item.fix,
+                "선택과목": item.choice,
+                "Group": item.groupdata,
+                "AddSubject": item.addsubjects,
+                "CEA": item.CEA,
+            };
+        });
 
+        // Zustand 전체 상태 변경
+        setAllUserData(formattedData);
+    }
+}, [dbschoolsData, setAllUserData]);
 
     const totalPercent = useMemo(() => {
         let totalCompleted = 0;
