@@ -82,10 +82,8 @@ function CurriHome() {
             totalCompleted += CEA_credit;
         });
 
-        // 2. 상단 훅에서 가져온 3개년치 교과 학점(allCredit_1, allCredit_2) 누적 더하기
         totalCompleted += (stats1_1 + stats1_2 + stats2_1 + stats2_2 + stats3_1 + stats3_2);
 
-        // 3. 🎯 3개년 통합 퍼센트 산출 (최대 100% 제한 및 반올림)
         return totalTarget > 0
             ? Math.min(100, Math.round((totalCompleted / totalTarget) * 100))
             : 0;
@@ -100,52 +98,6 @@ function CurriHome() {
             </div>
         )
     }
-
-    // const usefulLinks = [
-
-    //     {
-    //         name: "전라남도교육청/학교교육과정",
-    //         desc: "도내 학생 맞춤형 선택 과목 안내 및 계열별 탐색 플랫폼",
-    //         url: "https://www.jge.go.kr/sse/na/ntt/selectNttList.do?mi=785&bbsId=378&searchCate3=4",
-    //         color: "text-emerald-600 bg-emerald-50 border-emerald-100",
-    //         icon: <Network size={18} />
-    //     },
-    //     {
-    //         name: "고교학점제 종합포털",
-    //         desc: "2022 개정 교육과정 총론 가이드 및 학점제 매뉴얼 제공",
-    //         url: "https://hscredit.jge.go.kr",
-    //         color: "text-cyan-600 bg-cyan-50 border-cyan-100",
-    //         icon: <Milestone size={18} />
-    //     },
-    //     {
-    //         name: "에듀넷(티클리어)",
-    //         desc: "도내 교육과정 편성 지침 공문 및 주요 고시사항 확인",
-    //         url: "https://www.edunet.net/main",
-    //         color: "text-indigo-600 bg-indigo-50 border-indigo-100",
-    //         icon: <Globe size={18} />
-    //     },
-    //     {
-    //         name: "학교알리미 (개방형 데이터)",
-    //         desc: "타 학교 교과 편제표 및 이수 학점 편성 현황 벤치마킹",
-    //         url: "https://www.schoolinfo.go.kr",
-    //         color: "text-amber-600 bg-amber-50 border-amber-100",
-    //         icon: <School size={18} />
-    //     },
-    //     {
-    //         name: "대입정보포털 (adiga)",
-    //         desc: "최종 확정된 3개년 학교 교육과정 편제 코드 이관 및 입력",
-    //         url: "https://www.adiga.kr", // 권역별 주소 혹은 대표 주소
-    //         color: "text-purple-600 bg-purple-50 border-purple-100",
-    //         icon: <Clock size={18} />
-    //     },
-    //     {
-    //         name: "커리어넷 진로정보",
-    //         desc: "학생 진로·직업 매칭에 따른 융합선택/진로선택 과목 상담 자료",
-    //         url: "https://www.career.go.kr",
-    //         color: "text-rose-600 bg-rose-50 border-rose-100",
-    //         icon: <Users size={18} />
-    //     }
-    // ];
 
     const handleDownload = async (filePath: string, fileName: string) => {
         try {

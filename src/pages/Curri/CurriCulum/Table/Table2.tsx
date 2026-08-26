@@ -183,6 +183,36 @@ export const Table2 = () => {
                             <td className={classname}></td>
                         </>
                     )
+                } else if (item.Tag === spanSubject[0].Tag && data[idx + 1].Tag !== spanSubject_1[0].Tag) {
+                    const insertText_2 = `[택${groupInfo[data[idx + 1].IsGroup].Choice}]\n${(groupInfo[data[idx + 1].IsGroup].Choice ?? 0) * (groupInfo[data[idx + 1].IsGroup].Credit ?? 0)}`
+                    return (
+                        item.Grade === 1
+                            ?
+                            <>
+                                <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                                <td className={classname}></td>
+                            </>
+                            : item.Grade === 2
+                                ?
+                                <>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                </>
+                                :
+                                <>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname}></td>
+                                    <td className={classname} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                </>
+                    )
                 }
             }
         } else if (idx === 0) {
