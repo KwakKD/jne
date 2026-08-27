@@ -184,7 +184,7 @@ export const Table2 = () => {
                         </>
                     )
                 } else if (item.Tag === spanSubject[0].Tag && data[idx + 1].Tag !== spanSubject_1[0].Tag) {
-                    const insertText_2 = `[택${groupInfo[data[idx + 1].IsGroup].Choice}]\n${(groupInfo[data[idx + 1].IsGroup].Choice ?? 0) * (groupInfo[data[idx + 1].IsGroup].Credit ?? 0)}`
+                    const insertText_2 = `[택${groupInfo[item.IsGroup].Choice}]\n${(groupInfo[item.IsGroup].Choice ?? 0) * (groupInfo[item.IsGroup].Credit ?? 0)}`
                     return (
                         item.Grade === 1
                             ?
