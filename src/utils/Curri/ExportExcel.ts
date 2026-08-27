@@ -1055,6 +1055,30 @@ export async function exprotToExcel(schoolname: string) {
                             cell12.font = { size: 10 }
                             cell12.border = baseBorder
                         }
+                    } else if (item.Tag === spanSubject[0].Tag && data[idx + 1].Tag !== spanSubject_1[0].Tag) {
+                        const insertText_2 = `[택${groupinfo[item.IsGroup].Choice}]\n${(groupinfo[item.IsGroup].Choice ?? 0) * (groupinfo[item.IsGroup].Credit ?? 0)}`
+                        if (item.Grade === 1) {
+                            sheet.mergeCells(choiceStartRow + rowIndex, 7, choiceStartRow + rowIndex + spanNumber - 1, 7)
+                            const cell8 = sheet.getCell(choiceStartRow + rowIndex, 7)
+                            cell8.value = insertText_2;
+                            cell8.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                            cell8.font = { size: 10 }
+                            cell8.border = baseBorder
+                        } else if (item.Grade === 2) {
+                            sheet.mergeCells(choiceStartRow + rowIndex, 9, choiceStartRow + rowIndex + spanNumber - 1, 9)
+                            const cell10 = sheet.getCell(choiceStartRow + rowIndex, 9)
+                            cell10.value = insertText_2;
+                            cell10.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                            cell10.font = { size: 10 }
+                            cell10.border = baseBorder
+                        } else if (item.Grade === 3) {
+                            sheet.mergeCells(choiceStartRow + rowIndex, 11, choiceStartRow + rowIndex + spanNumber - 1, 11)
+                            const cell12 = sheet.getCell(choiceStartRow + rowIndex, 11)
+                            cell12.value = insertText_2;
+                            cell12.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
+                            cell12.font = { size: 10 }
+                            cell12.border = baseBorder
+                        }
                     }
                 }
             } else if (idx === 0) {

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui"
 import { useAuth } from "@/hooks/useAuth"
 import {
     Users, BarChart3, Activity, Info, LayoutGrid, Share2, Clock, MapPin, School,
-    Loader2, Sparkles,  Bookmark,
+    Loader2, Sparkles, Bookmark,
 } from "lucide-react"
 import { MenuCardWithDesc } from "./MenuCardWithDesc"
 import { Notice } from "./Notice"
@@ -13,11 +13,24 @@ import { useEffect, useMemo, useState } from "react"
 import { useCurriTableStore } from "@/store/CurriSubjectStore"
 import { YEARS } from "@/data/data"
 import { useStatistics } from "@/hooks/curriSta"
-import type { SchoolJsonDataType } from "@/type/curri"
+import { GROUPDATA, type SchoolJsonDataType } from "@/type/curri"
 import { CurriRelatedSites } from "./CurriRelatedSites"
 
+const createDefaultYear = (): SchoolJsonDataType => ({
+    '학교지정': [],
+    '선택과목': [],
+    // 중요: GROUPDATA는 객체이므로 반드시 새로운 객체로 복사해야 연도별 간섭이 없습니다.
+    'Group': JSON.parse(JSON.stringify(GROUPDATA)),
+    'AddSubject': [],
+    'CEA': {
+        '1-1': 0, '1-2': 0,
+        '2-1': 0, '2-2': 0,
+        '3-1': 0, '3-2': 0,
+    },
+});
+
 function CurriHome() {
-    // const setYearData = useCurriTableStore((state) => state.setYearData)
+    const setYearData = useCurriTableStore((state) => state.setYearData)
     const { data: user, isLoading: authLoading } = useAuth()
     const [downloadingId, setDownloadingId] = useState(false);
     const { allCredit_1: stats1_1, allCredit_2: stats1_2 } = useStatistics(YEARS[0])
@@ -37,6 +50,8 @@ function CurriHome() {
         staleTime: 1000 * 60 * 30,
         gcTime: 1000 * 60 * 30,
     })
+
+    console.log(dbschoolsData)
 
     const { data: dbStaUnionData, isLoading: dbStaUnionLoading } = useQuery({
         queryKey: ['unionSubjects'],
@@ -64,24 +79,29 @@ function CurriHome() {
     // }, [setYearData, dbschoolsData])
 
     useEffect(() => {
-    if (dbschoolsData && Array.isArray(dbschoolsData)) {
-        // DB 배열 데이터를 Record<year, SchoolJsonDataType> 형태 객체로 변환
-        const formattedData: Record<string, SchoolJsonDataType> = {};
+        if (dbschoolsData && Array.isArray(dbschoolsData)) {
+            const formattedData: Record<string, SchoolJsonDataType> = {};
 
-        dbschoolsData.forEach((item) => {
-            formattedData[String(item.year)] = {
-                "학교지정": item.fix,
-                "선택과목": item.choice,
-                "Group": item.groupdata,
-                "AddSubject": item.addsubjects,
-                "CEA": item.CEA,
-            };
-        });
-
-        // Zustand 전체 상태 변경
-        setAllUserData(formattedData);
-    }
-}, [dbschoolsData, setAllUserData]);
+            if (dbschoolsData.length !== 0) {
+                dbschoolsData.forEach((item) => {
+                    formattedData[String(item.year)] = {
+                        "학교지정": item.fix,
+                        "선택과목": item.choice,
+                        "Group": item.groupdata,
+                        "AddSubject": item.addsubjects,
+                        "CEA": item.CEA,
+                    };
+                });
+                setAllUserData(formattedData)
+            } else {
+                const newData = YEARS.reduce((acc, y) => ({
+                    ...acc,
+                    [y]: createDefaultYear()
+                }), {} as Record<string, SchoolJsonDataType>)
+                setAllUserData(newData)
+            }
+        }
+    }, [dbschoolsData, setAllUserData]);
 
     const totalPercent = useMemo(() => {
         let totalCompleted = 0;

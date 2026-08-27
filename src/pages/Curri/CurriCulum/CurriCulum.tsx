@@ -2,7 +2,7 @@
 import { SubjectLibrary } from "./SubjectList";
 import { useCurriDragStore } from "@/store/CurriDragStroe";
 import { useEffect, useState } from "react";
-import type { GroupCell, SchoolJsonDataType, SubjectType } from "@/type/curri";
+import { type GroupCell, type SchoolJsonDataType, type SubjectType } from "@/type/curri";
 import { DndContext, DragOverlay, PointerSensor, pointerWithin, useSensor, useSensors, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
 import { SUBJECT } from "@/data/Curri/subject";
 import { DroppableZone } from "./DroppalbeZone";
@@ -43,12 +43,12 @@ const Curriculum = () => {
 
     const year = useCurriTableStore((state) => state.year)
     const userData = useCurriTableStore((state) => state.userData)
-    // const setYearData = useCurriTableStore((state) => state.setYearData)
+    const setYearData = useCurriTableStore((state) => state.setYearData)
     const groupUpdate = useCurriTableStore((state) => state.groupUpdate)
     const addTable1 = useCurriTableStore((state) => state.addTable1)
     const addTable2 = useCurriTableStore((state) => state.addTable2)
     const setAllUserData = useCurriTableStore((state) => state.setAllUserData);
-    
+
     const Data = userData[year]
     const totalSubjects = [...SUBJECT, ...Data.AddSubject]
     const { data: loginUser } = useAuth()
@@ -67,6 +67,7 @@ const Curriculum = () => {
         staleTime: 1000 * 60 * 30,
         gcTime: 1000 * 60 * 30,
     })
+    console.log(dbschoolsData)
 
     const { data: dbSchoolData, isLoading: dbschoolLoading } = useQuery({
         queryKey: ['schoolInfo', user?.id],
@@ -95,24 +96,36 @@ const Curriculum = () => {
     // }, [setYearData, dbschoolsData?.length])
 
     useEffect(() => {
-    if (dbschoolsData && Array.isArray(dbschoolsData)) {
-        // DB 배열 데이터를 Record<year, SchoolJsonDataType> 형태 객체로 변환
-        const formattedData: Record<string, SchoolJsonDataType> = {};
-
-        dbschoolsData.forEach((item) => {
-            formattedData[String(item.year)] = {
-                "학교지정": item.fix,
-                "선택과목": item.choice,
-                "Group": item.groupdata,
-                "AddSubject": item.addsubjects,
-                "CEA": item.CEA,
-            };
-        });
-
-        // Zustand 전체 상태 변경
-        setAllUserData(formattedData);
-    }
-}, [dbschoolsData, setAllUserData]);
+        if (dbschoolsData && Array.isArray(dbschoolsData)) {
+            // DB 배열 데이터를 Record<year, SchoolJsonDataType> 형태 객체로 변환
+            const formattedData: Record<string, SchoolJsonDataType> = {};
+            // Zustand 전체 상태 변경
+            
+            if (dbschoolsData.length !== 0) {
+                dbschoolsData.forEach((item) => {
+                    formattedData[String(item.year)] = {
+                        "학교지정": item.fix,
+                        "선택과목": item.choice,
+                        "Group": item.groupdata,
+                        "AddSubject": item.addsubjects,
+                        "CEA": item.CEA,
+                    };
+                });
+                setAllUserData(formattedData)
+            } else {
+                dbschoolsData.forEach(item => {
+                    const inData: SchoolJsonDataType = {
+                        "학교지정": item.fix,
+                        "선택과목": item.choice,
+                        "Group": item.groupdata,
+                        "AddSubject": item.addsubjects,
+                        "CEA": item.CEA
+                    }
+                    setYearData(String(item.year), inData)
+                })
+            }
+        }
+    }, [dbschoolsData, setAllUserData, setYearData]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
