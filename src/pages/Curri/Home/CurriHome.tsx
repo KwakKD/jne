@@ -30,7 +30,7 @@ const createDefaultYear = (): SchoolJsonDataType => ({
 });
 
 function CurriHome() {
-    const setYearData = useCurriTableStore((state) => state.setYearData)
+    // const setYearData = useCurriTableStore((state) => state.setYearData)
     const { data: user, isLoading: authLoading } = useAuth()
     const [downloadingId, setDownloadingId] = useState(false);
     const { allCredit_1: stats1_1, allCredit_2: stats1_2 } = useStatistics(YEARS[0])
