@@ -15,9 +15,20 @@ import { Curriculum } from './pages/Curri/CurriCulum/CurriCulum'
 import { AdminRoute } from './components/layout/AdminRouter'
 import { AdminLayout } from './components/layout/AdminLayout'
 import { AdminHome, AdminNotice, AdminPage } from './pages/Admin'
+import { supabase } from './lib/supabase'
 
 
 function App() {
+
+  try {
+    const session = supabase.auth.getSession();
+    console.log(session)
+    // 세션 관련 로직
+  } catch (error) {
+    console.error("Session parse error:", error);
+    // localStorage.clear();
+    // window.location.reload();
+  }
 
   return (
     <>
