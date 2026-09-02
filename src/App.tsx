@@ -26,8 +26,8 @@ function App() {
     // 세션 관련 로직
   } catch (error) {
     console.error("Session parse error:", error);
-    // localStorage.clear();
-    // window.location.reload();
+    localStorage.clear();
+    window.location.reload();
   }
 
   return (
