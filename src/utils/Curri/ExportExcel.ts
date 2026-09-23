@@ -461,6 +461,7 @@ export async function exprotToExcel(schoolname: string) {
                                     { text: `${inGroupCredit}` },
                                 ],
                             };
+                            cell10.alignment = { wrapText: true, horizontal: 'center', vertical: 'middle' };
                         } else {
                             const cell9 = sheet.getCell(row, 9);
                             cell9.value = { formula: `="[택${inGroupChoice}]" & CHAR(10) & "${inGroupCredit}"` } as CellFormulaValue;;

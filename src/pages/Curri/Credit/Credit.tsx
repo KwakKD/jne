@@ -18,6 +18,7 @@ import { creditExcel } from "@/utils/Curri/CreditExcel";
 import { saveCreditData } from "@/api/saveAPI";
 import { toast } from "sonner";
 import { YEARS } from "@/data/data";
+import { exportAllCurriToExcel } from "@/utils/Curri/AllCurriExcel";
 
 const Credit = () => {
     const setSchoolInfo = useSchoolInfoStore((state) => state.setSchoolInfo)
@@ -152,7 +153,10 @@ const Credit = () => {
                                 </div>
                             </DialogContent>
                         </Dialog>
-
+                        <Button variant="outline" className="gap-2" onClick={() => exportAllCurriToExcel(userInfo?.schoolname ?? '')}>
+                            <FileSpreadsheet size={16} />
+                            전학년 교육과정 편성표 출력
+                        </Button>
                         <Button variant="outline" className="gap-2" onClick={creditExcel}>
                             <FileSpreadsheet size={16} />
                             엑셀 출력
