@@ -180,6 +180,36 @@ function CurriTable({ data }: SubMoalTableProps) {
                             <td className={cellClass}></td><td className={cellClass}></td><td className={cellClass}></td><td className={cellClass}></td>
                         </>
                     )
+                } else if (item.Tag === spanSubject[0].Tag && data[idx + 1].Tag !== spanSubject_1[0].Tag) {
+                    const insertText_2 = `[택${groupData[item.IsGroup].Choice}]\n${(groupData[item.IsGroup].Choice ?? 0) * (groupData[item.IsGroup].Credit ?? 0)}`
+                    return (
+                        item.Grade === 1
+                            ?
+                            <>
+                                <td className={choiceCellClass} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                <td className={cellClass}></td>
+                                <td className={cellClass}></td>
+                                <td className={cellClass}></td>
+                                <td className={cellClass}></td>
+                            </>
+                            : item.Grade === 2
+                                ?
+                                <>
+                                    <td className={cellClass}></td>
+                                    <td className={cellClass}></td>
+                                    <td className={choiceCellClass} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                    <td className={cellClass}></td>
+                                    <td className={cellClass}></td>
+                                </>
+                                :
+                                <>
+                                    <td className={cellClass}></td>
+                                    <td className={cellClass}></td>
+                                    <td className={cellClass}></td>
+                                    <td className={cellClass}></td>
+                                    <td className={choiceCellClass} rowSpan={spanNumber} style={{ whiteSpace: 'pre-line' }}>{insertText_2}</td>
+                                </>
+                    )
                 }
             }
         } else if (idx === 0) {

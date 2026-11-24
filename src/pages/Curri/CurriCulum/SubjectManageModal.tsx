@@ -58,7 +58,7 @@ export const SubjectManagerModal = ({ isOpen, onClose }: SubjectManagerModalProp
         const newItem = {
             "과목명": newName,
             "교과군": newSubject.교과군,
-            "유형": '진로',
+            "유형": newSubject.유형,
             "기준학점": newSubject.기준학점,
             "Tag": tagNumber,
             "최소학점": newSubject.최소학점,

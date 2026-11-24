@@ -354,7 +354,6 @@ export const Table2 = () => {
                                             </>
                     )
                 }
-
             }
         }
     }
